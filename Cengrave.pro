@@ -32,3 +32,12 @@ HEADERS += \
 
 FORMS += \
         mainwindow/mainwindow.ui
+
+INCLUDEPATH += $(OPENCV3_DIR)\install\include
+
+LIBS += $(OPENCV3_DIR)\bin\libopencv_core342.dll
+LIBS += $(OPENCV3_DIR)\bin\libopencv_highgui342.dll
+LIBS += $(OPENCV3_DIR)\bin\libopencv_imgcodecs342.dll
+LIBS += $(OPENCV3_DIR)\bin\libopencv_imgproc342.dll
+LIBS += $(OPENCV3_DIR)\bin\libopencv_features2d342.dll
+LIBS += $(OPENCV3_DIR)\bin\libopencv_calib3d342.dll
