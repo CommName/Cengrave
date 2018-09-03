@@ -40,12 +40,12 @@ void MainWindow::displayImageInfo(){
 }
 
 void MainWindow::displayImageMode0(){
+    //transform CV:MAT to QImage
     cv::Mat temp;
-
-
     cv::cvtColor(imageMode0,temp,CV_BGR2RGB);
     QImage output((const uchar *)temp.data,temp.cols,temp.rows,QImage::Format_RGB888);
     output.bits();
+    //Displays QImage
     scene0->clear();
     scene0->addPixmap(QPixmap::fromImage(output));
     ui->imageViewMode0->fitInView(scene0->itemsBoundingRect(),Qt::KeepAspectRatio);
@@ -57,3 +57,56 @@ void MainWindow::on_buttonLoad_clicked()
     loadImage();
 }
 
+
+//Zoom functions
+//moode0
+void MainWindow::on_button_mode0_zoom_in_clicked()
+{
+    ui->imageViewMode0->scale(1.1,1.1);
+}
+void MainWindow::on_button_mode0_zoom_out_clicked()
+{
+    ui->imageViewMode0->scale(1/1.1,1/1.1);
+}
+void MainWindow::on_button_mode0_zoom_fit_clicked()
+{
+    ui->imageViewMode0->fitInView(scene0->itemsBoundingRect(),Qt::KeepAspectRatio);
+}
+void MainWindow::on_button_mode0_zoom_normal_clicked()
+{
+    ui->imageViewMode0->resetTransform();
+}
+//mode1
+void MainWindow::on_button_mode1_zoom_in_clicked()
+{
+    ui->imageViewMode1->scale(1.1,1.1);
+}
+void MainWindow::on_button_mode1_zoom_out_clicked()
+{
+    ui->imageViewMode1->scale(1/1.1,1/1.1);
+}
+void MainWindow::on_button_mode1_zoom_fit_clicked()
+{
+    ui->imageViewMode1->fitInView(scene1->itemsBoundingRect(),Qt::KeepAspectRatio);
+}
+void MainWindow::on_button_mode1_zoom_normal_clicked()
+{
+    ui->imageViewMode1->resetTransform();
+}
+//mode2
+void MainWindow::on_button_mode2_zoom_in_clicked()
+{
+    ui->imageViewMode2->scale(1.1,1.1);
+}
+void MainWindow::on_button_mode2_zoom_out_clicked()
+{
+    ui->imageViewMode2->scale(1/1.1,1/1.1);
+}
+void MainWindow::on_button_mode2_zoom_fit_clicked()
+{
+  ui->imageViewMode2->fitInView(scene2->itemsBoundingRect(),Qt::KeepAspectRatio);
+}
+void MainWindow::on_button_mode2_zoom_normal_clicked()
+{
+   ui->imageViewMode2->resetTransform();
+}
