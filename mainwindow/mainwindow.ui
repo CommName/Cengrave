@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -38,7 +38,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QGraphicsView" name="graphicsView"/>
+            <widget class="QGraphicsView" name="imageViewMode0"/>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -63,7 +63,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QPushButton" name="pushButton_3">
+                 <widget class="QPushButton" name="buttonLoad">
                   <property name="text">
                    <string>Load</string>
                   </property>
@@ -129,10 +129,10 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_6">
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_7">
                <property name="text">
-                <string>Height</string>
+                <string>Width:</string>
                </property>
               </widget>
              </item>
@@ -143,17 +143,38 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_7">
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelImageName">
                <property name="text">
-                <string>Weight</string>
+                <string>Image name:</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_10">
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_Height">
                <property name="text">
-                <string>Image name:</string>
+                <string>a</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelHeight">
+               <property name="text">
+                <string>Height:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="label_Width">
+               <property name="text">
+                <string>d</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_ImageName">
+               <property name="text">
+                <string>s</string>
                </property>
               </widget>
              </item>
@@ -275,7 +296,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QGraphicsView" name="graphicsView_3"/>
+         <widget class="QGraphicsView" name="imageViewMode1"/>
         </item>
         <item>
          <layout class="QVBoxLayout" name="commands_mode1" stretch="0,1,0">
@@ -488,7 +509,7 @@
         <item>
          <layout class="QVBoxLayout" name="display" stretch="8,4">
           <item>
-           <widget class="QGraphicsView" name="graphicsView_2">
+           <widget class="QGraphicsView" name="imageViewMode2">
             <property name="minimumSize">
              <size>
               <width>300</width>
