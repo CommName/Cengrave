@@ -21,7 +21,13 @@ private slots:
 
     //mode0
 
-    void on_buttonLoad_clicked();
+    void on_buttonLoad_mode0_clicked();
+    void on_buttonReload_mode0_clicked();
+
+    //image transformation
+    void on_button_resize_mode0_clicked();
+    void on_checkBox_FlipVertical_mode0_clicked();
+    void on_checkBox_FlipHorizontal_mode0_clicked();
 
     //zoom mode0
     void on_button_mode0_zoom_in_clicked();
@@ -38,6 +44,7 @@ private slots:
     void on_button_mode2_zoom_out_clicked();
     void on_button_mode2_zoom_fit_clicked();
     void on_button_mode2_zoom_normal_clicked();
+
 
 private:
     Ui::MainWindow *ui;
@@ -56,7 +63,7 @@ private:
 
 //funcions
 private:
-    void loadImage();
+    void loadImage(QString const &path);
     void displayImageInfo();
     void displayImageMode0();
 
