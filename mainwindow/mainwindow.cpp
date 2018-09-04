@@ -39,6 +39,9 @@ void MainWindow::loadImage(QString const &path){
    if(path=="")
        return;
 
+   if(!imageMode0.empty())
+        imageMode0.release();
+
    //resets effects
    ui->checkBox_FlipHorizontal_mode0->setCheckState(Qt::Unchecked);
    ui->checkBox_FlipVertical_mode0->setCheckState(Qt::Unchecked);
@@ -83,6 +86,9 @@ bool MainWindow::engrave(){
     if(imageMode0.empty())
         return false;
     setEngraveModesInvisible();
+    if(!imageMode1.empty())
+        imageMode1.release();
+
     switch(ui->comboBox_engraveMode->currentIndex()){
     case 0: thresholdMode(); break;
     case 1: adaptiveThreshold(); break;
@@ -98,12 +104,16 @@ void MainWindow::setEngraveModesInvisible(){
 }
 void MainWindow::thresholdMode(){
  ui->thresholdmode->setVisible(true);
+ if(!imageMode1.empty())
+     imageMode1.release();
  cv::cvtColor(imageMode0,imageMode1,CV_BGR2GRAY);
  cv::threshold(imageMode1,imageMode1,ui->threshold_slider->value(),255,ui->threshold_invert_checkBox->isChecked()?cv::THRESH_BINARY_INV:cv::THRESH_BINARY);
 }
 void MainWindow::adaptiveThreshold(){
 
  ui->AdaptiveThresholdMode->setVisible(true);
+ if(!imageMode1.empty())
+     imageMode1.release();
  cv::cvtColor(imageMode0,imageMode1,CV_BGR2GRAY);
  cv::adaptiveThreshold(imageMode1,imageMode1,255,ui->adapriveThreshold_MeanC_radiobutton->isChecked()?cv::ADAPTIVE_THRESH_MEAN_C:cv::ADAPTIVE_THRESH_GAUSSIAN_C,ui->adaptiveThreshold_invert_checkBox->isChecked()?cv::THRESH_BINARY_INV:cv::THRESH_BINARY,ui->adaptiveThreshold_block_size_slider->value()*2+1,ui->adaptiveThreshold_C_slider->value());
 
