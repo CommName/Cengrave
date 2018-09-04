@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //mode2 image transformation combobox
     ui->comboBox_engraveMode->addItem("Threshold");
+    ui->comboBox_engraveMode->addItem("Adaptive Threshold");
     ui->comboBox_engraveMode->setCurrentIndex(0);
 
     //hide unused stuff
@@ -84,6 +85,7 @@ bool MainWindow::engrave(){
     setEngraveModesInvisible();
     switch(ui->comboBox_engraveMode->currentIndex()){
     case 0: thresholdMode(); break;
+    case 1: adaptiveThreshold(); break;
 
     default: break;
     }
@@ -92,13 +94,22 @@ bool MainWindow::engrave(){
 }
 void MainWindow::setEngraveModesInvisible(){
     ui->thresholdmode->setVisible(false);
-    ui->RGBmode->setVisible(false);
+    ui->AdaptiveThresholdMode->setVisible(false);
 }
 void MainWindow::thresholdMode(){
  ui->thresholdmode->setVisible(true);
  cv::cvtColor(imageMode0,imageMode1,CV_BGR2GRAY);
  cv::threshold(imageMode1,imageMode1,ui->threshold_slider->value(),255,ui->threshold_invert_checkBox->isChecked()?cv::THRESH_BINARY_INV:cv::THRESH_BINARY);
 }
+void MainWindow::adaptiveThreshold(){
+
+ ui->AdaptiveThresholdMode->setVisible(true);
+ cv::cvtColor(imageMode0,imageMode1,CV_BGR2GRAY);
+ cv::adaptiveThreshold(imageMode1,imageMode1,255,ui->adapriveThreshold_MeanC_radiobutton->isChecked()?cv::ADAPTIVE_THRESH_MEAN_C:cv::ADAPTIVE_THRESH_GAUSSIAN_C,ui->adaptiveThreshold_invert_checkBox->isChecked()?cv::THRESH_BINARY_INV:cv::THRESH_BINARY,ui->adaptiveThreshold_block_size_slider->value()*2+1,ui->adaptiveThreshold_C_slider->value());
+
+}
+
+
 //Slots and Signals
 
 
@@ -226,3 +237,40 @@ void MainWindow::on_button_mode2_zoom_normal_clicked()
 
 
 
+
+void MainWindow::on_comboBox_engraveMode_currentIndexChanged(int index)
+{
+    engrave();
+}
+
+void MainWindow::on_adaptiveThreshold_C_slider_valueChanged(int value)
+{
+    ui->adaptiveThreshold_C_spinBox->setValue(value);
+    adaptiveThreshold();
+    displayImageMode1();
+}
+
+void MainWindow::on_adaptiveThreshold_block_size_slider_valueChanged(int value)
+{
+    ui->adaptiveThreshold_block_size_spinBox->setValue(value);
+    adaptiveThreshold();
+    displayImageMode1();
+}
+
+void MainWindow::on_adaptiveThreshold_invert_checkBox_stateChanged(int arg1)
+{
+    adaptiveThreshold();
+    displayImageMode1();
+}
+
+void MainWindow::on_adapriveThreshold_MeanC_radiobutton_clicked()
+{
+    adaptiveThreshold();
+    displayImageMode1();
+}
+
+void MainWindow::on_adapriveThreshold_GaussianC_radiobutton_clicked()
+{
+    adaptiveThreshold();
+    displayImageMode1();
+}

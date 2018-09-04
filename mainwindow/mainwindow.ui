@@ -349,7 +349,7 @@
        <attribute name="title">
         <string>Engraving picture</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="5,2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="7,3">
         <item>
          <widget class="QGraphicsView" name="imageViewMode1"/>
         </item>
@@ -400,20 +400,26 @@
             <property name="title">
              <string>Engrave settings</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
              <item>
               <widget class="QComboBox" name="comboBox_engraveMode"/>
              </item>
              <item>
               <widget class="QGroupBox" name="thresholdmode">
+               <property name="minimumSize">
+                <size>
+                 <width>280</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="maximumSize">
                 <size>
-                 <width>255</width>
-                 <height>100</height>
+                 <width>280</width>
+                 <height>90</height>
                 </size>
                </property>
                <property name="title">
-                <string>threshold</string>
+                <string>Threshold</string>
                </property>
                <widget class="QSlider" name="threshold_slider">
                 <property name="geometry">
@@ -497,79 +503,138 @@
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="RGBmode">
-               <property name="title">
-                <string>RGB</string>
+              <widget class="QGroupBox" name="AdaptiveThresholdMode">
+               <property name="minimumSize">
+                <size>
+                 <width>280</width>
+                 <height>200</height>
+                </size>
                </property>
-               <widget class="QSlider" name="horizontalSlider_2">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>20</y>
-                  <width>160</width>
-                  <height>22</height>
-                 </rect>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-               <widget class="QSlider" name="horizontalSlider_3">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>50</y>
-                  <width>160</width>
-                  <height>22</height>
-                 </rect>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-               <widget class="QSlider" name="horizontalSlider_4">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>80</y>
-                  <width>160</width>
-                  <height>22</height>
-                 </rect>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-               <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>120</y>
-                  <width>62</width>
-                  <height>22</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
-                <property name="geometry">
-                 <rect>
-                  <x>90</x>
-                  <y>120</y>
-                  <width>62</width>
-                  <height>22</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
-                <property name="geometry">
-                 <rect>
-                  <x>30</x>
-                  <y>150</y>
-                  <width>62</width>
-                  <height>22</height>
-                 </rect>
-                </property>
-               </widget>
+               <property name="maximumSize">
+                <size>
+                 <width>280</width>
+                 <height>200</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>Adaptive Threshold</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <layout class="QFormLayout" name="formLayout_4">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_2">
+                    <property name="text">
+                     <string>Constant subtracted from the mean</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSpinBox" name="adaptiveThreshold_C_spinBox">
+                    <property name="minimum">
+                     <number>-100</number>
+                    </property>
+                    <property name="maximum">
+                     <number>100</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QSlider" name="adaptiveThreshold_C_slider">
+                  <property name="minimumSize">
+                   <size>
+                    <width>255</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>255</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="minimum">
+                   <number>-100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QFormLayout" name="formLayout_5">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_6">
+                    <property name="text">
+                     <string>Block size</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSpinBox" name="adaptiveThreshold_block_size_spinBox">
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>500</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QSlider" name="adaptiveThreshold_block_size_slider">
+                  <property name="maximumSize">
+                   <size>
+                    <width>255</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>500</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <widget class="QRadioButton" name="adapriveThreshold_MeanC_radiobutton">
+                    <property name="text">
+                     <string>Mean C</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QRadioButton" name="adapriveThreshold_GaussianC_radiobutton">
+                    <property name="text">
+                     <string>Gaussian C</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="adaptiveThreshold_invert_checkBox">
+                  <property name="text">
+                   <string>Invert</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -1221,6 +1286,38 @@
     <hint type="destinationlabel">
      <x>963</x>
      <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>adaptiveThreshold_C_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>adaptiveThreshold_C_slider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>953</x>
+     <y>350</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>832</x>
+     <y>350</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>adaptiveThreshold_block_size_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>adaptiveThreshold_block_size_slider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>903</x>
+     <y>480</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>875</x>
+     <y>511</y>
     </hint>
    </hints>
   </connection>

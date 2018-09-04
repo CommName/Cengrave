@@ -48,13 +48,22 @@ private slots:
     void on_button_mode2_zoom_fit_clicked();
     void on_button_mode2_zoom_normal_clicked();
 
-
-
-
-
+    //mode1
+    //threshold
     void on_threshold_slider_valueChanged(int value);
-
     void on_threshold_invert_checkBox_stateChanged(int arg1);
+
+    void on_comboBox_engraveMode_currentIndexChanged(int index);
+
+    void on_adaptiveThreshold_C_slider_valueChanged(int value);
+
+    void on_adaptiveThreshold_block_size_slider_valueChanged(int value);
+
+    void on_adaptiveThreshold_invert_checkBox_stateChanged(int arg1);
+
+    void on_adapriveThreshold_MeanC_radiobutton_clicked();
+
+    void on_adapriveThreshold_GaussianC_radiobutton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -80,6 +89,7 @@ private:
     bool engrave();
     void setEngraveModesInvisible();
     void thresholdMode();
+    void adaptiveThreshold();
 
 
 
