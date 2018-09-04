@@ -1,17 +1,26 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+#include <QMessageBox>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->modeWidget->setCurrentIndex(0);
+
+
+    //Setting up QGraphicView
     scene0=new QGraphicsScene(this);
     scene1=new QGraphicsScene(this);
     scene2=new QGraphicsScene(this);
     ui->imageViewMode0->setScene(scene0);
     ui->imageViewMode1->setScene(scene1);
     ui->imageViewMode2->setScene(scene2);
+
+    //mode2 image transformation combobox
+    ui->comboBox_engraveMode->addItem("Threshold");
+    ui->comboBox_engraveMode->setCurrentIndex(0);
 
     //hide unused stuff
     ui->groupBox_resize_cm_mode0->setVisible(false);
@@ -58,10 +67,57 @@ void MainWindow::displayImageMode0(){
     scene0->addPixmap(QPixmap::fromImage(output));
     ui->imageViewMode0->fitInView(scene0->itemsBoundingRect(),Qt::KeepAspectRatio);
 }
+void MainWindow::displayImageMode1(){
 
 
-//Slots
+   QImage output((const uchar *)imageMode1.data,imageMode1.cols,imageMode1.rows,imageMode1.step,QImage::Format_Grayscale8);
+   output.bits();
+   scene1->clear();
+   scene1->addPixmap(QPixmap::fromImage(output));
+   ui->imageViewMode1->fitInView(scene1->itemsBoundingRect(),Qt::KeepAspectRatio);
+}
 
+
+bool MainWindow::engrave(){
+    if(imageMode0.empty())
+        return false;
+    setEngraveModesInvisible();
+    switch(ui->comboBox_engraveMode->currentIndex()){
+    case 0: thresholdMode(); break;
+
+    default: break;
+    }
+    displayImageMode1();
+    return true;
+}
+void MainWindow::setEngraveModesInvisible(){
+    ui->thresholdmode->setVisible(false);
+    ui->RGBmode->setVisible(false);
+}
+void MainWindow::thresholdMode(){
+ ui->thresholdmode->setVisible(true);
+ cv::cvtColor(imageMode0,imageMode1,CV_BGR2GRAY);
+ cv::threshold(imageMode1,imageMode1,ui->threshold_slider->value(),255,ui->threshold_invert_checkBox->isChecked()?cv::THRESH_BINARY_INV:cv::THRESH_BINARY);
+}
+//Slots and Signals
+
+
+void MainWindow::on_modeWidget_currentChanged(int index)
+{
+    if(index==1){
+        //mode1
+        if(!engrave()){
+            //Error loading image
+            QMessageBox::warning(this,"No image found","Please select an image before you continue with the engraving process!");
+            ui->modeWidget->setCurrentIndex(0);
+            on_buttonLoad_mode0_clicked();
+            return;
+        }
+    }
+}
+
+
+//Mode0
 //input image
 void MainWindow::on_buttonLoad_mode0_clicked()
 {
@@ -71,6 +127,10 @@ void MainWindow::on_buttonLoad_mode0_clicked()
 void MainWindow::on_buttonReload_mode0_clicked()
 {
     loadImage(imagePath);
+}
+void MainWindow::on_buttonEngrave_clicked()
+{
+    ui->modeWidget->setCurrentIndex(1);
 }
 
 //image transformation
@@ -96,6 +156,17 @@ void MainWindow::on_checkBox_FlipHorizontal_mode0_clicked()
         return;
     cv::flip(imageMode0,imageMode0,1);
     displayImageMode0();
+}
+
+void MainWindow::on_threshold_slider_valueChanged(int value)
+{
+    thresholdMode();
+    displayImageMode1();
+}
+void MainWindow::on_threshold_invert_checkBox_stateChanged(int arg1)
+{
+    thresholdMode();
+    displayImageMode1();
 }
 
 //Zoom functions
@@ -150,6 +221,7 @@ void MainWindow::on_button_mode2_zoom_normal_clicked()
 {
    ui->imageViewMode2->resetTransform();
 }
+
 
 
 

@@ -16,12 +16,12 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="1">
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="modeWidget">
       <property name="tabShape">
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -49,7 +49,7 @@
                </property>
                <layout class="QGridLayout" name="gridLayout_5">
                 <item row="0" column="0">
-                 <widget class="QPushButton" name="pushButton_8">
+                 <widget class="QPushButton" name="buttonEngrave">
                   <property name="text">
                    <string>Engrave</string>
                   </property>
@@ -349,12 +349,12 @@
        <attribute name="title">
         <string>Engraving picture</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="5,2">
         <item>
          <widget class="QGraphicsView" name="imageViewMode1"/>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,1,0">
+         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,0,0">
           <item>
            <widget class="QGroupBox" name="groupZoom_1">
             <property name="title">
@@ -364,6 +364,13 @@
              <bool>false</bool>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
+             <item row="1" column="0">
+              <widget class="QPushButton" name="button_mode1_zoom_fit">
+               <property name="text">
+                <string>Fit window</string>
+               </property>
+              </widget>
+             </item>
              <item row="0" column="0">
               <widget class="QPushButton" name="button_mode1_zoom_in">
                <property name="text">
@@ -375,13 +382,6 @@
               <widget class="QPushButton" name="button_mode1_zoom_out">
                <property name="text">
                 <string>Zoom out</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QPushButton" name="button_mode1_zoom_fit">
-               <property name="text">
-                <string>Fit window</string>
                </property>
               </widget>
              </item>
@@ -406,31 +406,93 @@
              </item>
              <item>
               <widget class="QGroupBox" name="thresholdmode">
+               <property name="maximumSize">
+                <size>
+                 <width>255</width>
+                 <height>100</height>
+                </size>
+               </property>
                <property name="title">
                 <string>threshold</string>
                </property>
-               <widget class="QSlider" name="horizontalSlider">
+               <widget class="QSlider" name="threshold_slider">
                 <property name="geometry">
                  <rect>
-                  <x>0</x>
-                  <y>30</y>
-                  <width>161</width>
-                  <height>16</height>
+                  <x>10</x>
+                  <y>23</y>
+                  <width>255</width>
+                  <height>20</height>
                  </rect>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>255</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>255</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximum">
+                 <number>255</number>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
                </widget>
-               <widget class="QDoubleSpinBox" name="doubleSpinBox">
+               <widget class="QWidget" name="layoutWidget">
                 <property name="geometry">
                  <rect>
-                  <x>0</x>
-                  <y>50</y>
-                  <width>62</width>
+                  <x>10</x>
+                  <y>49</y>
+                  <width>231</width>
                   <height>22</height>
                  </rect>
                 </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="maximumSize">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Thresh:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="threshold_spinBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>100</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="maximum">
+                    <number>255</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="threshold_invert_checkBox">
+                   <property name="maximumSize">
+                    <size>
+                     <width>50</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Invert</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </widget>
              </item>
@@ -1129,5 +1191,38 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>threshold_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>threshold_slider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>963</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>833</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>threshold_slider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>threshold_spinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>833</x>
+     <y>270</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>963</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

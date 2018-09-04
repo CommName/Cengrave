@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 #include <opencv2/opencv.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <QString>
 #include <QGraphicsItem>
+
 namespace Ui {
 class MainWindow;
 }
@@ -19,11 +21,12 @@ public:
 
 private slots:
 
-    //mode0
+    void on_modeWidget_currentChanged(int index);
 
+    //mode0
     void on_buttonLoad_mode0_clicked();
     void on_buttonReload_mode0_clicked();
-
+    void on_buttonEngrave_clicked();
     //image transformation
     void on_button_resize_mode0_clicked();
     void on_checkBox_FlipVertical_mode0_clicked();
@@ -46,6 +49,13 @@ private slots:
     void on_button_mode2_zoom_normal_clicked();
 
 
+
+
+
+    void on_threshold_slider_valueChanged(int value);
+
+    void on_threshold_invert_checkBox_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 
@@ -66,6 +76,11 @@ private:
     void loadImage(QString const &path);
     void displayImageInfo();
     void displayImageMode0();
+    void displayImageMode1();
+    bool engrave();
+    void setEngraveModesInvisible();
+    void thresholdMode();
+
 
 
 
