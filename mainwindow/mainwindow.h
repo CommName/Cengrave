@@ -65,6 +65,8 @@ private slots:
 
     void on_adapriveThreshold_GaussianC_radiobutton_clicked();
 
+    void on_button_extract_test_clicked();
+
 private:
     Ui::MainWindow *ui;
 

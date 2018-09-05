@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1051</width>
-    <height>761</height>
+    <width>1041</width>
+    <height>772</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CEngraver</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -354,7 +354,7 @@
          <widget class="QGraphicsView" name="imageViewMode1"/>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,0,0">
+         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,1,0,1">
           <item>
            <widget class="QGroupBox" name="groupZoom_1">
             <property name="title">
@@ -674,6 +674,36 @@
               </widget>
              </item>
             </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="title">
+             <string>test</string>
+            </property>
+            <widget class="QComboBox" name="comboBox_testmode">
+             <property name="geometry">
+              <rect>
+               <x>20</x>
+               <y>30</y>
+               <width>151</width>
+               <height>21</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="button_extract_test">
+             <property name="geometry">
+              <rect>
+               <x>190</x>
+               <y>30</y>
+               <width>75</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -1239,7 +1269,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1051</width>
+     <width>1041</width>
      <height>21</height>
     </rect>
    </property>
@@ -1270,22 +1300,6 @@
     <hint type="destinationlabel">
      <x>833</x>
      <y>270</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>threshold_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>threshold_spinBox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>833</x>
-     <y>270</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>963</x>
-     <y>304</y>
     </hint>
    </hints>
   </connection>
