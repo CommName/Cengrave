@@ -234,8 +234,8 @@ bool GraphImage::insertRowsColsZigZagNotConnected(cv::Mat const &image){
             c+=step;
             r++;
         }
-        return true;
     }
+    return true;
 }
 
 
