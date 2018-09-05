@@ -67,6 +67,8 @@ private slots:
 
     void on_button_extract_test_clicked();
 
+    void on_button_extract_clicked();
+
 private:
     Ui::MainWindow *ui;
 

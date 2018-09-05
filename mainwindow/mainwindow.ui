@@ -677,9 +677,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_4">
+           <widget class="QGroupBox" name="groupBox_test_insert">
             <property name="title">
-             <string>test</string>
+             <string>test insert functions</string>
             </property>
             <widget class="QComboBox" name="comboBox_testmode">
              <property name="geometry">

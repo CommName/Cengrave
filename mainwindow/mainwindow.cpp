@@ -25,11 +25,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_engraveMode->setCurrentIndex(0);
     //mode2 extract image
     ui->comboBox_extractmode->addItem("Col-Row");
+    ui->comboBox_extractmode->addItem("Row-Col");
+    ui->comboBox_extractmode->addItem("Col-Row ZZ");
+    ui->comboBox_extractmode->addItem("Row-Col ZZ");
     ui->comboBox_extractmode->setCurrentIndex(0);
-   //mode2 test
+    //mode2 test
+    ui->comboBox_testmode->addItem("Test Width Height Not Connected");
+    ui->comboBox_testmode->addItem("Test Height Width Not Connected");
+    ui->comboBox_testmode->addItem("Test Width Height ZZ Not Connected");
+    ui->comboBox_testmode->addItem("Test Height Width ZZ Not Connected");
     ui->comboBox_testmode->addItem("Test Width Height");
+    ui->comboBox_testmode->addItem("Test Height Width");
+    ui->comboBox_testmode->addItem("Test Width Height ZZ");
+    ui->comboBox_testmode->addItem("Test Height Width ZZ");
     ui->comboBox_testmode->setCurrentIndex(0);
     //hide unused stuff
+    ui->groupBox_test_insert->setVisible(false);
     ui->groupBox_resize_cm_mode0->setVisible(false);
 
 }
@@ -292,14 +303,34 @@ void MainWindow::on_button_mode2_zoom_normal_clicked()
 
 
 
-
+//mode1 test insert image functions
 void MainWindow::on_button_extract_test_clicked()
 {
     GraphImage temp;
     QString testPath = QFileDialog::getSaveFileName(this,"Save as","C://");
     switch(ui->comboBox_testmode->currentIndex()){
-    case 0: temp.insertColsRows(imageMode1); temp.test(testPath); break;
-     default: break;
-
+    case 0: temp.insertColsRowsNotConnected(imageMode1); break;
+    case 1: temp.insertRowsColsNotConnected(imageMode1); break;
+    case 2: temp.insertColsRowsZigZagNotConnected(imageMode1); break;
+    case 3: temp.insertRowsColsZigZagNotConnected(imageMode1); break;
+    case 4: temp.insertColsRows(imageMode1); break;
+    case 5: temp.insertRowsCols(imageMode1); break;
+    case 6: temp.insertColsRowsZigZag(imageMode1); break;
+    case 7: temp.insertRowsColsZigZag(imageMode1); break;
+    default: break;
+    }
+    temp.test(testPath);
+}
+//mode1 extract
+void MainWindow::on_button_extract_clicked()
+{
+    GraphImage temp;
+    QString extractPath = QFileDialog::getSaveFileName(this,"Save as","C://");
+    switch (ui->comboBox_extractmode->currentIndex()) {
+    case 0:temp.insertColsRowsNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
+    case 1:temp.insertRowsColsNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
+    case 2:temp.insertColsRowsZigZagNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
+    case 3:temp.insertRowsColsZigZagNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
+    default:    break;
     }
 }
