@@ -46,7 +46,11 @@ public:
     bool insertColsRows(cv::Mat const &image);
     bool insertColsRowsNotConnected(cv::Mat const &image);
     bool insertRowsCols(cv::Mat const &image);
-
+    bool insertRowsColsNotConnected(cv::Mat const&image);
+    bool insertColsRowsZigZag(cv::Mat const &image);
+    bool insertColsRowsZigZagNotConnected(cv::Mat const &image);
+    bool insertRowsColsZigZag(cv::Mat const &image);
+    bool insertRowsColsZigZagNotConnected(cv::Mat const &image);
 
 public:
     bool tooFileHeightWidth(QString const &path);

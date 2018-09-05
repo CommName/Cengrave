@@ -109,6 +109,22 @@ bool GraphImage::insertColsRows(cv::Mat const &image){
     }
     return true;
 }
+bool GraphImage::insertColsRowsNotConnected(cv::Mat const &image){
+    if(image.empty())
+        return false;
+    if(root!=nullptr)
+        deleteAll();
+    for(int c=0;c<image.cols;c++){
+        for(int r=0;r<image.rows;r++){
+            if(image.at<uint8_t>(r,c)==0){
+                if(!insert(c,r,&GraphImage::findNotConnected)){
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
 bool GraphImage::insertRowsCols(cv::Mat const &image){
     if(image.empty())
         return false;
@@ -124,6 +140,104 @@ bool GraphImage::insertRowsCols(cv::Mat const &image){
     }
     return true;
 }
+bool GraphImage::insertRowsColsNotConnected(cv::Mat const &image){
+    if(image.empty()){
+        return false;
+    }
+    if(root!=nullptr)
+        deleteAll();
+    for(int r=0;r<image.rows;r++){
+        for(int c=0;c<image.cols;c++){
+            if(image.at<uint8_t>(r,c)==0){
+                if(!insert(c,r,&GraphImage::findNotConnected))
+                    return false;
+            }
+        }
+    }
+}
+bool GraphImage::insertColsRowsZigZag(cv::Mat const &image){
+    if(image.empty())
+        return false;
+    if(root!=nullptr)
+        deleteAll();
+    int c=0,r=0,step=1;
+    while (c<image.cols) {
+        //insert pixel
+        if(image.at<uint8_t>(r,c)==0)
+            if(!insert(c,r,&GraphImage::findCR))
+                return false;
+        //moving to next pixel
+        r+=step;
+        if(r<0||r==image.rows){
+            step*=-1;
+            r+=step;
+            c++;
+        }
+    }
+    return true;
+}
+bool GraphImage::insertColsRowsZigZagNotConnected(cv::Mat const &image){
+if(image.empty())
+    return false;
+if(root!=nullptr)
+    deleteAll();
+int c=0,r=0,step=1;
+while(c<image.cols){
+    //insert pixel
+    if(image.at<uint8_t>(r,c)==0)
+        if(!insert(c,r,&GraphImage::findNotConnected))
+            return false;
+    //moving to next pixel
+    r+=step;
+    if(r<0||r==image.rows){
+        step*=-1;
+        r+=step;
+        c++;
+    }
+}
+return true;
+}
+bool GraphImage::insertRowsColsZigZag(cv::Mat const &image){
+    if(image.empty())
+        return false;
+    if(root!=nullptr)
+        deleteAll();
+    int c=0,r=0,step=1;
+    while(r<image.rows){
+        //insert pixel
+        if(image.at<uint8_t>(r,c)==0)
+            if(!insert(c,r,&GraphImage::findRC))
+                return false;
+        c+=step;
+        if(c<0||c==image.cols){
+            step*=-1;
+            c+=step;
+            r++;
+        }
+    }
+    return true;
+}
+bool GraphImage::insertRowsColsZigZagNotConnected(cv::Mat const &image){
+    if(image.empty())
+        return false;
+    if(root!=nullptr){
+        deleteAll();
+    }
+    int c=0,r=0,step=-1;
+    while(r<image.rows){
+        if(image.at<uint8_t>(r,c)==0)
+            if(!insert(c,r,&GraphImage::findNotConnected))
+                return false;
+        c+=step;
+        if(c<0||c==image.cols){
+            step*=-1;
+            c+=step;
+            r++;
+        }
+        return true;
+    }
+}
+
 
 bool GraphImage::test(QString const &filePath){
     std::ofstream f(filePath.toLocal8Bit().constData(),std::ios::out);
