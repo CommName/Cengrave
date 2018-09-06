@@ -28,6 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_extractmode->addItem("Row-Col");
     ui->comboBox_extractmode->addItem("Col-Row ZZ");
     ui->comboBox_extractmode->addItem("Row-Col ZZ");
+    ui->comboBox_extractmode->addItem("Depth Col-Row");
+    ui->comboBox_extractmode->addItem("Depth Row-Co");
+    ui->comboBox_extractmode->addItem("Depth Col-Row ZZ");
+    ui->comboBox_extractmode->addItem("Depth Row-Col ZZ");
     ui->comboBox_extractmode->setCurrentIndex(0);
     //mode2 test
     ui->comboBox_testmode->addItem("Test Width Height Not Connected");
@@ -331,6 +335,10 @@ void MainWindow::on_button_extract_clicked()
     case 1:temp.insertRowsColsNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
     case 2:temp.insertColsRowsZigZagNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
     case 3:temp.insertRowsColsZigZagNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
+    case 4:temp.insertColsRows(imageMode1); temp.tooFileDepth(extractPath); break;
+    case 5:temp.insertRowsCols(imageMode1); temp.tooFileDepth(extractPath); break;
+    case 6:temp.insertColsRowsZigZag(imageMode1); temp.tooFileDepth(extractPath); break;
+    case 7:temp.insertRowsColsZigZag(imageMode1); temp.tooFileDepth(extractPath); break;
     default:    break;
     }
 }

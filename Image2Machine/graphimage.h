@@ -54,6 +54,7 @@ public:
 
 public:
     bool tooFileHeightWidth(QString const &path);
+    bool tooFileDepth(QString const &path);
 
 public:
     bool test(QString const &filePath);

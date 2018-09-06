@@ -1,6 +1,7 @@
 #include "graphimage.h"
 #include <cstdint>
 #include <fstream>
+#include <QStack>
 
 GraphImage::GraphImage()
 {
@@ -333,4 +334,54 @@ bool GraphImage::tooFileHeightWidth(QString const &path){
     f.close();
     return true;
 
+}
+bool GraphImage::tooFileDepth(QString const &path){
+    std::ofstream f(path.toLocal8Bit().constData(),std::ios::out|std::ios::binary);
+    if(!f)
+        return false;
+    pixel* tmp=root;
+    //seting status to 0
+    while(tmp!=nullptr){
+        tmp->status=0;
+        tmp=tmp->next;
+    }
+    tmp=root;
+    while(tmp!=nullptr){
+        if(tmp->status==0){ //unprocessed pixel
+            f<<(uint8_t)(commands::SET)<<tmp->x<<tmp->y;
+            pixel* branch=tmp;
+            QStack<pixel*> stack;
+            stack.push(nullptr);
+            branch->status=1; //mark it is in queue for processing
+            while(branch!=nullptr){
+                pixel* next=nullptr;
+                if(branch->status!=2){//proccessing pixel
+                    branch->status=2;
+                    //adding adjusted to queue for processing
+                    edge *temp=branch->link;
+                    while(temp!=nullptr){
+                        if(temp->dest->status==0){
+                            temp->dest->status=1;
+                            //left has priority
+                            if((temp->dest->x-1==branch->x)&&(temp->dest->y==branch->y))
+                                    next=temp->dest;
+                            else{
+                                stack.push(temp->dest);
+                            }
+                        }
+                        temp=temp->link;
+                    }
+                //chosing next pixel
+                if(next==nullptr){
+                    next=stack.pop();
+                }
+                printCommand(branch,next,f);
+                branch=next;
+                }
+            }
+        }
+        tmp=tmp->next;
+    }
+    f.close();
+    return true;
 }
