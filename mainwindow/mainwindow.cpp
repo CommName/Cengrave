@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //hide unused stuff
     ui->groupBox_test_insert->setVisible(false);
     ui->groupBox_resize_cm_mode0->setVisible(false);
+    ui->groupBox_imageEffects_mode0->setVisible(false);
 
 }
 
@@ -300,7 +301,6 @@ void MainWindow::on_button_mode2_zoom_normal_clicked()
 {
    ui->imageViewMode2->resetTransform();
 }
-
 
 
 

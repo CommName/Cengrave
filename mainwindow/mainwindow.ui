@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1041</width>
+    <width>960</width>
     <height>772</height>
    </rect>
   </property>
@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="modeWidget">
       <property name="tabShape">
        <enum>QTabWidget::Rounded</enum>
@@ -34,7 +34,7 @@
         <item>
          <widget class="QGroupBox" name="groupBox_5">
           <property name="title">
-           <string>GroupBox</string>
+           <string>Preview</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
@@ -43,29 +43,29 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QGroupBox" name="groupBox_6">
+              <widget class="QGroupBox" name="groupLoad_Store_0">
                <property name="title">
-                <string>GroupBox</string>
+                <string>Load and store</string>
                </property>
                <layout class="QGridLayout" name="gridLayout_5">
-                <item row="0" column="0">
+                <item row="1" column="1">
                  <widget class="QPushButton" name="buttonEngrave">
                   <property name="text">
                    <string>Engrave</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <widget class="QPushButton" name="buttonReload_mode0">
-                  <property name="text">
-                   <string>Reload</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
+                <item row="0" column="0">
                  <widget class="QPushButton" name="buttonLoad_mode0">
                   <property name="text">
                    <string>Load</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QPushButton" name="buttonReload_mode0">
+                  <property name="text">
+                   <string>Reload</string>
                   </property>
                  </widget>
                 </item>
@@ -73,7 +73,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox">
+              <widget class="QGroupBox" name="groupZoom_0">
                <property name="title">
                 <string>Zoom</string>
                </property>
@@ -115,11 +115,11 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,1,1">
+         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,3,3">
           <item>
-           <widget class="QGroupBox" name="groupBox_3">
+           <widget class="QGroupBox" name="groupImage_Stats_mode0">
             <property name="title">
-             <string>Image status</string>
+             <string>Image stats</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_7">
              <item row="4" column="0">
@@ -291,7 +291,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_2">
+           <widget class="QGroupBox" name="groupBox_imageEffects_mode0">
             <property name="title">
              <string>Image effects</string>
             </property>
@@ -349,58 +349,107 @@
        <attribute name="title">
         <string>Engraving picture</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="7,3">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="9,3">
         <item>
-         <widget class="QGraphicsView" name="imageViewMode1"/>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,1,0,1">
-          <item>
-           <widget class="QGroupBox" name="groupZoom_1">
-            <property name="title">
-             <string>Zoom</string>
-            </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_2">
-             <item row="1" column="0">
-              <widget class="QPushButton" name="button_mode1_zoom_fit">
-               <property name="text">
-                <string>Fit window</string>
+         <widget class="QGroupBox" name="preview_mode1">
+          <property name="title">
+           <string>Preview</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QGraphicsView" name="imageViewMode1"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="options">
+             <item>
+              <widget class="QGroupBox" name="extractmode">
+               <property name="title">
+                <string>Extract mode</string>
                </property>
+               <layout class="QGridLayout" name="gridLayout_4">
+                <item row="2" column="1">
+                 <widget class="QPushButton" name="button_toMachine">
+                  <property name="text">
+                   <string>Send to machine</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QPushButton" name="button_extract">
+                  <property name="text">
+                   <string>Extract</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QComboBox" name="comboBox_extractmode"/>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QPushButton" name="button_findOptimal">
+                  <property name="text">
+                   <string>Find optimal</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QPushButton" name="button_mode1_zoom_in">
-               <property name="text">
-                <string>Zoom in</string>
+             <item>
+              <widget class="QGroupBox" name="groupZoom_1">
+               <property name="title">
+                <string>Zoom</string>
                </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QPushButton" name="button_mode1_zoom_out">
-               <property name="text">
-                <string>Zoom out</string>
+               <property name="checkable">
+                <bool>false</bool>
                </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QPushButton" name="button_mode1_zoom_normal">
-               <property name="text">
-                <string>Normal size</string>
-               </property>
+               <layout class="QGridLayout" name="gridLayout_2">
+                <item row="1" column="1">
+                 <widget class="QPushButton" name="button_mode1_zoom_fit">
+                  <property name="text">
+                   <string>Fit window</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QPushButton" name="button_mode1_zoom_out">
+                  <property name="text">
+                   <string>Zoom out</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QPushButton" name="button_mode1_zoom_normal">
+                  <property name="text">
+                   <string>Normal size</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="button_mode1_zoom_in">
+                  <property name="text">
+                   <string>Zoom in</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
-           </widget>
-          </item>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,0">
           <item>
            <widget class="QGroupBox" name="EngraveSettings">
             <property name="title">
              <string>Engrave settings</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
+            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
              <item>
               <widget class="QComboBox" name="comboBox_engraveMode"/>
              </item>
@@ -421,85 +470,73 @@
                <property name="title">
                 <string>Threshold</string>
                </property>
-               <widget class="QSlider" name="threshold_slider">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>23</y>
-                  <width>255</width>
-                  <height>20</height>
-                 </rect>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>255</width>
-                  <height>20</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>255</width>
-                  <height>20</height>
-                 </size>
-                </property>
-                <property name="maximum">
-                 <number>255</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-               <widget class="QWidget" name="layoutWidget">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>49</y>
-                  <width>231</width>
-                  <height>22</height>
-                 </rect>
-                </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_6">
-                 <item>
-                  <widget class="QLabel" name="label">
-                   <property name="maximumSize">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>Thresh:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="threshold_spinBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>100</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                   <property name="maximum">
-                    <number>255</number>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="threshold_invert_checkBox">
-                   <property name="maximumSize">
-                    <size>
-                     <width>50</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>Invert</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QSlider" name="threshold_slider">
+                  <property name="minimumSize">
+                   <size>
+                    <width>255</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>255</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximum">
+                   <number>255</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="threhhold_options">
+                  <item>
+                   <widget class="QLabel" name="label">
+                    <property name="maximumSize">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Thresh:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="threshold_spinBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>100</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="threshold_invert_checkBox">
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Invert</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
@@ -521,9 +558,9 @@
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_6">
                 <item>
-                 <layout class="QFormLayout" name="formLayout_4">
+                 <layout class="QFormLayout" name="constantsubstract">
                   <item row="0" column="0">
-                   <widget class="QLabel" name="label_2">
+                   <widget class="QLabel" name="label_Constant_substract">
                     <property name="text">
                      <string>Constant subtracted from the mean</string>
                     </property>
@@ -567,9 +604,9 @@
                  </widget>
                 </item>
                 <item>
-                 <layout class="QFormLayout" name="formLayout_5">
+                 <layout class="QFormLayout" name="blocksize">
                   <item row="0" column="0">
-                   <widget class="QLabel" name="label_6">
+                   <widget class="QLabel" name="label_block_size">
                     <property name="text">
                      <string>Block size</string>
                     </property>
@@ -607,7 +644,7 @@
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <layout class="QHBoxLayout" name="adaptive_threshold_mode">
                   <item>
                    <widget class="QRadioButton" name="adapriveThreshold_MeanC_radiobutton">
                     <property name="text">
@@ -641,69 +678,22 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="extractmode">
-            <property name="title">
-             <string>Extract mode</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_4">
-             <item row="2" column="1">
-              <widget class="QPushButton" name="button_toMachine">
-               <property name="text">
-                <string>Send to machine</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QPushButton" name="button_extract">
-               <property name="text">
-                <string>Extract</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QComboBox" name="comboBox_extractmode"/>
-             </item>
-             <item row="1" column="1">
-              <widget class="QPushButton" name="button_findOptimal">
-               <property name="text">
-                <string>Find optimal</string>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
            <widget class="QGroupBox" name="groupBox_test_insert">
             <property name="title">
              <string>test insert functions</string>
             </property>
-            <widget class="QComboBox" name="comboBox_testmode">
-             <property name="geometry">
-              <rect>
-               <x>20</x>
-               <y>30</y>
-               <width>151</width>
-               <height>21</height>
-              </rect>
-             </property>
-            </widget>
-            <widget class="QPushButton" name="button_extract_test">
-             <property name="geometry">
-              <rect>
-               <x>190</x>
-               <y>30</y>
-               <width>75</width>
-               <height>23</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Test</string>
-             </property>
-            </widget>
+            <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,0">
+             <item>
+              <widget class="QComboBox" name="comboBox_testmode"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="button_extract_test">
+               <property name="text">
+                <string>Test</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -717,546 +707,561 @@
        <attribute name="title">
         <string>Machine Control</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="4,5">
+       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
         <item>
-         <layout class="QVBoxLayout" name="display" stretch="8,4">
-          <item>
-           <widget class="QGraphicsView" name="imageViewMode2">
-            <property name="minimumSize">
-             <size>
-              <width>300</width>
-              <height>300</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPlainTextEdit" name="consoleOutput">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>125</height>
-             </size>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QGroupBox" name="groupBox_Preview_mode2">
+          <property name="title">
+           <string>Preview</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_9" stretch="5,2">
+           <item>
+            <widget class="QGraphicsView" name="imageViewMode2">
+             <property name="minimumSize">
+              <size>
+               <width>300</width>
+               <height>300</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupConsole_mode2">
+             <property name="title">
+              <string>Console</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="0" column="0">
+               <widget class="QPlainTextEdit" name="consoleOutput_mode2">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>200</height>
+                 </size>
+                </property>
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="controls" stretch="2,5">
-          <item>
-           <layout class="QVBoxLayout" name="status" stretch="1,6">
-            <item>
-             <layout class="QHBoxLayout" name="titl">
+         <widget class="QGroupBox" name="groupBox_Controls">
+          <property name="title">
+           <string>Controls</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,1">
+           <item>
+            <widget class="QGroupBox" name="group_position_mode2">
+             <property name="title">
+              <string>Position</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
               <item>
-               <widget class="QLabel" name="label_empty1">
-                <property name="maximumSize">
-                 <size>
-                  <width>30</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_set">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>13</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Set:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_rn">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>13</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Right now:</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="status_2" stretch="0,5">
-              <item>
-               <layout class="QVBoxLayout" name="labels">
+               <layout class="QHBoxLayout" name="titl">
                 <item>
-                 <widget class="QLabel" name="label_xcordinate">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
+                 <widget class="QLabel" name="label_empty1">
                   <property name="maximumSize">
                    <size>
-                    <width>25</width>
-                    <height>30</height>
+                    <width>30</width>
+                    <height>16777215</height>
                    </size>
                   </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial</family>
-                    <pointsize>22</pointsize>
-                   </font>
-                  </property>
                   <property name="text">
-                   <string>X:</string>
-                  </property>
-                  <property name="textFormat">
-                   <enum>Qt::AutoText</enum>
+                   <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_ycordinate">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
+                 <widget class="QLabel" name="label_set">
                   <property name="maximumSize">
                    <size>
-                    <width>25</width>
-                    <height>30</height>
+                    <width>16777215</width>
+                    <height>13</height>
                    </size>
                   </property>
-                  <property name="font">
-                   <font>
-                    <family>Arial</family>
-                    <pointsize>22</pointsize>
-                   </font>
+                  <property name="text">
+                   <string>Set:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_rn">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>13</height>
+                   </size>
                   </property>
                   <property name="text">
-                   <string>Y:</string>
+                   <string>Right now:</string>
                   </property>
                  </widget>
                 </item>
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="status_3">
+               <layout class="QHBoxLayout" name="position" stretch="0,5">
                 <item>
-                 <layout class="QVBoxLayout" name="set_numbers">
+                 <layout class="QVBoxLayout" name="labels">
                   <item>
-                   <widget class="QLCDNumber" name="number_set_y">
+                   <widget class="QLabel" name="label_xcordinate">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
-                    <property name="minimumSize">
+                    <property name="maximumSize">
                      <size>
-                      <width>30</width>
-                      <height>50</height>
+                      <width>25</width>
+                      <height>30</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial</family>
+                      <pointsize>22</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>X:</string>
+                    </property>
+                    <property name="textFormat">
+                     <enum>Qt::AutoText</enum>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLCDNumber" name="number_set_x">
+                   <widget class="QLabel" name="label_ycordinate">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
-                    <property name="minimumSize">
+                    <property name="maximumSize">
                      <size>
-                      <width>30</width>
-                      <height>50</height>
+                      <width>25</width>
+                      <height>30</height>
                      </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial</family>
+                      <pointsize>22</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Y:</string>
                     </property>
                    </widget>
                   </item>
                  </layout>
                 </item>
                 <item>
-                 <layout class="QVBoxLayout" name="rn_numbers">
+                 <layout class="QHBoxLayout" name="position_numbers">
                   <item>
-                   <widget class="QLCDNumber" name="number_rn_x">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>30</width>
-                      <height>50</height>
-                     </size>
-                    </property>
-                   </widget>
+                   <layout class="QVBoxLayout" name="set_numbers">
+                    <item>
+                     <widget class="QLCDNumber" name="number_set_y">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>30</width>
+                        <height>50</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLCDNumber" name="number_set_x">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>30</width>
+                        <height>50</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </item>
                   <item>
-                   <widget class="QLCDNumber" name="number_rn_y">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>30</width>
-                      <height>50</height>
-                     </size>
-                    </property>
-                   </widget>
+                   <layout class="QVBoxLayout" name="rn_numbers">
+                    <item>
+                     <widget class="QLCDNumber" name="number_rn_x">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>30</width>
+                        <height>50</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLCDNumber" name="number_rn_y">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>30</width>
+                        <height>50</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </item>
                  </layout>
                 </item>
                </layout>
               </item>
              </layout>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout" stretch="11,10">
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout">
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>GroupBox</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
               <item>
-               <widget class="QGroupBox" name="groupSelectMode">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>100</height>
-                 </size>
-                </property>
-                <property name="title">
-                 <string>Select mode</string>
-                </property>
-                <widget class="QWidget" name="layoutWidget">
-                 <property name="geometry">
-                  <rect>
-                   <x>10</x>
-                   <y>30</y>
-                   <width>172</width>
-                   <height>19</height>
-                  </rect>
-                 </property>
-                 <layout class="QHBoxLayout" name="selectmode">
-                  <item>
-                   <widget class="QRadioButton" name="radio_auto">
-                    <property name="text">
-                     <string>Auto mode</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QRadioButton" name="radio_manuel">
-                    <property name="text">
-                     <string>Manuel mode</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QCheckBox" name="check_simulation">
-                 <property name="geometry">
-                  <rect>
-                   <x>10</x>
-                   <y>50</y>
-                   <width>111</width>
-                   <height>31</height>
-                  </rect>
-                 </property>
-                 <property name="text">
-                  <string>Simulation mode</string>
-                 </property>
-                </widget>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1">
+                <item>
+                 <widget class="QGroupBox" name="groupSelectMode">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>100</height>
+                   </size>
+                  </property>
+                  <property name="title">
+                   <string>Select mode</string>
+                  </property>
+                  <widget class="QWidget" name="layoutWidget">
+                   <property name="geometry">
+                    <rect>
+                     <x>10</x>
+                     <y>23</y>
+                     <width>169</width>
+                     <height>19</height>
+                    </rect>
+                   </property>
+                   <layout class="QHBoxLayout" name="selectmode">
+                    <item>
+                     <widget class="QRadioButton" name="radio_auto">
+                      <property name="text">
+                       <string>Auto mode</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radio_manuel">
+                      <property name="text">
+                       <string>Manuel mode</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QCheckBox" name="check_simulation">
+                   <property name="geometry">
+                    <rect>
+                     <x>10</x>
+                     <y>50</y>
+                     <width>100</width>
+                     <height>17</height>
+                    </rect>
+                   </property>
+                   <property name="text">
+                    <string>Simulation mode</string>
+                   </property>
+                  </widget>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupManuel">
+                  <property name="title">
+                   <string>Manuel mode</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_12" stretch="1,1,1">
+                   <item>
+                    <layout class="QHBoxLayout" name="setaxis">
+                     <item>
+                      <widget class="QPushButton" name="button_set_x_axis">
+                       <property name="text">
+                        <string>Set x axis</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="button_set_y_axis">
+                       <property name="text">
+                        <string>Set y axis</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="setcoordinates">
+                     <item>
+                      <layout class="QHBoxLayout" name="setX">
+                       <item>
+                        <widget class="QLabel" name="label_set_x">
+                         <property name="text">
+                          <string>x:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QTextEdit" name="edit_set_x">
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777215</width>
+                           <height>23</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="setY">
+                       <item>
+                        <widget class="QLabel" name="label_set_y">
+                         <property name="text">
+                          <string>y:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QTextEdit" name="edit_set_y">
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777215</width>
+                           <height>23</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="button_set_coordinates">
+                       <property name="text">
+                        <string>Set</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QGridLayout" name="movement">
+                     <item row="0" column="1">
+                      <widget class="QPushButton" name="movement_up">
+                       <property name="text">
+                        <string>Up</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <widget class="QPushButton" name="movement_upright">
+                       <property name="text">
+                        <string>Upright</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QPushButton" name="movement_left">
+                       <property name="text">
+                        <string>Left</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QPushButton" name="laser_on_off">
+                       <property name="text">
+                        <string>On/Off</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="2">
+                      <widget class="QPushButton" name="movement_right">
+                       <property name="text">
+                        <string>Right</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QPushButton" name="movement_upleft">
+                       <property name="text">
+                        <string>Upleft</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="0">
+                      <widget class="QPushButton" name="movement_downleft">
+                       <property name="text">
+                        <string>Downleft</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <widget class="QPushButton" name="movement_down">
+                       <property name="text">
+                        <string>Down</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="2">
+                      <widget class="QPushButton" name="movement_downright">
+                       <property name="text">
+                        <string>Downright</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupZoom_2">
+                  <property name="title">
+                   <string>Zoom </string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_3">
+                   <item row="0" column="1">
+                    <widget class="QPushButton" name="button_mode2_zoom_out">
+                     <property name="text">
+                      <string>Zoom out</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QPushButton" name="button_mode2_zoom_in">
+                     <property name="text">
+                      <string>Zoom in</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QPushButton" name="button_clear_console">
+                     <property name="text">
+                      <string>Clear image</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QPushButton" name="button_clear_image">
+                     <property name="text">
+                      <string>Clear console</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QPushButton" name="button_mode2_zoom_fit">
+                     <property name="text">
+                      <string>Fit window</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QPushButton" name="button_mode2_zoom_normal">
+                     <property name="text">
+                      <string>Normal size</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QGroupBox" name="groupManuel">
+               <widget class="QGroupBox" name="groupAuto">
                 <property name="title">
-                 <string>Manuel mode</string>
+                 <string>Auto mode</string>
                 </property>
-                <widget class="QWidget" name="layoutWidget">
-                 <property name="geometry">
-                  <rect>
-                   <x>10</x>
-                   <y>20</y>
-                   <width>269</width>
-                   <height>149</height>
-                  </rect>
-                 </property>
-                 <layout class="QVBoxLayout" name="manualmode">
-                  <item>
-                   <layout class="QHBoxLayout" name="setaxis">
-                    <item>
-                     <widget class="QPushButton" name="button_set_x_axis">
-                      <property name="text">
-                       <string>Set x axis</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="button_set_y_axis">
-                      <property name="text">
-                       <string>Set y axis</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="setcoordinates">
-                    <item>
-                     <layout class="QHBoxLayout" name="setX">
-                      <item>
-                       <widget class="QLabel" name="label_set_x">
-                        <property name="text">
-                         <string>x:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QTextEdit" name="edit_set_x">
-                        <property name="maximumSize">
-                         <size>
-                          <width>16777215</width>
-                          <height>23</height>
-                         </size>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="setY">
-                      <item>
-                       <widget class="QLabel" name="label_set_y">
-                        <property name="text">
-                         <string>y:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QTextEdit" name="edit_set_y">
-                        <property name="maximumSize">
-                         <size>
-                          <width>16777215</width>
-                          <height>23</height>
-                         </size>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="button_set_coordinates">
-                      <property name="text">
-                       <string>Set</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QGridLayout" name="movement">
-                    <item row="0" column="1">
-                     <widget class="QPushButton" name="movement_up">
-                      <property name="text">
-                       <string>Up</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="2">
-                     <widget class="QPushButton" name="movement_upright">
-                      <property name="text">
-                       <string>Upright</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QPushButton" name="movement_left">
-                      <property name="text">
-                       <string>Left</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="1">
-                     <widget class="QPushButton" name="laser_on_off">
-                      <property name="text">
-                       <string>On/Off</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="2">
-                     <widget class="QPushButton" name="movement_right">
-                      <property name="text">
-                       <string>Right</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="0">
-                     <widget class="QPushButton" name="movement_upleft">
-                      <property name="text">
-                       <string>Upleft</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="0">
-                     <widget class="QPushButton" name="movement_downleft">
-                      <property name="text">
-                       <string>Downleft</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="1">
-                     <widget class="QPushButton" name="movement_down">
-                      <property name="text">
-                       <string>Down</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="2">
-                     <widget class="QPushButton" name="movement_downright">
-                      <property name="text">
-                       <string>Downright</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="groupZoom_2">
-                <property name="title">
-                 <string>Zoom </string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_3">
-                 <item row="0" column="1">
-                  <widget class="QPushButton" name="button_mode2_zoom_out">
-                   <property name="text">
-                    <string>Zoom out</string>
-                   </property>
-                  </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_13">
+                 <item>
+                  <widget class="QListWidget" name="command_listWidget"/>
                  </item>
-                 <item row="0" column="0">
-                  <widget class="QPushButton" name="button_mode2_zoom_in">
-                   <property name="text">
-                    <string>Zoom in</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QPushButton" name="button_clear_console">
-                   <property name="text">
-                    <string>Clear image</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QPushButton" name="button_clear_image">
-                   <property name="text">
-                    <string>Clear console</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QPushButton" name="button_mode2_zoom_fit">
-                   <property name="text">
-                    <string>Fit window</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QPushButton" name="button_mode2_zoom_normal">
-                   <property name="text">
-                    <string>Normal size</string>
-                   </property>
-                  </widget>
+                 <item>
+                  <layout class="QGridLayout" name="auto_controls">
+                   <item row="3" column="1">
+                    <widget class="QPushButton" name="button_stop_auto">
+                     <property name="text">
+                      <string>Stop</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QPushButton" name="button_start_auto">
+                     <property name="text">
+                      <string>Start</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QPushButton" name="button_load_auto">
+                     <property name="text">
+                      <string>Load</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QPushButton" name="button_continue_auto">
+                     <property name="text">
+                      <string>Continue</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>
               </item>
              </layout>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupAuto">
-              <property name="title">
-               <string>Auto mode</string>
-              </property>
-              <widget class="QWidget" name="layoutWidget">
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>20</y>
-                 <width>241</width>
-                 <height>321</height>
-                </rect>
-               </property>
-               <layout class="QVBoxLayout" name="automode">
-                <item>
-                 <layout class="QGridLayout" name="auto_controls">
-                  <item row="3" column="1">
-                   <widget class="QPushButton" name="button_stop_auto">
-                    <property name="text">
-                     <string>Stop</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QPushButton" name="button_start_auto">
-                    <property name="text">
-                     <string>Start</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0">
-                   <widget class="QPushButton" name="button_load_auto">
-                    <property name="text">
-                     <string>Load</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QPushButton" name="button_continue_auto">
-                    <property name="text">
-                     <string>Continue</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0" colspan="2">
-                   <widget class="QListWidget" name="command_listWidget"/>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1269,10 +1274,68 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1041</width>
+     <width>960</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <widget class="QMenu" name="menuPicture_edditor">
+     <property name="title">
+      <string>Picture edditor</string>
+     </property>
+     <addaction name="window_picedditor_image_stats"/>
+     <addaction name="window_picedditor_image_transformation"/>
+     <addaction name="window_piceddiotr_image_effects"/>
+     <addaction name="window_picedditor_zoom"/>
+    </widget>
+    <widget class="QMenu" name="menuEngrave_mode">
+     <property name="title">
+      <string>Engrave mode</string>
+     </property>
+     <addaction name="window_engrave_mode_zoom"/>
+     <addaction name="window_engrave_engrave_mode"/>
+     <addaction name="window_engrave_extract_mode"/>
+     <addaction name="separator"/>
+     <addaction name="actionTest_inser_functions"/>
+    </widget>
+    <widget class="QMenu" name="menuMachine_Control">
+     <property name="title">
+      <string>Machine Control</string>
+     </property>
+     <addaction name="window_machine_Position"/>
+     <addaction name="window_machine_Manuel_mode"/>
+     <addaction name="window_machine_Auto_mode"/>
+     <addaction name="window_machine_Console"/>
+     <addaction name="window_machine_Image_preview"/>
+     <addaction name="window_machine_Zoom"/>
+     <addaction name="window_machine_Select_mode"/>
+    </widget>
+    <addaction name="menuPicture_edditor"/>
+    <addaction name="menuEngrave_mode"/>
+    <addaction name="menuMachine_Control"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -1283,6 +1346,165 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="window_engrave_mode_zoom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Zoom</string>
+   </property>
+  </action>
+  <action name="window_engrave_engrave_mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Engrave mode</string>
+   </property>
+  </action>
+  <action name="actionTest_inser_functions">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Test inser functions</string>
+   </property>
+  </action>
+  <action name="window_engrave_extract_mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Extract mode</string>
+   </property>
+  </action>
+  <action name="window_picedditor_image_stats">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Image stats</string>
+   </property>
+  </action>
+  <action name="window_picedditor_image_transformation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Image transformation</string>
+   </property>
+  </action>
+  <action name="window_piceddiotr_image_effects">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Image effects</string>
+   </property>
+  </action>
+  <action name="window_picedditor_zoom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Zoom</string>
+   </property>
+  </action>
+  <action name="window_machine_Position">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Position</string>
+   </property>
+  </action>
+  <action name="window_machine_Manuel_mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Manuel mode</string>
+   </property>
+  </action>
+  <action name="window_machine_Auto_mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto mode</string>
+   </property>
+  </action>
+  <action name="window_machine_Console">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Console</string>
+   </property>
+  </action>
+  <action name="window_machine_Image_preview">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Image preview</string>
+   </property>
+  </action>
+  <action name="window_machine_Zoom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Zoom</string>
+   </property>
+  </action>
+  <action name="window_machine_Select_mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Select mode</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -1332,6 +1554,230 @@
     <hint type="destinationlabel">
      <x>875</x>
      <y>511</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_engrave_mode_zoom</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupZoom_1</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>534</x>
+     <y>676</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_engrave_engrave_mode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>EngraveSettings</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>867</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_engrave_extract_mode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>extractmode</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>676</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_piceddiotr_image_effects</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_imageEffects_mode0</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>876</x>
+     <y>618</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_picedditor_image_stats</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupImage_Stats_mode0</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>876</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_picedditor_image_transformation</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_imageTransformation_mode0</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>876</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_picedditor_zoom</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupZoom_0</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>547</x>
+     <y>676</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_machine_Image_preview</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>imageViewMode2</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>316</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_machine_Zoom</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>groupZoom_2</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>646</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_machine_Select_mode</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>groupSelectMode</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>341</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_machine_Manuel_mode</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>groupManuel</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_machine_Console</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>groupConsole_mode2</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>631</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_machine_Auto_mode</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>groupAuto</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>789</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_machine_Position</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>group_position_mode2</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>641</x>
+     <y>178</y>
     </hint>
    </hints>
   </connection>

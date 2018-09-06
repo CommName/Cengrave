@@ -3,6 +3,7 @@
 #include <opencv2/opencv.hpp>
 #include "Image2Machine/commandcontainer.h"
 #include <QString>
+#include <QProgressBar>
 struct edge;
 
 struct pixel{
@@ -25,6 +26,7 @@ class GraphImage
  private:
     pixel *root;
     pixel *end;
+    long numOfElements;
 
 public:
     GraphImage();

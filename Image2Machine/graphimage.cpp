@@ -7,6 +7,7 @@ GraphImage::GraphImage()
 {
     root= nullptr;
     end= nullptr;
+    numOfElements=0;
 }
 GraphImage::~GraphImage(){
     deleteAll();
@@ -67,6 +68,7 @@ bool GraphImage::insert(int x,int y,pixel* (GraphImage::*findfunction)(int,int))
         }
     }
     }
+    numOfElements++;
     return true;
 }
 //find functions
