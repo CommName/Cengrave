@@ -264,7 +264,7 @@ void GraphImage::printCommand(pixel* atm, pixel*next,std::ofstream &f){
 if(atm==nullptr||next==nullptr||!f)
     return;
 //UP
-if((next->y)==(atm->y+1)){
+if((next->y)==(atm->y-1)){
     //UPLEFT
     if((next->x)==(atm->x-1)){
         f<<(uint8_t)(commands::UPLEFT);
@@ -278,11 +278,11 @@ if((next->y)==(atm->y+1)){
         f<<(uint8_t)(commands::UP);
     }
     else{
-        f<<(uint8_t)(commands::SET)<<next->x<<next->y;
+        f<<(uint8_t)(commands::SET)<<next->x<<'y'<<next->y;
     }
 }
 //DOWN
-else if((next->y)==(atm->y-1)){
+else if((next->y)==(atm->y+1)){
     //DOWNLEFT
     if((next->x)==(atm->x-1)){
         f<<(uint8_t)(commands::DOWNLEFT);
@@ -296,7 +296,7 @@ else if((next->y)==(atm->y-1)){
         f<<(uint8_t)(commands::DOWN);
     }
     else{
-        f<<(uint8_t)(commands::SET)<<next->x<<next->y;
+        f<<(uint8_t)(commands::SET)<<next->x<<'y'<<next->y;
     }
 }
 //SAME LEVEL
@@ -313,11 +313,11 @@ else if((next->y)==(atm->y)){
         return;
     }
     else{
-        f<<(uint8_t)(commands::SET)<<next->x<<next->y;
+        f<<(uint8_t)(commands::SET)<<next->x<<'y'<<next->y;
     }
 }
 else{
-    f<<(uint8_t)(commands::SET)<<next->x<<next->y;
+    f<<(uint8_t)(commands::SET)<<next->x<<'y'<<next->y;
 }
 }
 
@@ -327,6 +327,7 @@ bool GraphImage::tooFileHeightWidth(QString const &path){
     if(!f)
         return false;
     pixel *tmp=root;
+    f<<(uint8_t)commands::SET<<tmp->x<<'y'<<tmp->y;
     while(tmp!=nullptr){
         printCommand(tmp,tmp->next,f);
         tmp=tmp->next;
@@ -348,7 +349,7 @@ bool GraphImage::tooFileDepth(QString const &path){
     tmp=root;
     while(tmp!=nullptr){
         if(tmp->status==0){ //unprocessed pixel
-            f<<(uint8_t)(commands::SET)<<tmp->x<<tmp->y;
+            f<<(uint8_t)(commands::SET)<<tmp->x<<'y'<<tmp->y;
             pixel* branch=tmp;
             QStack<pixel*> stack;
             stack.push(nullptr);

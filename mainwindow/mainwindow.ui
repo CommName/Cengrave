@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -1216,37 +1216,37 @@
                </property>
                <layout class="QVBoxLayout" name="automode">
                 <item>
-                 <widget class="QListView" name="listView"/>
-                </item>
-                <item>
                  <layout class="QGridLayout" name="auto_controls">
-                  <item row="2" column="0">
-                   <widget class="QPushButton" name="button_load_auto">
+                  <item row="3" column="1">
+                   <widget class="QPushButton" name="button_stop_auto">
                     <property name="text">
-                     <string>Load</string>
+                     <string>Stop</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1">
-                   <widget class="QPushButton" name="button_continue_auto">
-                    <property name="text">
-                     <string>Continue</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
+                  <item row="1" column="0">
                    <widget class="QPushButton" name="button_start_auto">
                     <property name="text">
                      <string>Start</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="1">
-                   <widget class="QPushButton" name="button_stop_auto">
+                  <item row="3" column="0">
+                   <widget class="QPushButton" name="button_load_auto">
                     <property name="text">
-                     <string>Stop</string>
+                     <string>Load</string>
                     </property>
                    </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QPushButton" name="button_continue_auto">
+                    <property name="text">
+                     <string>Continue</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0" colspan="2">
+                   <widget class="QListWidget" name="command_listWidget"/>
                   </item>
                  </layout>
                 </item>

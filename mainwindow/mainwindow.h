@@ -6,6 +6,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <QString>
 #include <QGraphicsItem>
+#include "Image2Machine/commandcontainer.h"
 
 namespace Ui {
 class MainWindow;
@@ -69,6 +70,8 @@ private slots:
 
     void on_button_extract_clicked();
 
+    void on_button_load_auto_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -78,6 +81,7 @@ private:
     cv::Mat imageMode0;
     cv::Mat imageMode1;
     cv::Mat imageMode2;
+    CommandContainer commands;
     QString imagePath;
     QGraphicsScene *scene0;
     QGraphicsScene *scene1;

@@ -342,3 +342,11 @@ void MainWindow::on_button_extract_clicked()
     default:    break;
     }
 }
+
+void MainWindow::on_button_load_auto_clicked()
+{
+    QString loadPath = QFileDialog::getOpenFileName(this,"Load commands");
+    commands.loadFile(loadPath);
+    commands.printToQListView(ui->command_listWidget);
+
+}
