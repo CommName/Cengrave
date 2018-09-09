@@ -5,6 +5,7 @@
 #include <QListWidget>
 #include <opencv2/opencv.hpp>
 #include <QPlainTextEdit>
+#include "Image2Machine/hwf.h"
 class mainwindow;
 
 enum commands{
@@ -25,6 +26,7 @@ struct container{
     int y;
     container* next;
     container* previous;
+
 };
 
 class CommandContainer
@@ -36,6 +38,8 @@ private:
     long numOfElemets;
     cv::Mat *display;
     QPlainTextEdit *logs;
+    HWF *hwf;
+
 public:
     CommandContainer();
     ~CommandContainer();
@@ -44,6 +48,7 @@ public:
     void setCurrent(int index);
     void setImageOutput(cv::Mat *image);
     void setLogOutput(QPlainTextEdit *console);
+    void inline setHWF(HWF *h){hwf=h;}
     bool execute(bool simulation);
     bool insert(commands command);
     bool insertSet(int x,int y);
@@ -59,7 +64,7 @@ public:
 
     //manual controls
 public:
-    void executeSet(int x,int y,bool simulation);
+    void executeSet(int x,int y,int x_previous,int y_previous,bool simulation);
     void executeUP(int x_previous,int y_previous,bool simulation);
     void executeDOWN(int x_previous,int y_previous,bool simulation);
     void executeLEFT(int x_previous,int y_previous ,bool simulation);

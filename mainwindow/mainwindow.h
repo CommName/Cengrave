@@ -8,6 +8,7 @@
 #include <QGraphicsItem>
 #include "Image2Machine/commandcontainer.h"
 
+#include "Image2Machine/hwf.h"
 
 namespace Ui {
 class MainWindow;
@@ -104,6 +105,8 @@ private slots:
 
     void on_button_continue_auto_clicked();
 
+    void on_check_simulation_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 
@@ -114,6 +117,7 @@ private:
     cv::Mat imageMode1;
     cv::Mat imageMode2;
     CommandContainer commands;
+    HWF hwf;
     QString imagePath;
     QGraphicsScene *scene0;
     QGraphicsScene *scene1;

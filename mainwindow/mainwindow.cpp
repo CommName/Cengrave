@@ -26,9 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     commands.setImageOutput(&imageMode2);
     commands.setLogOutput(ui->consoleOutput_mode2);
+    commands.setHWF(&hwf);
     x_current_position=0;
     y_current_position=0;
     laserON=false;
+    hwf.set_vxy(10);
 
     //mode2 image transformation combobox
     ui->comboBox_engraveMode->addItem("Threshold");
@@ -427,9 +429,10 @@ void MainWindow::on_actionSettings_triggered()
 
 void MainWindow::on_button_set_coordinates_clicked()
 {
+
+    commands.executeSet(ui->spinBox_set_x->value(),ui->spinBox_set_y->value(),x_current_position,y_current_position,ui->check_simulation->isChecked());
     x_current_position=ui->spinBox_set_x->value();
     y_current_position=ui->spinBox_set_y->value();
-    commands.executeSet(x_current_position,y_current_position,false);
     displayImageMode2();
 }
 
@@ -483,6 +486,15 @@ void MainWindow::on_movement_downright_clicked()
     displayImageMode2();
 }
 
+void MainWindow::on_check_simulation_stateChanged(int arg1)
+{
+    /*
+    if(arg1==0){
+        hwf.motor_on();
+    }
+    else{
+        hwf.motor_off();
+    }
+    */
 
-
-
+}

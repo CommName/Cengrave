@@ -1016,6 +1016,9 @@
                    <property name="text">
                     <string>Simulation mode</string>
                    </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
                   </widget>
                  </widget>
                 </item>

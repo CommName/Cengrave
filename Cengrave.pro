@@ -28,14 +28,17 @@ SOURCES += \
     mainwindow/mainwindow.cpp \
     Image2Machine/graphimage.cpp \
     Image2Machine/commandcontainer.cpp \
-    mainwindow/settings.cpp
+    mainwindow/settings.cpp \
+    Image2Machine/hwf.cpp
+    #Image2Machine/hwf.cpp
 
 HEADERS += \
     mainwindow/mainwindow.h \
-    mainwindow/mainwindow.h \
     Image2Machine/graphimage.h \
     Image2Machine/commandcontainer.h \
-    mainwindow/settings.h
+    mainwindow/settings.h \
+    Image2Machine/hwf.h
+    #Image2Machine/hwf.h
 
 FORMS += \
         mainwindow/mainwindow.ui \
