@@ -3,6 +3,9 @@
 #include "Image2Machine/graphimage.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QSettings>
+#include "settings.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -18,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->imageViewMode0->setScene(scene0);
     ui->imageViewMode1->setScene(scene1);
     ui->imageViewMode2->setScene(scene2);
+    imageMode2.create(500,500,CV_8U);
+    imageMode2= cv::Scalar(255);
+
+    commands.setImageOutput(&imageMode2);
 
     //mode2 image transformation combobox
     ui->comboBox_engraveMode->addItem("Threshold");
@@ -43,6 +50,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_testmode->addItem("Test Width Height ZZ");
     ui->comboBox_testmode->addItem("Test Height Width ZZ");
     ui->comboBox_testmode->setCurrentIndex(0);
+
+    //enabled disabled stuff
+    ui->groupManuel->setEnabled(false);
+
     //hide unused stuff
     ui->groupBox_test_insert->setVisible(false);
     ui->groupBox_resize_cm_mode0->setVisible(false);
@@ -102,7 +113,13 @@ void MainWindow::displayImageMode1(){
    scene1->addPixmap(QPixmap::fromImage(output));
    ui->imageViewMode1->fitInView(scene1->itemsBoundingRect(),Qt::KeepAspectRatio);
 }
-
+void MainWindow::displayImageMode2(){
+    QImage output((const uchar *)imageMode2.data,imageMode2.cols,imageMode2.rows,imageMode2.step,QImage::Format_Grayscale8);
+    output.bits();
+    scene2->clear();
+    scene2->addPixmap(QPixmap::fromImage(output));
+    ui->imageViewMode2->fitInView(scene2->itemsBoundingRect(),Qt::KeepAspectRatio);
+}
 
 bool MainWindow::engrave(){
     if(imageMode0.empty())
@@ -143,6 +160,15 @@ void MainWindow::adaptiveThreshold(){
  cv::adaptiveThreshold(imageMode1,imageMode1,255,ui->adapriveThreshold_MeanC_radiobutton->isChecked()?cv::ADAPTIVE_THRESH_MEAN_C:cv::ADAPTIVE_THRESH_GAUSSIAN_C,ui->adaptiveThreshold_invert_checkBox->isChecked()?cv::THRESH_BINARY_INV:cv::THRESH_BINARY,ui->adaptiveThreshold_block_size_slider->value()*2+1,ui->adaptiveThreshold_C_slider->value());
 
 }
+
+void MainWindow::loadSettings(){
+    QSettings setting("cengrave.conf");
+
+
+}
+
+
+//Extrac
 
 
 //Slots and Signals
@@ -249,6 +275,7 @@ void MainWindow::on_adapriveThreshold_GaussianC_radiobutton_clicked()
     displayImageMode1();
 }
 
+
 //Zoom functions
 //moode0
 void MainWindow::on_button_mode0_zoom_in_clicked()
@@ -342,11 +369,33 @@ void MainWindow::on_button_extract_clicked()
     default:    break;
     }
 }
-
 void MainWindow::on_button_load_auto_clicked()
 {
     QString loadPath = QFileDialog::getOpenFileName(this,"Load commands");
     commands.loadFile(loadPath);
     commands.printToQListView(ui->command_listWidget);
 
+}
+void MainWindow::on_button_start_auto_clicked()
+{
+    commands.setCurrent(0);
+    while(commands.execute(ui->check_simulation->isChecked())){
+            displayImageMode2();
+            QApplication::processEvents();
+
+    }
+
+}
+void MainWindow::on_button_clear_console_clicked()
+{
+    imageMode2=cv::Scalar(255);
+    displayImageMode2();
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+ Settings settings(this);
+ settings.setModal(true);
+ settings.exec();
+ loadSettings();
 }

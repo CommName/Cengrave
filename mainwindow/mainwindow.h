@@ -71,6 +71,12 @@ private slots:
     //Window
 
 
+    void on_button_start_auto_clicked();
+
+    void on_button_clear_console_clicked();
+
+    void on_actionSettings_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -91,14 +97,19 @@ private:
 private:
     void loadImage(QString const &path);
     void displayImageInfo();
-    void displayImageMode0();
-    void displayImageMode1();
+
     bool engrave();
     void setEngraveModesInvisible();
     void thresholdMode();
     void adaptiveThreshold();
 
+    void loadSettings();
+    void saveSettings();
 
+public:
+    void displayImageMode0();
+    void displayImageMode1();
+    void displayImageMode2();
 
 
 };    

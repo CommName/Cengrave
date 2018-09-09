@@ -27,16 +27,19 @@ SOURCES += \
     mainwindow/main.cpp \
     mainwindow/mainwindow.cpp \
     Image2Machine/graphimage.cpp \
-    Image2Machine/commandcontainer.cpp
+    Image2Machine/commandcontainer.cpp \
+    mainwindow/settings.cpp
 
 HEADERS += \
     mainwindow/mainwindow.h \
     mainwindow/mainwindow.h \
     Image2Machine/graphimage.h \
-    Image2Machine/commandcontainer.h
+    Image2Machine/commandcontainer.h \
+    mainwindow/settings.h
 
 FORMS += \
-        mainwindow/mainwindow.ui
+        mainwindow/mainwindow.ui \
+    mainwindow/settings.ui
 
 INCLUDEPATH += $(OPENCV3_DIR)\install\include
 

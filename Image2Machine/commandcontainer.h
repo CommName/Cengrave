@@ -1,7 +1,12 @@
+
 #ifndef COMMANDCONTAINER_H
 #define COMMANDCONTAINER_H
 #include <QString>
 #include <QListWidget>
+#include <opencv2/opencv.hpp>
+
+class mainwindow;
+
 enum commands{
     UP=0,
     LEFT,
@@ -28,13 +33,15 @@ private:
     container* last;
     container* current;
     long numOfElemets;
+    cv::Mat *display;
 public:
     CommandContainer();
     ~CommandContainer();
 
 public:
     void setCurrent(int index);
-    void execute();
+    void setImageOutput(cv::Mat *image);
+    bool execute(bool simulation);
     bool insert(commands command);
     bool insertSet(int x,int y);
     bool insertAfterCurrent(commands command);
@@ -44,7 +51,7 @@ public:
     void deleteCommand(int index);
     void deleteAll();
     bool loadFile(QString const &path);
-    void saveFile(QString const &path);
+    bool saveFile(QString const &path);
     void printToQListView(QListWidget *listView);
 
 
