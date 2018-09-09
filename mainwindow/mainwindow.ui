@@ -987,12 +987,18 @@
                       <property name="text">
                        <string>Auto mode</string>
                       </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
                      </widget>
                     </item>
                     <item>
                      <widget class="QRadioButton" name="radio_manuel">
                       <property name="text">
                        <string>Manuel mode</string>
+                      </property>
+                      <property name="checked">
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -1327,13 +1333,14 @@
      <string>Help</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuEdit">
+   <widget class="QMenu" name="menuSettings">
     <property name="title">
-     <string>Edit</string>
+     <string>Settings</string>
     </property>
+    <addaction name="actionSettings"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuEdit"/>
+   <addaction name="menuSettings"/>
    <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -1503,6 +1510,11 @@
    </property>
    <property name="text">
     <string>Select mode</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>
@@ -1778,6 +1790,38 @@
     <hint type="destinationlabel">
      <x>641</x>
      <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radio_auto</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupAuto</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>415</x>
+     <y>324</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>789</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radio_manuel</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupManuel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>501</x>
+     <y>324</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>487</y>
     </hint>
    </hints>
   </connection>
