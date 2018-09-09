@@ -416,63 +416,52 @@ void MainWindow::on_button_set_coordinates_clicked()
     displayImageMode2();
 }
 
+//Manual movement
 void MainWindow::on_movement_upleft_clicked()
 {
-    commands.executeUPLEFT(x_current_position--,y_current_position--,ui->check_simulation->isChecked()&&laserON);
+    commands.executeUPLEFT(x_current_position--,y_current_position--,ui->check_simulation->isChecked());
     displayImageMode2();
-
-
 
 }
 void MainWindow::on_movement_up_clicked()
 {
-    commands.executeUPLEFT(x_current_position,y_current_position--,ui->check_simulation->isChecked()&&laserON);
+    commands.executeUPLEFT(x_current_position,y_current_position--,ui->check_simulation->isChecked());
     displayImageMode2();
 
 }
-
-
 void MainWindow::on_movement_upright_clicked()
 {
-    commands.executeUPRIGHT(x_current_position++,y_current_position--,ui->check_simulation->isChecked()&&laserON);
+    commands.executeUPRIGHT(x_current_position++,y_current_position--,ui->check_simulation->isChecked());
     displayImageMode2();
 }
-
-
 void MainWindow::on_movement_left_clicked()
 {
-    commands.executeLEFT(x_current_position--,y_current_position,ui->check_simulation->isChecked()&&laserON);
+    commands.executeLEFT(x_current_position--,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
 }
-
-
 void MainWindow::on_movement_right_clicked()
 {
-    commands.executeRIGHT(x_current_position++,y_current_position,ui->check_simulation->isChecked()&&laserON);
+    commands.executeRIGHT(x_current_position++,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
 }
-
 void MainWindow::on_laser_on_off_clicked()
 {
     laserON=!laserON;
     commands.laser(laserON);
 
 }
-
 void MainWindow::on_movement_downleft_clicked()
 {
-    commands.executeDOWNLEFT(x_current_position--,y_current_position++,ui->check_simulation->isChecked()&&laserON);
+    commands.executeDOWNLEFT(x_current_position--,y_current_position++,ui->check_simulation->isChecked());
     displayImageMode2();
 }
-
 void MainWindow::on_movement_down_clicked()
 {
-    commands.executeDOWN(x_current_position,y_current_position++,ui->check_simulation->isChecked()&&laserON);
+    commands.executeDOWN(x_current_position,y_current_position++,ui->check_simulation->isChecked());
     displayImageMode2();
 }
-
 void MainWindow::on_movement_downright_clicked()
 {
-    commands.executeDOWNRIGHT(x_current_position++,y_current_position++,ui->check_simulation->isChecked()&&laserON);
+    commands.executeDOWNRIGHT(x_current_position++,y_current_position++,ui->check_simulation->isChecked());
     displayImageMode2();
 }

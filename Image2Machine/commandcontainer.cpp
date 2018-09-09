@@ -35,6 +35,7 @@ bool CommandContainer::insert(commands command){
     }
     last->next=new container;
     last->next->next=nullptr;
+    last->next->previous=last;
     last->next->command=command;
     switch (last->next->command) {
     case commands::UP: last->next->x=last->x; last->next->y=last->y-1; break;
@@ -53,9 +54,11 @@ bool CommandContainer::insert(commands command){
 bool CommandContainer::insertSet(int x,int y){
     if(root==nullptr){
         root=last=current=new container;
+        last->previous=nullptr;
     }
     else{
         last->next=new container;
+        last->next->previous=last;
         last=last->next;
     }
     last->x=x;
@@ -128,41 +131,17 @@ bool CommandContainer::execute(bool simulation){
     if(current==nullptr)
         return false;
 
-    //Edditing a pixel on a image
-    if(display!=nullptr){
-        display->at<uint8_t>(current->y,current->x)=0;
-    }
+    switch (current->command) {
+    case commands::UP: this->executeUP(current->previous->x,current->previous->y,simulation); break;
+    case commands::DOWN: this->executeDOWN(current->previous->x,current->previous->y,simulation); break;;
+    case commands::LEFT: this->executeLEFT(current->previous->x,current->previous->y,simulation); break;
+    case commands::RIGHT: this->executeRIGHT(current->previous->x,current->previous->y,simulation); break;
+    case commands::UPLEFT: this->executeUPLEFT(current->previous->x,current->previous->y,simulation); break;
+    case commands::UPRIGHT: this->executeUPRIGHT(current->previous->x,current->previous->y,simulation); break;
+    case commands::DOWNLEFT: this->executeDOWNLEFT(current->previous->x,current->previous->y,simulation); break;
+    case commands::DOWNRIGHT: this->executeDOWNRIGHT(current->previous->x,current->previous->y,simulation); break;
+    case commands::SET: this->executeSet(current->x,current->y,simulation); break;
 
-
-    //Log output
-    if(logs!=nullptr){
-        switch (current->command) {
-        case commands::UP: logs->appendPlainText("UP"); break;
-        case commands::DOWN: logs->appendPlainText("DOWN"); break;
-        case commands::LEFT: logs->appendPlainText("LEFT"); break;
-        case commands::RIGHT: logs->appendPlainText("RIGHT"); break;
-        case commands::UPLEFT: logs->appendPlainText("UPLEFT"); break;
-        case commands::UPRIGHT: logs->appendPlainText("UPRIGHT"); break;
-        case commands::DOWNLEFT: logs->appendPlainText("DOWNLEFT"); break;
-        case commands::DOWNRIGHT: logs->appendPlainText("DOWNRIGHT"); break;
-        case commands::SET: logs->appendPlainText("SET "+QString::number(current->x)+' '+QString::number(current->y)); break;
-        }
-    }
-
-    //Machine execute
-    if(!simulation){
-        switch (current->command) {
-        case commands::UP : break;
-        case commands::DOWN: break;
-        case commands::LEFT: break;
-        case commands::RIGHT: break;
-        case commands::UPLEFT: break;
-        case commands::UPRIGHT: break;
-        case commands::DOWNLEFT: break;
-        case commands::DOWNRIGHT: break;
-        case commands::SET: break;
-
-        }
     }
     current=current->next;
     return true;
@@ -174,8 +153,6 @@ void CommandContainer::setImageOutput(cv::Mat *image){
 void CommandContainer::setLogOutput(QPlainTextEdit *console){
     logs=console;
 }
-
-
 void CommandContainer::setCurrent(int index){
     if(index>=numOfElemets)
         return;
@@ -187,7 +164,7 @@ void CommandContainer::setCurrent(int index){
     return;
 }
 
-
+//Manual controls
 void CommandContainer::executeSet(int x,int y,bool simulation){
     //image privew
     if(display!=nullptr){
@@ -202,7 +179,6 @@ void CommandContainer::executeSet(int x,int y,bool simulation){
 
     }
 }
-
 void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
@@ -246,7 +222,6 @@ void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation
 
     }
 }
-
 void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
@@ -261,7 +236,6 @@ void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulatio
 
     }
 }
-
 void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
@@ -276,7 +250,6 @@ void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulati
 
     }
 }
-
 void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){

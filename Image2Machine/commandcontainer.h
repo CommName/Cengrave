@@ -24,6 +24,7 @@ struct container{
     int x;
     int y;
     container* next;
+    container* previous;
 };
 
 class CommandContainer
