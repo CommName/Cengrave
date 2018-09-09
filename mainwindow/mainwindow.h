@@ -8,6 +8,7 @@
 #include <QGraphicsItem>
 #include "Image2Machine/commandcontainer.h"
 
+
 namespace Ui {
 class MainWindow;
 }
@@ -76,6 +77,8 @@ private slots:
     void on_button_clear_console_clicked();
 
     void on_actionSettings_triggered();
+
+    void on_button_clear_image_clicked();
 
 private:
     Ui::MainWindow *ui;

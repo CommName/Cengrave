@@ -9,6 +9,7 @@ CommandContainer::CommandContainer()
     last=nullptr;
     current=nullptr;
     display=nullptr;
+    logs=nullptr;
 }
 
 CommandContainer::~CommandContainer(){
@@ -116,7 +117,6 @@ void CommandContainer::printToQListView(QListWidget *listView){
         case commands::DOWNLEFT: listView->addItem("DOWNLEFT"); break;
         case commands::DOWNRIGHT: listView->addItem("DOWNRIGHT"); break;
         case commands::SET: listView->addItem("SET "+QString::number(temp->x)+' '+QString::number(temp->y)); break;
-        deault: break;
         }
 
         temp=temp->next;
@@ -135,7 +135,19 @@ bool CommandContainer::execute(bool simulation){
 
 
     //Log output
-
+    if(logs!=nullptr){
+        switch (current->command) {
+        case commands::UP: logs->appendPlainText("UP"); break;
+        case commands::DOWN: logs->appendPlainText("DOWN"); break;
+        case commands::LEFT: logs->appendPlainText("LEFT"); break;
+        case commands::RIGHT: logs->appendPlainText("RIGHT"); break;
+        case commands::UPLEFT: logs->appendPlainText("UPLEFT"); break;
+        case commands::UPRIGHT: logs->appendPlainText("UPRIGHT"); break;
+        case commands::DOWNLEFT: logs->appendPlainText("DOWNLEFT"); break;
+        case commands::DOWNRIGHT: logs->appendPlainText("DOWNRIGHT"); break;
+        case commands::SET: logs->appendPlainText("SET "+QString::number(current->x)+' '+QString::number(current->y)); break;
+        }
+    }
 
     //Machine execute
     if(!simulation){
@@ -158,6 +170,9 @@ bool CommandContainer::execute(bool simulation){
 
 void CommandContainer::setImageOutput(cv::Mat *image){
     display=image;
+}
+void CommandContainer::setLogOutput(QPlainTextEdit *console){
+    logs=console;
 }
 
 

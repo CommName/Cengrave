@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     imageMode2= cv::Scalar(255);
 
     commands.setImageOutput(&imageMode2);
+    commands.setLogOutput(ui->consoleOutput_mode2);
 
     //mode2 image transformation combobox
     ui->comboBox_engraveMode->addItem("Threshold");
@@ -398,4 +399,9 @@ void MainWindow::on_actionSettings_triggered()
  settings.setModal(true);
  settings.exec();
  loadSettings();
+}
+
+void MainWindow::on_button_clear_image_clicked()
+{
+    ui->consoleOutput_mode2->clear();
 }

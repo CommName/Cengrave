@@ -4,7 +4,7 @@
 #include <QString>
 #include <QListWidget>
 #include <opencv2/opencv.hpp>
-
+#include <QPlainTextEdit>
 class mainwindow;
 
 enum commands{
@@ -34,6 +34,7 @@ private:
     container* current;
     long numOfElemets;
     cv::Mat *display;
+    QPlainTextEdit *logs;
 public:
     CommandContainer();
     ~CommandContainer();
@@ -41,6 +42,7 @@ public:
 public:
     void setCurrent(int index);
     void setImageOutput(cv::Mat *image);
+    void setLogOutput(QPlainTextEdit *console);
     bool execute(bool simulation);
     bool insert(commands command);
     bool insertSet(int x,int y);
