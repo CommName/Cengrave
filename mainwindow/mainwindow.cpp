@@ -331,6 +331,16 @@ void MainWindow::on_button_mode2_zoom_normal_clicked()
 {
    ui->imageViewMode2->resetTransform();
 }
+void MainWindow::on_button_clear_console_clicked()
+{
+    ui->consoleOutput_mode2->clear();
+
+}
+void MainWindow::on_button_clear_image_clicked()
+{
+    imageMode2=cv::Scalar(255);
+    displayImageMode2();
+}
 
 
 
@@ -381,19 +391,30 @@ void MainWindow::on_button_load_auto_clicked()
 }
 void MainWindow::on_button_start_auto_clicked()
 {
+    stop=false;
     commands.setCurrent(0);
-    while(commands.execute(ui->check_simulation->isChecked())){
+    while(commands.execute(ui->check_simulation->isChecked())&&!stop){
             displayImageMode2();
             QApplication::processEvents();
 
     }
 
 }
-void MainWindow::on_button_clear_console_clicked()
+void MainWindow::on_button_stop_auto_clicked()
 {
-    imageMode2=cv::Scalar(255);
-    displayImageMode2();
+    stop=true;
 }
+void MainWindow::on_button_continue_auto_clicked()
+{
+    stop=false;
+    while(commands.execute(ui->check_simulation->isChecked())&&!stop){
+            displayImageMode2();
+            QApplication::processEvents();
+
+    }
+}
+
+
 
 void MainWindow::on_actionSettings_triggered()
 {
@@ -403,10 +424,6 @@ void MainWindow::on_actionSettings_triggered()
  loadSettings();
 }
 
-void MainWindow::on_button_clear_image_clicked()
-{
-    ui->consoleOutput_mode2->clear();
-}
 
 void MainWindow::on_button_set_coordinates_clicked()
 {
@@ -465,3 +482,7 @@ void MainWindow::on_movement_downright_clicked()
     commands.executeDOWNRIGHT(x_current_position++,y_current_position++,ui->check_simulation->isChecked());
     displayImageMode2();
 }
+
+
+
+

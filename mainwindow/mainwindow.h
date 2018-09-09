@@ -100,6 +100,10 @@ private slots:
 
     void on_movement_downright_clicked();
 
+    void on_button_stop_auto_clicked();
+
+    void on_button_continue_auto_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -118,6 +122,7 @@ private:
     int x_current_position;
     int y_current_position;
     bool laserON;
+    bool stop;
     //Settings
 
 
