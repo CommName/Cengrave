@@ -123,7 +123,7 @@ void CommandContainer::printToQListView(QListWidget *listView){
     }
 }
 
-
+//Returns false when it comes to the end
 bool CommandContainer::execute(bool simulation){
     if(current==nullptr)
         return false;
@@ -188,10 +188,140 @@ void CommandContainer::setCurrent(int index){
 }
 
 
+void CommandContainer::executeSet(int x,int y,bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y,x)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("SET "+QString::number(x)+' '+QString::number(y));
+    }
+    //execute
+    if(!simulation){
 
+    }
+}
 
+void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y_previous-1,x_previous)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("UP");
+    }
+    //execute
+    if(!simulation){
 
+    }
 
+}
+void CommandContainer::executeDOWN(int x_previous,int y_previous, bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y_previous+1,x_previous)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("DOWN");
+    }
+    //execute
+    if(!simulation){
+
+    }
+}
+void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y_previous,x_previous-1)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("LEFT");
+    }
+    //execute
+    if(!simulation){
+
+    }
+}
+
+void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y_previous,x_previous+1)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("RIGHT");
+    }
+    //execute
+    if(!simulation){
+
+    }
+}
+
+void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y_previous-1,x_previous-1)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("UPLEFT");
+    }
+    //execute
+    if(!simulation){
+
+    }
+}
+
+void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y_previous+1,x_previous-1)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("DOWNLEFT");
+    }
+    //execute
+    if(!simulation){
+
+    }
+}
+void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y_previous-1,x_previous+1)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("UPRIGHT");
+    }
+    //execute
+    if(!simulation){
+
+    }
+}
+void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simulation){
+    //image privew
+    if(display!=nullptr){
+        display->at<uint8_t>(y_previous+1,x_previous+1)=0;
+    }
+    //logs output
+    if(logs!=nullptr){
+        logs->appendPlainText("DOWNRIGHT");
+    }
+    //execute
+    if(!simulation){
+
+    }
+}
+void CommandContainer::laser(bool on){
+
+}
 
 
 

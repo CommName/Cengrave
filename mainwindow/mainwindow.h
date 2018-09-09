@@ -80,6 +80,26 @@ private slots:
 
     void on_button_clear_image_clicked();
 
+    void on_button_set_coordinates_clicked();
+
+    void on_movement_upleft_clicked();
+
+    void on_movement_up_clicked();
+
+    void on_movement_upright_clicked();
+
+    void on_movement_left_clicked();
+
+    void on_movement_right_clicked();
+
+    void on_laser_on_off_clicked();
+
+    void on_movement_downleft_clicked();
+
+    void on_movement_down_clicked();
+
+    void on_movement_downright_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -94,6 +114,11 @@ private:
     QGraphicsScene *scene0;
     QGraphicsScene *scene1;
     QGraphicsScene *scene2;
+
+    int x_current_position;
+    int y_current_position;
+    bool laserON;
+    //Settings
 
 
 //funcions

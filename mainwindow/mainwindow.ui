@@ -1055,11 +1055,11 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QTextEdit" name="edit_set_x">
-                         <property name="maximumSize">
+                        <widget class="QSpinBox" name="spinBox_set_x">
+                         <property name="minimumSize">
                           <size>
-                           <width>16777215</width>
-                           <height>23</height>
+                           <width>70</width>
+                           <height>0</height>
                           </size>
                          </property>
                         </widget>
@@ -1076,11 +1076,11 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QTextEdit" name="edit_set_y">
-                         <property name="maximumSize">
+                        <widget class="QSpinBox" name="spinBox_set_y">
+                         <property name="minimumSize">
                           <size>
-                           <width>16777215</width>
-                           <height>23</height>
+                           <width>70</width>
+                           <height>0</height>
                           </size>
                          </property>
                         </widget>

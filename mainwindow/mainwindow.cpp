@@ -26,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     commands.setImageOutput(&imageMode2);
     commands.setLogOutput(ui->consoleOutput_mode2);
+    x_current_position=0;
+    y_current_position=0;
+    laserON=false;
 
     //mode2 image transformation combobox
     ui->comboBox_engraveMode->addItem("Threshold");
@@ -119,7 +122,6 @@ void MainWindow::displayImageMode2(){
     output.bits();
     scene2->clear();
     scene2->addPixmap(QPixmap::fromImage(output));
-    ui->imageViewMode2->fitInView(scene2->itemsBoundingRect(),Qt::KeepAspectRatio);
 }
 
 bool MainWindow::engrave(){
@@ -404,4 +406,73 @@ void MainWindow::on_actionSettings_triggered()
 void MainWindow::on_button_clear_image_clicked()
 {
     ui->consoleOutput_mode2->clear();
+}
+
+void MainWindow::on_button_set_coordinates_clicked()
+{
+    x_current_position=ui->spinBox_set_x->value();
+    y_current_position=ui->spinBox_set_y->value();
+    commands.executeSet(x_current_position,y_current_position,false);
+    displayImageMode2();
+}
+
+void MainWindow::on_movement_upleft_clicked()
+{
+    commands.executeUPLEFT(x_current_position--,y_current_position--,ui->check_simulation->isChecked()&&laserON);
+    displayImageMode2();
+
+
+
+}
+void MainWindow::on_movement_up_clicked()
+{
+    commands.executeUPLEFT(x_current_position,y_current_position--,ui->check_simulation->isChecked()&&laserON);
+    displayImageMode2();
+
+}
+
+
+void MainWindow::on_movement_upright_clicked()
+{
+    commands.executeUPRIGHT(x_current_position++,y_current_position--,ui->check_simulation->isChecked()&&laserON);
+    displayImageMode2();
+}
+
+
+void MainWindow::on_movement_left_clicked()
+{
+    commands.executeLEFT(x_current_position--,y_current_position,ui->check_simulation->isChecked()&&laserON);
+    displayImageMode2();
+}
+
+
+void MainWindow::on_movement_right_clicked()
+{
+    commands.executeRIGHT(x_current_position++,y_current_position,ui->check_simulation->isChecked()&&laserON);
+    displayImageMode2();
+}
+
+void MainWindow::on_laser_on_off_clicked()
+{
+    laserON=!laserON;
+    commands.laser(laserON);
+
+}
+
+void MainWindow::on_movement_downleft_clicked()
+{
+    commands.executeDOWNLEFT(x_current_position--,y_current_position++,ui->check_simulation->isChecked()&&laserON);
+    displayImageMode2();
+}
+
+void MainWindow::on_movement_down_clicked()
+{
+    commands.executeDOWN(x_current_position,y_current_position++,ui->check_simulation->isChecked()&&laserON);
+    displayImageMode2();
+}
+
+void MainWindow::on_movement_downright_clicked()
+{
+    commands.executeDOWNRIGHT(x_current_position++,y_current_position++,ui->check_simulation->isChecked()&&laserON);
+    displayImageMode2();
 }

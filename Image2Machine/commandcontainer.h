@@ -56,7 +56,18 @@ public:
     bool saveFile(QString const &path);
     void printToQListView(QListWidget *listView);
 
-
+    //manual controls
+public:
+    void executeSet(int x,int y,bool simulation);
+    void executeUP(int x_previous,int y_previous,bool simulation);
+    void executeDOWN(int x_previous,int y_previous,bool simulation);
+    void executeLEFT(int x_previous,int y_previous ,bool simulation);
+    void executeRIGHT(int x_previous,int y_previous,bool simulation);
+    void executeUPLEFT(int x_previous,int y_previous,bool simulation);
+    void executeUPRIGHT(int x_previous,int y_previous,bool simulation);
+    void executeDOWNLEFT(int x_previous,int y_previous,bool simulation);
+    void executeDOWNRIGHT(int x_previous,int y_previous,bool simulation);
+    void laser(bool on);
 };
 
 #endif // COMMANDCONTAINER_H
