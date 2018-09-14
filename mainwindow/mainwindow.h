@@ -71,8 +71,6 @@ private slots:
 
     //Menu
     //Window
-
-
     void on_button_start_auto_clicked();
 
     void on_button_clear_console_clicked();
@@ -143,10 +141,13 @@ private:
     void loadSettings();
     void saveSettings();
 
+    void execute();
+
 public:
     void displayImageMode0();
     void displayImageMode1();
     void displayImageMode2();
+
 
 
 };    

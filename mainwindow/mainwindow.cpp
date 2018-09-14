@@ -172,6 +172,15 @@ void MainWindow::loadSettings(){
 
 }
 
+void MainWindow::execute(){
+    hwf.set_vxy(100);
+    while(commands.execute(ui->check_simulation->isChecked())&&!stop){
+            displayImageMode2();
+            QApplication::processEvents();
+
+    }
+}
+
 
 //Extrac
 
@@ -384,6 +393,8 @@ void MainWindow::on_button_extract_clicked()
     default:    break;
     }
 }
+
+//mode2 auto mode
 void MainWindow::on_button_load_auto_clicked()
 {
     QString loadPath = QFileDialog::getOpenFileName(this,"Load commands");
@@ -395,11 +406,7 @@ void MainWindow::on_button_start_auto_clicked()
 {
     stop=false;
     commands.setCurrent(0);
-    while(commands.execute(ui->check_simulation->isChecked())&&!stop){
-            displayImageMode2();
-            QApplication::processEvents();
-
-    }
+    execute();
 
 }
 void MainWindow::on_button_stop_auto_clicked()
@@ -409,15 +416,12 @@ void MainWindow::on_button_stop_auto_clicked()
 void MainWindow::on_button_continue_auto_clicked()
 {
     stop=false;
-    while(commands.execute(ui->check_simulation->isChecked())&&!stop){
-            displayImageMode2();
-            QApplication::processEvents();
 
-    }
+    execute();
 }
 
 
-
+//Settings
 void MainWindow::on_actionSettings_triggered()
 {
  Settings settings(this);
@@ -427,6 +431,9 @@ void MainWindow::on_actionSettings_triggered()
 }
 
 
+
+
+//Manual movement
 void MainWindow::on_button_set_coordinates_clicked()
 {
 
@@ -435,8 +442,6 @@ void MainWindow::on_button_set_coordinates_clicked()
     y_current_position=ui->spinBox_set_y->value();
     displayImageMode2();
 }
-
-//Manual movement
 void MainWindow::on_movement_upleft_clicked()
 {
     commands.executeUPLEFT(x_current_position--,y_current_position--,ui->check_simulation->isChecked());
@@ -485,16 +490,15 @@ void MainWindow::on_movement_downright_clicked()
     commands.executeDOWNRIGHT(x_current_position++,y_current_position++,ui->check_simulation->isChecked());
     displayImageMode2();
 }
-
 void MainWindow::on_check_simulation_stateChanged(int arg1)
 {
-    /*
+
     if(arg1==0){
-        hwf.motor_on();
+        hwf.enable_on();
     }
     else{
-        hwf.motor_off();
+        hwf.enable_off();
     }
-    */
+
 
 }

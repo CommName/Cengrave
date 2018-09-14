@@ -19,6 +19,11 @@ HWF::HWF(QObject *parent) :
     QObject(parent)
 {
     read_port_ini();
+    int status= init();
+
+     if( status <0){
+        qApp->exit(0);
+    }
 }
 
 int HWF::mainboard_speed(void)

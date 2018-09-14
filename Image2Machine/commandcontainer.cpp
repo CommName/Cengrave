@@ -141,7 +141,11 @@ bool CommandContainer::execute(bool simulation){
     case commands::UPRIGHT: this->executeUPRIGHT(current->previous->x,current->previous->y,simulation); break;
     case commands::DOWNLEFT: this->executeDOWNLEFT(current->previous->x,current->previous->y,simulation); break;
     case commands::DOWNRIGHT: this->executeDOWNRIGHT(current->previous->x,current->previous->y,simulation); break;
-    case commands::SET: this->executeSet(current->x,current->y,current->previous==nullptr?0:current->previous->x,current->previous==nullptr?0:current->previous->y,simulation); break;
+    case commands::SET:
+                laser(false);
+                this->executeSet(current->x,current->y,current->previous==nullptr?0:current->previous->x,current->previous==nullptr?0:current->previous->y,simulation);
+                laser(true);
+                break;
 
     }
     current=current->next;
@@ -169,19 +173,14 @@ void CommandContainer::executeSet(int x,int y,int x_previous,int y_previous,bool
     if(display!=nullptr){
         display->at<uint8_t>(y,x)=0;
     }
-    //turning off laser before moving (order of messages)
-    if(!simulation){
-        laser(false);
-    }
     //logs output
     if(logs!=nullptr){
         logs->appendPlainText("SET "+QString::number(x)+' '+QString::number(y));
     }
     //execute
     if(!simulation){
-    //hwf->stepx((x-x_previous)*100,1);
-    //hwf->stepy((y-y_previous)*100,1);
-    laser(true);
+    hwf->stepx((x-x_previous)*100,1);
+    hwf->stepy((y-y_previous)*100,1);
 
     }
 }
@@ -196,7 +195,7 @@ void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
     }
     //execute
     if(!simulation){
-        //hwf->stepy(-100,1);
+        hwf->stepy(-100,1);
     }
 
 }
@@ -211,7 +210,7 @@ void CommandContainer::executeDOWN(int x_previous,int y_previous, bool simulatio
     }
     //execute
     if(!simulation){
-        //hwf->stepy(100,1);
+        hwf->stepy(100,1);
 
     }
 }
@@ -226,7 +225,7 @@ void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation
     }
     //execute
     if(!simulation){
-        //hwf->stepx(-100,1);
+        hwf->stepx(-100,1);
     }
 }
 void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulation){
@@ -240,7 +239,7 @@ void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulatio
     }
     //execute
     if(!simulation){
-        //hwf->stepx(100,1);
+        hwf->stepx(100,1);
 
     }
 }
@@ -255,8 +254,8 @@ void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulati
     }
     //execute
     if(!simulation){
-        //hwf->stepx(-100,1);
-        //hwf->stepy(-100,1);
+        hwf->stepx(-100,1);
+        hwf->stepy(-100,1);
 
     }
 }
@@ -271,8 +270,8 @@ void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simula
     }
     //execute
     if(!simulation){
-        //hwf->stepx(-100,1);
-        //hwf->stepy(100,1);
+        hwf->stepx(-100,1);
+        hwf->stepy(100,1);
     }
 }
 void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulation){
@@ -286,8 +285,8 @@ void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulat
     }
     //execute
     if(!simulation){
-        //hwf->stepx(100,1);
-        //hwf->stepy(-100,1);
+        hwf->stepx(100,1);
+        hwf->stepy(-100,1);
     }
 }
 void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simulation){
@@ -301,8 +300,8 @@ void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simul
     }
     //execute
     if(!simulation){
-       //hwf->stepx(100,1);
-       //hwf->stepy(100,1);
+       hwf->stepx(100,1);
+       hwf->stepy(100,1);
     }
 }
 void CommandContainer::laser(bool on){
@@ -311,14 +310,14 @@ void CommandContainer::laser(bool on){
     if(on){
         if(logs!=nullptr){
             logs->appendPlainText("Laser on");
-        //hwf->motor_on();
+        hwf->motor_on();
         }
     }
     else{
         if(logs!=nullptr){
             logs->appendPlainText("Laser off");
         }
-        //hwf->motor_off();
+        hwf->motor_off();
     }
 
 }
