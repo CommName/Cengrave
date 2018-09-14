@@ -11,6 +11,7 @@ CommandContainer::CommandContainer()
     display=nullptr;
     logs=nullptr;
     hwf=nullptr;
+    secure=false;
 }
 
 CommandContainer::~CommandContainer(){
@@ -148,6 +149,7 @@ bool CommandContainer::execute(bool simulation){
                 break;
 
     }
+    Sleeper::msleep(100);
     current=current->next;
     return true;
 }
@@ -171,6 +173,11 @@ void CommandContainer::setCurrent(int index){
 void CommandContainer::executeSet(int x,int y,int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
+        if(y<0||x<0||y>=display->cols||x>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
         display->at<uint8_t>(y,x)=0;
     }
     //logs output
@@ -187,6 +194,11 @@ void CommandContainer::executeSet(int x,int y,int x_previous,int y_previous,bool
 void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
+        if(y_previous-1<0||x_previous<0||y_previous-1>=display->cols||x_previous>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
         display->at<uint8_t>(y_previous-1,x_previous)=0;
     }
     //logs output
@@ -202,6 +214,11 @@ void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
 void CommandContainer::executeDOWN(int x_previous,int y_previous, bool simulation){
     //image privew
     if(display!=nullptr){
+        if(y_previous+1<0||x_previous<0||y_previous+1>=display->cols||x_previous>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
         display->at<uint8_t>(y_previous+1,x_previous)=0;
     }
     //logs output
@@ -217,6 +234,11 @@ void CommandContainer::executeDOWN(int x_previous,int y_previous, bool simulatio
 void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
+        if(y_previous<0||x_previous-1<0||y_previous>=display->cols||x_previous-1>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
         display->at<uint8_t>(y_previous,x_previous-1)=0;
     }
     //logs output
@@ -231,6 +253,11 @@ void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation
 void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
+        if(y_previous<0||x_previous+1<0||y_previous>=display->cols||x_previous+1>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
         display->at<uint8_t>(y_previous,x_previous+1)=0;
     }
     //logs output
@@ -246,6 +273,11 @@ void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulatio
 void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
+        if(y_previous-1<0||x_previous-1<0||y_previous-1>=display->cols||x_previous-1>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
         display->at<uint8_t>(y_previous-1,x_previous-1)=0;
     }
     //logs output
@@ -262,6 +294,11 @@ void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulati
 void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
+            if(y_previous+1<0||x_previous-1<0||y_previous+1>=display->cols||x_previous-1>=display->rows){
+                if(secure)
+                    throw QString("Image out of range");
+            }
+            else
         display->at<uint8_t>(y_previous+1,x_previous-1)=0;
     }
     //logs output
@@ -277,6 +314,11 @@ void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simula
 void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
+        if(y_previous-1<0||x_previous+1<0||y_previous-1>=display->cols||x_previous+1>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
         display->at<uint8_t>(y_previous-1,x_previous+1)=0;
     }
     //logs output
@@ -292,6 +334,11 @@ void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulat
 void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simulation){
     //image privew
     if(display!=nullptr){
+        if(y_previous+1<0||x_previous+1<0||y_previous+1>=display->cols||x_previous+1>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
         display->at<uint8_t>(y_previous+1,x_previous+1)=0;
     }
     //logs output
@@ -307,7 +354,7 @@ void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simul
 void CommandContainer::laser(bool on){
 
 
-    if(on){
+    if(on!){
         if(logs!=nullptr){
             logs->appendPlainText("Laser on");
         hwf->motor_on();

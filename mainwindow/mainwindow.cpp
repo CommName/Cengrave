@@ -30,7 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     x_current_position=0;
     y_current_position=0;
     laserON=false;
-    hwf.set_vxy(10);
+    commands.laser(laserON);
+    hwf.set_vxy(100);
 
     //mode2 image transformation combobox
     ui->comboBox_engraveMode->addItem("Threshold");

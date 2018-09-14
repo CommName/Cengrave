@@ -39,6 +39,7 @@ private:
     cv::Mat *display;
     QPlainTextEdit *logs;
     HWF *hwf;
+    bool secure;
 
 public:
     CommandContainer();
