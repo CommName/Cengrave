@@ -46,6 +46,10 @@ void Settings::loadSettings(){
     //Reading parallel port settings
     setting.beginGroup("Parallel port");
 
+    //Reading Laser (motor) settings
+    ui->lineEdit_motor_port->setText(setting.value("motor_port","0x37a").toString());
+    ui->lineEdit_motor_bit->setText(setting.value("motor_bit","0x02").toString());
+
 
     //reading x setting
     ui->lineEdit_x_dir_bit->setText(setting.value("x_dir_bit","0x378").toString());
@@ -112,6 +116,11 @@ void Settings::saveSettings(){
 
     //Parallel port settings
     setting.beginGroup("Parallel port");
+
+    //Laser (motor)port
+    setting.setValue("motor_port",ui->lineEdit_motor_port->text());
+    setting.setValue("motor_bit",ui->lineEdit_motor_bit->text());
+
 
     //saving x settings
     setting.setValue("x_dir_bit",ui->lineEdit_x_dir_bit->text());
