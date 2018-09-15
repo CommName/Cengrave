@@ -354,7 +354,7 @@ void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simul
 void CommandContainer::laser(bool on){
 
 
-    if(on!){
+    if(!on){
         if(logs!=nullptr){
             logs->appendPlainText("Laser on");
         hwf->motor_on();

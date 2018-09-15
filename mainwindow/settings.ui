@@ -42,6 +42,13 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QPushButton" name="button_general">
+      <property name="text">
+       <string>General</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="button_set_machine_controls">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -54,23 +61,30 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QPushButton" name="butto_parallel_port">
+      <property name="text">
+       <string>Parallel port</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>30</y>
+     <x>160</x>
+     <y>20</y>
      <width>451</width>
-     <height>381</height>
+     <height>401</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="page"/>
    <widget class="QWidget" name="movement">
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -190,11 +204,371 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QWidget" name="parallel_port">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
+     <item>
+      <widget class="QGroupBox" name="parallelport_x">
+       <property name="title">
+        <string>x axis</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_x_step_port">
+          <property name="text">
+           <string>x_step_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_step_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_x_step_bit">
+          <property name="text">
+           <string>x_step_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_step_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_x_dir_port">
+          <property name="text">
+           <string>x_dir_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_dir_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_x_dir_bit">
+          <property name="text">
+           <string>x_dir_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_dir_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_x_enable_port">
+          <property name="text">
+           <string>x_enable_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_enable_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_x_enable_bit">
+          <property name="text">
+           <string>x_enable_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_enable_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_x_dir_logic">
+          <property name="text">
+           <string>x_dir_logic</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_dir_logic</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_x_limit_max_port">
+          <property name="text">
+           <string>x_limit_max_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_limit_max_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_x_limit_max_bit">
+          <property name="text">
+           <string>x_limit_max_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_limit_max_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="0">
+         <widget class="QLabel" name="label_x_limit_max_active">
+          <property name="text">
+           <string>x_limit_max_active</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_limit_max_active</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="0">
+         <widget class="QLabel" name="label_x_limit_min_port">
+          <property name="text">
+           <string>x_limit_min_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_limit_min_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
+         <widget class="QLabel" name="label_x_limit_min_bit">
+          <property name="text">
+           <string>x_limit_min_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_limit_min_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0">
+         <widget class="QLabel" name="label_x_limit_min_active">
+          <property name="text">
+           <string>x_limit_min_active</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_x_limit_min_active</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_step_port"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_step_bit"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_dir_port"/>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_dir_bit"/>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_enable_port"/>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_enable_bit"/>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_dir_logic"/>
+        </item>
+        <item row="7" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_limit_max_port"/>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_limit_max_bit"/>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_limit_max_active"/>
+        </item>
+        <item row="10" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_limit_min_port"/>
+        </item>
+        <item row="11" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_limit_min_bit"/>
+        </item>
+        <item row="12" column="1">
+         <widget class="QLineEdit" name="lineEdit_x_limit_min_active"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="parallelport_y">
+       <property name="title">
+        <string>Y axis</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_y_step_port">
+          <property name="text">
+           <string>y_step_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_step_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_y_step_bit">
+          <property name="text">
+           <string>y_step_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_step_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_y_dir_port">
+          <property name="text">
+           <string>y_dir_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_dir_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_y_dir_bit">
+          <property name="text">
+           <string>y_dir_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_dir_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="y_enable_port">
+          <property name="text">
+           <string>y_enable_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_enable_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_y_enable_bit">
+          <property name="text">
+           <string>y_enable_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_enable_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_y_dir_logic">
+          <property name="text">
+           <string>y_dir_logic</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_dir_logic</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_y_limit_max_port">
+          <property name="text">
+           <string>y_limit_max_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_limit_max_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_y_limit_max_bit">
+          <property name="text">
+           <string>y_limit_max_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_limit_max_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="0">
+         <widget class="QLabel" name="label_y_limit_max_active">
+          <property name="text">
+           <string>y_limit_max_active</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_limit_max_active</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="0">
+         <widget class="QLabel" name="label_y_limit_min_port">
+          <property name="text">
+           <string>y_limit_min_port</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_limit_min_port</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
+         <widget class="QLabel" name="label_y_limit_min_bit">
+          <property name="text">
+           <string>y_limit_min_bit</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_limit_min_bit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0">
+         <widget class="QLabel" name="label_y_limit_min_active">
+          <property name="text">
+           <string>y_limit_min_active</string>
+          </property>
+          <property name="buddy">
+           <cstring>lineEdit_y_limit_min_active</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_step_port"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_step_bit"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_dir_port"/>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_dir_bit"/>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_enable_port"/>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_enable_bit"/>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_dir_logic"/>
+        </item>
+        <item row="7" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_limit_max_port"/>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_limit_max_bit"/>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_limit_max_active"/>
+        </item>
+        <item row="10" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_limit_min_port"/>
+        </item>
+        <item row="11" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_limit_min_bit"/>
+        </item>
+        <item row="12" column="1">
+         <widget class="QLineEdit" name="lineEdit_y_limit_min_active"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>350</x>
+     <x>370</x>
      <y>420</y>
      <width>239</width>
      <height>25</height>

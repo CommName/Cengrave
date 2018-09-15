@@ -69,9 +69,6 @@ int HWF::mainboard_speed(void)
     return(0);
 }
 
-
-
-/*--------------------------------------------------------------------------*/
 int HWF::read_port_ini(void)
 {
     xsa=0;
@@ -154,7 +151,7 @@ int HWF::read_port_ini(void)
 
     if (!QFile::exists("wport.ini"))
     {
-        qDebug()  << "hwf: wport.ini fajl ne postoji";
+        qDebug()  << "hwf: wport.ini doesn't exists";
         return(2);
     }
     else {
@@ -316,7 +313,6 @@ int HWF::read_port_ini(void)
     return(0);
 }
 
-/*----------------------------------------------------------------------*/
 void HWF::motor_off(void)
 
 {
@@ -326,10 +322,10 @@ void HWF::motor_off(void)
     }
 
     qDebug() << "Motor off";
+
     return;
 }
 
-/*----------------------------------------------------------------------*/
 void HWF::motor_on(void)
 
 {
@@ -341,7 +337,7 @@ void HWF::motor_on(void)
     qDebug() << "Motor on";
     return;
 }
-/*----------------------------------------------------------------------*/
+
 void HWF::kvasenje_off(void)
 
 {
@@ -366,8 +362,6 @@ void HWF::kvasenje_on(void)
     return;
 }
 
-
-/*----------------------------------------------------------------------*/
 void HWF::enable_off()
 
 {
@@ -392,7 +386,6 @@ void HWF::enable_off()
     qDebug() << "Enable off";
     return;
 }
-/*----------------------------------------------------------------------*/
 void HWF::enable_on()
 
 {
@@ -418,7 +411,6 @@ void HWF::enable_on()
     return;
 }
 
-/*----------------------------------------------------------------------*/
 
 int HWF::init(){
 
@@ -478,8 +470,6 @@ int HWF::init(){
     // qDebug() << "vrednost je : " << val;
     return(0);
 }
-/*----------------------------------------------------------------------*/
-
 void HWF::port_reset(void){
     port1=0x00;
     port2=0x03;
@@ -487,7 +477,6 @@ void HWF::port_reset(void){
     oup32(0x37a, port2);
 
 }
-/*----------------------------------------------------------------------*/
 
 //za L297 masinu step
 
@@ -497,9 +486,7 @@ void HWF::port_reset(void){
 // v - brzina
 
 
-int HWF::stepx(long pom, int w)
-
-{
+int HWF::stepx(long pom, int w){
 
     QElapsedTimer timer;
     //   int counter = 1;
@@ -633,8 +620,6 @@ int HWF::stepx(long pom, int w)
     return(0);
 }
 
-/*----------------------------------------------------------------------*/
-
 int HWF::z_motor_direction(int dir){
 
     if(z_delay>0)  Sleeper::msleep(z_delay);
@@ -666,10 +651,7 @@ int HWF::z_motor_direction(int dir){
     return(0);
 }
 
-/*----------------------------------------------------------------------*/
-int HWF::stepz_delay(long pom)
-
-{
+int HWF::stepz_delay(long pom){
     long i;
     long iz1;
 
@@ -683,11 +665,7 @@ int HWF::stepz_delay(long pom)
     }
     return(0);
 }
-
-
-int HWF::stepz(long pom,int w)
-
-{
+int HWF::stepz(long pom,int w){
     long i;
     long iz1;
 
@@ -754,10 +732,7 @@ int HWF::stepz(long pom,int w)
     return(0);
 }
 
-/*----------------------------------------------------------------------*/
-int HWF::stepy(long pom, int w)
-
-{
+int HWF::stepy(long pom, int w){
     long i;
     long iz1;
     float kasn;
@@ -848,10 +823,7 @@ int HWF::stepy(long pom, int w)
 
     return(0);
 }
-/*----------------------------------------------------------------------*/
-int HWF::stepa(long pom, int w)
-
-{
+int HWF::stepa(long pom, int w){
     long i;
     long iz1;
     float kasn;
@@ -909,18 +881,14 @@ int HWF::stepa(long pom, int w)
 
     return(0);
 }
-/*----------------------------------------------------------------------*/
-/*----------------------------------------------------------------------*/
 
 void HWF::set_vxy(long input){
     vxy = input;
 }
-
 void HWF::set_vz(long input){
     vz = input;
 }
 
-/*----------------------------------------------------------------------*/
 void  HWF::ddelay_u(long pom)
 {
     long i;
@@ -940,8 +908,6 @@ void  HWF::ddelay_u(long pom)
         val = inp32(0x379);
     }
 }
-/*----------------------------------------------------------------------*/
-
 void  HWF::ddelay_m(long pom)
 {
 

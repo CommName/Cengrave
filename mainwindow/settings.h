@@ -22,6 +22,10 @@ private slots:
 
     void on_button_ok_clicked();
 
+    void on_butto_parallel_port_clicked();
+
+    void on_button_general_clicked();
+
 private:
     Ui::Settings *ui;
 
