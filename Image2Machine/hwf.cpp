@@ -61,9 +61,9 @@ int HWF::mainboard_speed(void)
 
     difference_average/=3;
 
-    QSettings settings("wport.ini", QSettings::IniFormat);
+    QSettings settings("cengrave.ini", QSettings::IniFormat);
 
-    settings.beginGroup("port");
+    settings.beginGroup("Parallel port");
     settings.setValue("msec_delay_const", (int)msec_delay);
     settings.endGroup();
     return(0);
@@ -71,75 +71,97 @@ int HWF::mainboard_speed(void)
 
 int HWF::read_port_ini(void)
 {
+    bool ok;
     xsa=0;
     ysa=0;
     zsa=0;
     //default value
+    QSettings settings("cengrave.ini", QSettings::IniFormat);
 
+    settings.beginGroup("type");
     //parallel port
-    hw_type=1;
+    hw_type=settings.value("hw_type", 1).toInt();;
+    qDebug() << " hw_type" <<  hw_type;
+    settings.endGroup();
 
-    msec_delay=1000;
+    settings.beginGroup("Parallel port");
+    msec_delay=settings.value("msec_delay_const", 1000).toLongLong();
 
     //output
-    x_step_port          =  0x378  ;
-    x_step_bit           =  0x80   ;
-    x_dir_port           =  0x378  ;
-    x_dir_bit            =  0x40   ;
-    x_enable_port        =  0x378  ;
-    x_enable_bit         =  0x02   ;
+    x_step_port          =  settings.value("x_step_port",   0x378   ).toInt();
+    x_step_bit           =  settings.value("x_step_bit",    0x80    ).toInt();
+    x_dir_port           =  settings.value("x_dir_port",    0x378   ).toInt();
+    x_dir_bit            =  settings.value("x_dir_bit",     0x40    ).toInt();
+    x_dir_logic          =  settings.value("x_dir_logic",   "r"     ).toInt();
+    x_enable_port        =  settings.value("x_enable_port", 0x378   ).toInt();
+    x_enable_bit         =  settings.value("x_enable_bit",  0x02    ).toInt();
+    qDebug() << "X port" << x_step_port << "X bit" << x_step_bit;
 
-    y_step_port          =  0x378  ;
-    y_step_bit           =  0x20   ;
-    y_dir_port           =  0x378  ;
-    y_dir_bit            =  0x10   ;
-    y_enable_port        =  0x378  ;
-    y_enable_bit         =  0x01   ;
 
-    z_step_port          =  0x378  ;
-    z_step_bit           =  0x08   ;
-    z_dir_port           =  0x378  ;
-    z_dir_bit            =  0x04   ;
+    y_step_port          =  settings.value("y_step_port",   0x378  ).toInt();
+    y_step_bit           =  settings.value("y_step_bit",    0x20   ).toInt();
+    y_dir_port           =  settings.value("y_dir_port",    0x378  ).toInt();
+    y_dir_bit            =  settings.value("y_dir_bit",     0x10   ).toInt();
+    y_dir_logic          =  settings.value("y_dir_logic",   "r"    ).toInt();
+    y_enable_port        =  settings.value("y_enable_port", 0x378  ).toInt();
+    y_enable_bit         =  settings.value("y_enable_bit",  0x01   ).toInt();
+    qDebug() << "y port" << y_step_port << "y bit" << y_step_bit;
+
+
+    z_axe_type           = settings.value("z_axe_type",     1    ).toInt();
+    qDebug() << "z_axe_type" << z_axe_type;
+
+    z_step_port          =  settings.value("z_step_port",   0x378  ).toInt();
+    z_step_bit           =  settings.value("z_step_bit",    0x08   ).toInt();
+    z_dir_port           =  settings.value("z_dir_port",    0x378  ).toInt();
+    z_dir_bit            =  settings.value("z_dir_bit",     0x04   ).toInt();
+    z_dir_logic          =  settings.value("z_dir_logic",   "r"    ).toInt();
 
     //#only for configuration for parallel port
     //#z_axe_type=2  DC motor
     //#z_axe_type=1  stepper motor
-    z_axe_type=1;
     //za DC motor
     // power ON z_enable_port
     // Z_dir dir
     // Z_enable_bit
 
-    z_enable_port        =  0x37a  ;
-    z_enable_bit         =  0x01 ;
-    a_step_port          =  0x378  ;
-    a_step_bit           =  0x08   ;
-    a_dir_port           =  0x378  ;
-    a_dir_bit            =  0x04   ;
-    a_enable_port        =  0x37a  ;
-    a_enable_bit         =  0x01 ;
-    motor_port           =  0x37a;
-    motor_bit            =  0x02;
-    kvasenje_port           =  0x37a;
-    kvasenje_bit            =  0x04 ;
+    z_enable_port        =   settings.value("z_enable_port",    0x37a   ).toInt();
+    z_enable_bit         =   settings.value("z_enable_bit",     0x01    ).toInt();
+    qDebug() << "z port" << z_step_port << "z bit" << z_step_bit;
+
+    a_step_port          =  settings.value("a_step_port",   0x378  ).toInt();
+    a_step_bit           =  settings.value("a_step_bit",    0x08   ).toInt();
+    a_dir_port           =  settings.value("a_dir_port",    0x378  ).toInt();
+    a_dir_bit            =  settings.value("a_dir_bit",     0x04   ).toInt();
+    a_dir_logic          =  settings.value("a_dir_logic",   "r"    ).toInt();
+    a_enable_port        =  settings.value("a_enable_port", 0x37a  ).toInt();
+    a_enable_bit         =  settings.value("a_enable_bit",  0x01   ).toInt();
+    qDebug() << "a port" << a_step_port << "a bit" << a_step_bit;
+
+    motor_port           =  settings.value("motor_port",    0x37a  ).toInt();
+    motor_bit            =  settings.value("motor_bit",     0x02   ).toInt();
+    kvasenje_port           =  settings.value("kvasenje_port",  0x37a    ).toInt();
+    kvasenje_bit            =  settings.value("kvasenje_bit",   0x04     ).toInt();
+    qDebug() << "Kvasenje port" << kvasenje_port << " bit" << kvasenje_bit;
+
     z_delay=10;
 
     //input
-    granicni_prekidaci = 0;
-    x_limit_max_port     =  0x379  ;
-    x_limit_max_bit      =  0x40   ;
-    x_limit_max_active   =  1      ;
-    x_limit_min_port     =  0x379  ;
-    x_limit_min_bit      =  0x02   ;
-    x_limit_min_active   =  1      ;
+    granicni_prekidaci =    settings.value("granicni_prekidaci",   0   ).toInt();
+    x_limit_max_port     =  settings.value("x_limit_max_port",  0x379  ).toInt();
+    x_limit_max_bit      =  settings.value("x_limit_max_bit",   0x40   ).toInt();
+    x_limit_max_active   =  settings.value("x_limit_max_active", 1     ).toInt();
+    x_limit_min_port     =  settings.value("x_limit_min_port",  0x379  ).toInt();
+    x_limit_min_bit      =  settings.value("x_limit_min_bit",   0x02   ).toInt();
+    x_limit_min_active   =  settings.value("x_limit_min_active", 1     ).toInt();
 
-    y_limit_max_port     =  0x379  ;
-    y_limit_max_bit      =  0x04   ;
-    y_limit_max_active   =  1      ;
+    y_limit_max_port     =  settings.value("y_limit_max_port", 0x379  ).toInt();
+    y_limit_max_bit      =  settings.value("y_limit_max_bit",  0x04   ).toInt();
+    y_limit_max_active   =  settings.value("y_limit_max_active", 1    ).toInt();
 
-    y_limit_min_port     =  0x379  ;
-    y_limit_min_bit      =  0x06   ;
-    y_limit_min_active   =  1      ;
+    y_limit_min_port     =  settings.value("y_limit_min_port", 0x379  ).toInt();
+    y_limit_min_bit      =  settings.value("y_limit_min_bit",  0x06   ).toInt();
+    y_limit_min_active   =  settings.value("y_limit_min_active", 1    ).toInt();
 
     //unused for this project
     z_limit_max_port     =  0x379  ;
@@ -149,166 +171,21 @@ int HWF::read_port_ini(void)
     a_limit_max_bit      =  0x08   ;
     a_limit_max_active   =  1      ;
 
-    if (!QFile::exists("wport.ini"))
-    {
-        qDebug()  << "hwf: wport.ini doesn't exists";
-        return(2);
-    }
-    else {
 
+    settings.endGroup();
 
-        //ocitaj parametre iz fajla
-        bool ok;
-        QString pom;
+    settings.beginGroup("mehanika");
 
-        QSettings settings("wport.ini", QSettings::IniFormat);
+    korak_x = settings.value("korak_x", 133.0).toFloat();
+    korak_y = settings.value("korak_y", 42.0).toFloat();
+    korak_z = settings.value("korak_z", 1).toFloat();
+    korak_a = settings.value("korak_a", 1).toFloat();
 
-        settings.beginGroup("type");
-        hw_type = settings.value("hw_type", "r").toInt();
-        qDebug() << " hw_type" <<  hw_type;
+    qDebug() << "X korak" << korak_x;
+    qDebug() << "Y korak" << korak_y;
+    qDebug() << "Z korak" << korak_z;
+    settings.endGroup();
 
-        settings.endGroup();
-
-        settings.beginGroup("port");
-
-        pom = settings.value("msec_delay_const", "r").toString();
-        msec_delay=pom.toLong(&ok,10);
-
-        pom = settings.value("x_step_port", "r").toString();
-        x_step_port=pom.toInt(&ok,16);
-        pom = settings.value("x_step_bit", "r").toString();
-        x_step_bit=pom.toInt(&ok,16);
-
-        pom= settings.value("x_dir_port", "r").toString();
-        x_dir_port=pom.toInt(&ok,16);
-        pom= settings.value("x_dir_bit", "r").toString();
-        x_dir_bit=pom.toInt(&ok,16);
-        x_dir_logic= settings.value("x_dir_logic", "r").toInt();
-
-        pom = settings.value("x_enable_port", "r").toString();
-        x_enable_port=pom.toInt(&ok,16);
-        pom= settings.value("x_enable_bit", "r").toString();
-        x_enable_bit=pom.toInt(&ok,16);
-
-        qDebug() << "X port" << x_step_port << "X bit" << x_step_bit;
-
-        pom = settings.value("y_step_port", "r").toString();
-        y_step_port=pom.toInt(&ok,16);
-        pom = settings.value("y_step_bit", "r").toString();
-        y_step_bit=pom.toInt(&ok,16);
-
-        pom= settings.value("y_dir_port", "r").toString();
-        y_dir_port=pom.toInt(&ok,16);
-        pom= settings.value("y_dir_bit", "r").toString();
-        y_dir_bit=pom.toInt(&ok,16);
-        y_dir_logic= settings.value("y_dir_logic", "r").toInt();
-
-        pom = settings.value("y_enable_port", "r").toString();
-        y_enable_port=pom.toInt(&ok,16);
-        pom= settings.value("y_enable_bit", "r").toString();
-        y_enable_bit=pom.toInt(&ok,16);
-        qDebug() << "y port" << y_step_port << "y bit" << y_step_bit;
-
-        pom = settings.value("z_axe_type", "r").toString();
-        z_axe_type=pom.toInt(&ok,10);
-        qDebug() << "z_axe_type" << z_axe_type;
-
-        pom = settings.value("z_step_port", "r").toString();
-        z_step_port=pom.toInt(&ok,16);
-        pom = settings.value("z_step_bit", "r").toString();
-        z_step_bit=pom.toInt(&ok,16);
-
-        pom= settings.value("z_dir_port", "r").toString();
-        z_dir_port=pom.toInt(&ok,16);
-        pom= settings.value("z_dir_bit", "r").toString();
-        z_dir_bit=pom.toInt(&ok,16);
-        z_dir_logic= settings.value("z_dir_logic", "r").toInt();
-
-        pom = settings.value("z_enable_port", "r").toString();
-        z_enable_port=pom.toInt(&ok,16);
-        pom= settings.value("z_enable_bit", "r").toString();
-        z_enable_bit=pom.toInt(&ok,16);
-        qDebug() << "z port" << z_step_port << "z bit" << z_step_bit;
-
-        pom = settings.value("a_step_port", "r").toString();
-        a_step_port=pom.toInt(&ok,16);
-        pom = settings.value("a_step_bit", "r").toString();
-        a_step_bit=pom.toInt(&ok,16);
-
-        pom= settings.value("a_dir_port", "r").toString();
-        a_dir_port=pom.toInt(&ok,16);
-        pom= settings.value("a_dir_bit", "r").toString();
-        a_dir_bit=pom.toInt(&ok,16);
-        a_dir_logic= settings.value("a_dir_logic", "r").toInt();
-
-        pom = settings.value("a_enable_port", "r").toString();
-        a_enable_port=pom.toInt(&ok,16);
-        pom= settings.value("a_enable_bit", "r").toString();
-        a_enable_bit=pom.toInt(&ok,16);
-        qDebug() << "a port" << a_step_port << "a bit" << a_step_bit;
-
-
-        pom = settings.value("motor_port", "r").toString();
-        motor_port =pom.toInt(&ok,16);
-
-        pom = settings.value("motor_bit", "r").toString();
-        motor_bit =pom.toInt(&ok,16);
-
-        pom = settings.value("kvasenje_port", "r").toString();
-        kvasenje_port =pom.toInt(&ok,16);
-
-        pom = settings.value("kvasenje_bit", "r").toString();
-        kvasenje_bit =pom.toInt(&ok,16);
-
-        qDebug() << "Kvasenje port" << kvasenje_port << " bit" << kvasenje_bit;
-
-        pom = settings.value("granicni_prekidaci", "r").toString();
-        granicni_prekidaci =pom.toInt(&ok,10);
-
-        pom = settings.value("x_limit_max_port", "r").toString();
-        x_limit_max_port =pom.toInt(&ok,16);
-        pom = settings.value("x_limit_max_bit", "r").toString();
-        x_limit_max_bit =pom.toInt(&ok,16);
-        pom = settings.value("x_limit_max_active", "r").toString();
-        x_limit_max_active =pom.toInt(&ok,16);
-
-        pom = settings.value("x_limit_min_port", "r").toString();
-        x_limit_min_port =pom.toInt(&ok,16);
-        pom = settings.value("x_limit_min_bit", "r").toString();
-        x_limit_min_bit =pom.toInt(&ok,16);
-        pom = settings.value("x_limit_min_active", "r").toString();
-        x_limit_min_active =pom.toInt(&ok,16);
-
-        pom = settings.value("y_limit_max_port", "r").toString();
-        y_limit_max_port =pom.toInt(&ok,16);
-        pom = settings.value("y_limit_max_bit", "r").toString();
-        y_limit_max_bit =pom.toInt(&ok,16);
-        pom = settings.value("y_limit_max_active", "r").toString();
-        y_limit_max_active =pom.toInt(&ok,16);
-
-        pom = settings.value("y_limit_min_port", "r").toString();
-        y_limit_min_port =pom.toInt(&ok,16);
-        pom = settings.value("y_limit_min_bit", "r").toString();
-        y_limit_min_bit =pom.toInt(&ok,16);
-        pom = settings.value("y_limit_min_active", "r").toString();
-        y_limit_min_active =pom.toInt(&ok,16);
-
-
-        settings.endGroup();
-
-        settings.beginGroup("mehanika");
-
-        korak_x = settings.value("korak_x", "r").toFloat();
-        korak_y = settings.value("korak_y", "r").toFloat();
-        korak_z = settings.value("korak_z", "r").toFloat();
-        korak_a = settings.value("korak_a", "r").toFloat();
-
-        qDebug() << "X korak" << korak_x;
-        qDebug() << "Y korak" << korak_y;
-        qDebug() << "Z korak" << korak_z;
-        settings.endGroup();
-        return(0);
-    }
 
     return(0);
 }
