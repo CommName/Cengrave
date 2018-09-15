@@ -80,22 +80,22 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page"/>
    <widget class="QWidget" name="movement">
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>0</x>
        <y>40</y>
-       <width>411</width>
-       <height>131</height>
+       <width>461</width>
+       <height>151</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="moevement">
       <item>
-       <layout class="QHBoxLayout" name="set">
+       <layout class="QHBoxLayout" name="step">
         <item>
          <widget class="QLabel" name="label_step">
           <property name="text">
@@ -198,6 +198,68 @@
            <number>80</number>
           </property>
          </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="stepXY" stretch="0,0,1">
+        <item>
+         <layout class="QFormLayout" name="stepX">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_stepX">
+            <property name="text">
+             <string>Step x:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QDoubleSpinBox" name="SpinBox_stepX">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>999.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QFormLayout" name="stepy">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label__stepY">
+            <property name="text">
+             <string>Step y:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QDoubleSpinBox" name="SpinBox_stepY">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>999.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>200</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>

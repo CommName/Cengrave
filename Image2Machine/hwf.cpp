@@ -92,7 +92,7 @@ int HWF::read_port_ini(void)
     x_step_bit           =  settings.value("x_step_bit",    0x80    ).toInt();
     x_dir_port           =  settings.value("x_dir_port",    0x378   ).toInt();
     x_dir_bit            =  settings.value("x_dir_bit",     0x40    ).toInt();
-    x_dir_logic          =  settings.value("x_dir_logic",   "r"     ).toInt();
+    x_dir_logic          =  settings.value("x_dir_logic",   1       ).toInt();
     x_enable_port        =  settings.value("x_enable_port", 0x378   ).toInt();
     x_enable_bit         =  settings.value("x_enable_bit",  0x02    ).toInt();
     qDebug() << "X port" << x_step_port << "X bit" << x_step_bit;
@@ -102,7 +102,7 @@ int HWF::read_port_ini(void)
     y_step_bit           =  settings.value("y_step_bit",    0x20   ).toInt();
     y_dir_port           =  settings.value("y_dir_port",    0x378  ).toInt();
     y_dir_bit            =  settings.value("y_dir_bit",     0x10   ).toInt();
-    y_dir_logic          =  settings.value("y_dir_logic",   "r"    ).toInt();
+    y_dir_logic          =  settings.value("y_dir_logic",   1       ).toInt();
     y_enable_port        =  settings.value("y_enable_port", 0x378  ).toInt();
     y_enable_bit         =  settings.value("y_enable_bit",  0x01   ).toInt();
     qDebug() << "y port" << y_step_port << "y bit" << y_step_bit;
@@ -115,7 +115,7 @@ int HWF::read_port_ini(void)
     z_step_bit           =  settings.value("z_step_bit",    0x08   ).toInt();
     z_dir_port           =  settings.value("z_dir_port",    0x378  ).toInt();
     z_dir_bit            =  settings.value("z_dir_bit",     0x04   ).toInt();
-    z_dir_logic          =  settings.value("z_dir_logic",   "r"    ).toInt();
+    z_dir_logic          =  settings.value("z_dir_logic",   0   ).toInt();
 
     //#only for configuration for parallel port
     //#z_axe_type=2  DC motor
@@ -174,12 +174,12 @@ int HWF::read_port_ini(void)
 
     settings.endGroup();
 
-    settings.beginGroup("mehanika");
+    settings.beginGroup("Movement");
 
-    korak_x = settings.value("korak_x", 133.0).toFloat();
-    korak_y = settings.value("korak_y", 42.0).toFloat();
-    korak_z = settings.value("korak_z", 1).toFloat();
-    korak_a = settings.value("korak_a", 1).toFloat();
+    korak_x = settings.value("step_x", 133.0).toFloat();
+    korak_y = settings.value("step_y", 42.0).toFloat();
+    korak_z = settings.value("step_z", 1).toFloat();
+    korak_a = settings.value("step_a", 1).toFloat();
 
     qDebug() << "X korak" << korak_x;
     qDebug() << "Y korak" << korak_y;

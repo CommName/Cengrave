@@ -30,6 +30,12 @@ void Settings::loadSettings(){
     case 1000:ui->step100mm->setChecked(true); break;
     default:ui->step01mm->setChecked(true); break;
     }
+    ui->SpinBox_stepX->setValue(setting.value("step_x",133.0).toFloat());
+    ui->SpinBox_stepY->setValue(setting.value("step_y",42.0).toFloat());
+
+
+
+
     //Movement speed
     ui->slider_movement_speed->setValue(setting.value("Movement speed",1).toInt());
     ui->spinBox_movement_speed->setValue(ui->slider_movement_speed->value());
@@ -52,34 +58,34 @@ void Settings::loadSettings(){
 
 
     //reading x setting
-    ui->lineEdit_x_dir_bit->setText(setting.value("x_dir_bit","0x378").toString());
-    ui->lineEdit_x_dir_logic->setText(setting.value("x_dir_logic","1").toString());
-    ui->lineEdit_x_dir_port->setText(setting.value("x_dir_port","0x378").toString());
-    ui->lineEdit_x_enable_bit->setText(setting.value("x_enable_bit","0x02").toString());
-    ui->lineEdit_x_enable_port->setText(setting.value("x_enable_port","0x378").toString());
-    ui->lineEdit_x_limit_max_active->setText(setting.value("x_limit_max_active","1").toString());
-    ui->lineEdit_x_limit_max_bit->setText(setting.value("x_limit_max_bit","0x40").toString());
-    ui->lineEdit_x_limit_max_port->setText(setting.value("x_limit_max_port","0x379").toString());
-    ui->lineEdit_x_limit_min_active->setText(setting.value("x_limit_min_active","1").toString());
-    ui->lineEdit_x_limit_min_bit->setText(setting.value("x_limit_min_bit","0x02").toString());
-    ui->lineEdit_x_limit_min_port->setText(setting.value("x_limit_min_port","0x379").toString());
-    ui->lineEdit_x_step_bit->setText(setting.value("x_step_bit","0x80").toString());
-    ui->lineEdit_x_step_port->setText(setting.value("x_step_port","0x378").toString());
+    ui->lineEdit_x_dir_bit          ->setText(setting.value("x_dir_bit",            "0x378" ).toString());
+    ui->lineEdit_x_dir_logic        ->setText(setting.value("x_dir_logic",          "1"     ).toString());
+    ui->lineEdit_x_dir_port         ->setText(setting.value("x_dir_port",           "0x378" ).toString());
+    ui->lineEdit_x_enable_bit       ->setText(setting.value("x_enable_bit",         "0x02"  ).toString());
+    ui->lineEdit_x_enable_port      ->setText(setting.value("x_enable_port",        "0x378" ).toString());
+    ui->lineEdit_x_limit_max_active ->setText(setting.value("x_limit_max_active",   "1"     ).toString());
+    ui->lineEdit_x_limit_max_bit    ->setText(setting.value("x_limit_max_bit",      "0x40"  ).toString());
+    ui->lineEdit_x_limit_max_port   ->setText(setting.value("x_limit_max_port",     "0x379" ).toString());
+    ui->lineEdit_x_limit_min_active ->setText(setting.value("x_limit_min_active",   "1"     ).toString());
+    ui->lineEdit_x_limit_min_bit    ->setText(setting.value("x_limit_min_bit",      "0x02"  ).toString());
+    ui->lineEdit_x_limit_min_port   ->setText(setting.value("x_limit_min_port",     "0x379" ).toString());
+    ui->lineEdit_x_step_bit         ->setText(setting.value("x_step_bit",           "0x80"  ).toString());
+    ui->lineEdit_x_step_port        ->setText(setting.value("x_step_port",          "0x378" ).toString());
 
     //reading y setting
-    ui->lineEdit_y_dir_bit->setText(setting.value("y_dir_bit","0x10").toString());
-    ui->lineEdit_y_dir_logic->setText(setting.value("y_dir_logic","1").toString());
-    ui->lineEdit_y_dir_port->setText(setting.value("y_dir_port","0x378").toString());
-    ui->lineEdit_y_enable_bit->setText(setting.value("y_enable_bit","0x01").toString());
-    ui->lineEdit_y_enable_port->setText(setting.value("y_enable_port","0x378").toString());
-    ui->lineEdit_y_limit_max_active->setText(setting.value("y_limit_max_active","1").toString());
-    ui->lineEdit_y_limit_max_bit->setText(setting.value("y_limit_max_bit","0x40").toString());
-    ui->lineEdit_y_limit_max_port->setText(setting.value("y_limit_max_port","0x379").toString());
-    ui->lineEdit_y_limit_min_active->setText(setting.value("y_limit_min_active","1").toString());
-    ui->lineEdit_y_limit_min_bit->setText(setting.value("y_limit_min_bit","0x06").toString());
-    ui->lineEdit_y_limit_min_port->setText(setting.value("y_limit_min_port","0x379").toString());
-    ui->lineEdit_y_step_bit->setText(setting.value("y_step_bit","0x20").toString());
-    ui->lineEdit_y_step_port->setText(setting.value("y_step_port","0x378").toString());
+    ui->lineEdit_y_dir_bit          ->setText(setting.value("y_dir_bit",            "0x10"  ).toString());
+    ui->lineEdit_y_dir_logic        ->setText(setting.value("y_dir_logic",          "1"     ).toString());
+    ui->lineEdit_y_dir_port         ->setText(setting.value("y_dir_port",           "0x378" ).toString());
+    ui->lineEdit_y_enable_bit       ->setText(setting.value("y_enable_bit",         "0x01"  ).toString());
+    ui->lineEdit_y_enable_port      ->setText(setting.value("y_enable_port",        "0x378" ).toString());
+    ui->lineEdit_y_limit_max_active ->setText(setting.value("y_limit_max_active","  1"      ).toString());
+    ui->lineEdit_y_limit_max_bit    ->setText(setting.value("y_limit_max_bit",      "0x40"  ).toString());
+    ui->lineEdit_y_limit_max_port   ->setText(setting.value("y_limit_max_port",     "0x379" ).toString());
+    ui->lineEdit_y_limit_min_active ->setText(setting.value("y_limit_min_active",   "1"     ).toString());
+    ui->lineEdit_y_limit_min_bit    ->setText(setting.value("y_limit_min_bit",      "0x06"  ).toString());
+    ui->lineEdit_y_limit_min_port   ->setText(setting.value("y_limit_min_port",     "0x379" ).toString());
+    ui->lineEdit_y_step_bit         ->setText(setting.value("y_step_bit",           "0x20"  ).toString());
+    ui->lineEdit_y_step_port        ->setText(setting.value("y_step_port",          "0x378" ).toString());
 
 
     setting.endGroup();
@@ -105,6 +111,9 @@ void Settings::saveSettings(){
     else{
         setting.setValue("Step",1000);
     }
+    setting.setValue("step_x",ui->SpinBox_stepX->value());
+    setting.setValue("step_y",ui->SpinBox_stepY->value());
+
     //Movement speed
     setting.setValue("Movement speed",ui->slider_movement_speed->value());
     //Engraving speed
