@@ -85,7 +85,7 @@ int HWF::read_port_ini(void)
     settings.endGroup();
 
     settings.beginGroup("Parallel port");
-    msec_delay=settings.value("msec_delay_const", 1000).toLongLong();
+    msec_delay=settings.value("msec_delay_const", 356).toLongLong();
 
     //output
     x_step_port          =  settings.value("x_step_port",   0x378   ).toInt();
@@ -176,7 +176,7 @@ int HWF::read_port_ini(void)
 
     settings.beginGroup("Movement");
 
-    korak_x = settings.value("step_x", 133.0).toFloat();
+    korak_x = settings.value("step_x", 42.0).toFloat();
     korak_y = settings.value("step_y", 42.0).toFloat();
     korak_z = settings.value("step_z", 1).toFloat();
     korak_a = settings.value("step_a", 1).toFloat();

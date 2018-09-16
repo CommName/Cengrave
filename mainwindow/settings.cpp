@@ -78,7 +78,7 @@ void Settings::loadSettings(){
     ui->lineEdit_y_dir_port         ->setText(setting.value("y_dir_port",           "0x378" ).toString());
     ui->lineEdit_y_enable_bit       ->setText(setting.value("y_enable_bit",         "0x01"  ).toString());
     ui->lineEdit_y_enable_port      ->setText(setting.value("y_enable_port",        "0x378" ).toString());
-    ui->lineEdit_y_limit_max_active ->setText(setting.value("y_limit_max_active","  1"      ).toString());
+    ui->lineEdit_y_limit_max_active ->setText(setting.value("y_limit_max_active",   "1"      ).toString());
     ui->lineEdit_y_limit_max_bit    ->setText(setting.value("y_limit_max_bit",      "0x40"  ).toString());
     ui->lineEdit_y_limit_max_port   ->setText(setting.value("y_limit_max_port",     "0x379" ).toString());
     ui->lineEdit_y_limit_min_active ->setText(setting.value("y_limit_min_active",   "1"     ).toString());

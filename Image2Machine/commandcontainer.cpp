@@ -186,8 +186,8 @@ void CommandContainer::executeSet(int x,int y,int x_previous,int y_previous,bool
     }
     //execute
     if(!simulation){
-    hwf->stepx((x-x_previous)*100,1);
-    hwf->stepy((y-y_previous)*100,1);
+    //hwf->stepx((x-x_previous)*100,1);
+    //hwf->stepy((y-y_previous)*100,1);
 
     }
 }
@@ -207,6 +207,7 @@ void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
     }
     //execute
     if(!simulation){
+        hwf->set_vxy(10);
         hwf->stepy(-100,1);
     }
 
@@ -227,6 +228,7 @@ void CommandContainer::executeDOWN(int x_previous,int y_previous, bool simulatio
     }
     //execute
     if(!simulation){
+        hwf->set_vxy(10);
         hwf->stepy(100,1);
 
     }
@@ -247,6 +249,7 @@ void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation
     }
     //execute
     if(!simulation){
+        hwf->set_vxy(10);
         hwf->stepx(-100,1);
     }
 }
@@ -266,6 +269,7 @@ void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulatio
     }
     //execute
     if(!simulation){
+        hwf->set_vxy(10);
         hwf->stepx(100,1);
 
     }
@@ -286,6 +290,7 @@ void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulati
     }
     //execute
     if(!simulation){
+        hwf->set_vxy(10);
         hwf->stepx(-100,1);
         hwf->stepy(-100,1);
 
@@ -307,6 +312,7 @@ void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simula
     }
     //execute
     if(!simulation){
+        hwf->set_vxy(10);
         hwf->stepx(-100,1);
         hwf->stepy(100,1);
     }
@@ -327,6 +333,7 @@ void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulat
     }
     //execute
     if(!simulation){
+        hwf->set_vxy(10);
         hwf->stepx(100,1);
         hwf->stepy(-100,1);
     }
@@ -347,6 +354,7 @@ void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simul
     }
     //execute
     if(!simulation){
+        hwf->set_vxy(10);
        hwf->stepx(100,1);
        hwf->stepy(100,1);
     }

@@ -451,7 +451,7 @@ void MainWindow::on_movement_upleft_clicked()
 }
 void MainWindow::on_movement_up_clicked()
 {
-    commands.executeUPLEFT(x_current_position,y_current_position--,ui->check_simulation->isChecked());
+    commands.executeUP(x_current_position,y_current_position--,ui->check_simulation->isChecked());
     displayImageMode2();
 
 }
