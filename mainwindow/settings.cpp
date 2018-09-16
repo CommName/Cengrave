@@ -53,39 +53,39 @@ void Settings::loadSettings(){
     setting.beginGroup("Parallel port");
 
     //Reading Laser (motor) settings
-    ui->lineEdit_motor_port->setText(setting.value("motor_port","0x37a").toString());
-    ui->lineEdit_motor_bit->setText(setting.value("motor_bit","0x02").toString());
+    ui->lineEdit_motor_port->setText(QString::number(setting.value("motor_port",0x37a).toInt(),16));
+    ui->lineEdit_motor_bit->setText(QString::number(setting.value("motor_bit",0x02).toInt(),16));
 
 
     //reading x setting
-    ui->lineEdit_x_dir_bit          ->setText(setting.value("x_dir_bit",            "0x378" ).toString());
-    ui->lineEdit_x_dir_logic        ->setText(setting.value("x_dir_logic",          "1"     ).toString());
-    ui->lineEdit_x_dir_port         ->setText(setting.value("x_dir_port",           "0x378" ).toString());
-    ui->lineEdit_x_enable_bit       ->setText(setting.value("x_enable_bit",         "0x02"  ).toString());
-    ui->lineEdit_x_enable_port      ->setText(setting.value("x_enable_port",        "0x378" ).toString());
-    ui->lineEdit_x_limit_max_active ->setText(setting.value("x_limit_max_active",   "1"     ).toString());
-    ui->lineEdit_x_limit_max_bit    ->setText(setting.value("x_limit_max_bit",      "0x40"  ).toString());
-    ui->lineEdit_x_limit_max_port   ->setText(setting.value("x_limit_max_port",     "0x379" ).toString());
-    ui->lineEdit_x_limit_min_active ->setText(setting.value("x_limit_min_active",   "1"     ).toString());
-    ui->lineEdit_x_limit_min_bit    ->setText(setting.value("x_limit_min_bit",      "0x02"  ).toString());
-    ui->lineEdit_x_limit_min_port   ->setText(setting.value("x_limit_min_port",     "0x379" ).toString());
-    ui->lineEdit_x_step_bit         ->setText(setting.value("x_step_bit",           "0x80"  ).toString());
-    ui->lineEdit_x_step_port        ->setText(setting.value("x_step_port",          "0x378" ).toString());
+    ui->lineEdit_x_dir_bit          ->setText(QString::number(setting.value("x_dir_bit",            0x378 ).toInt(),16));
+    ui->lineEdit_x_dir_logic        ->setText(QString::number(setting.value("x_dir_logic",          1     ).toInt(),16));
+    ui->lineEdit_x_dir_port         ->setText(QString::number(setting.value("x_dir_port",           0x378 ).toInt(),16));
+    ui->lineEdit_x_enable_bit       ->setText(QString::number(setting.value("x_enable_bit",         0x02  ).toInt(),16));
+    ui->lineEdit_x_enable_port      ->setText(QString::number(setting.value("x_enable_port",        0x378 ).toInt(),16));
+    ui->lineEdit_x_limit_max_active ->setText(QString::number(setting.value("x_limit_max_active",   1     ).toInt(),16));
+    ui->lineEdit_x_limit_max_bit    ->setText(QString::number(setting.value("x_limit_max_bit",      0x40  ).toInt(),16));
+    ui->lineEdit_x_limit_max_port   ->setText(QString::number(setting.value("x_limit_max_port",     0x379 ).toInt(),16));
+    ui->lineEdit_x_limit_min_active ->setText(QString::number(setting.value("x_limit_min_active",   1     ).toInt(),16));
+    ui->lineEdit_x_limit_min_bit    ->setText(QString::number(setting.value("x_limit_min_bit",      0x02  ).toInt(),16));
+    ui->lineEdit_x_limit_min_port   ->setText(QString::number(setting.value("x_limit_min_port",     0x379 ).toInt(),16));
+    ui->lineEdit_x_step_bit         ->setText(QString::number(setting.value("x_step_bit",           0x80  ).toInt(),16));
+    ui->lineEdit_x_step_port        ->setText(QString::number(setting.value("x_step_port",          0x378 ).toInt(),16));
 
     //reading y setting
-    ui->lineEdit_y_dir_bit          ->setText(setting.value("y_dir_bit",            "0x10"  ).toString());
-    ui->lineEdit_y_dir_logic        ->setText(setting.value("y_dir_logic",          "1"     ).toString());
-    ui->lineEdit_y_dir_port         ->setText(setting.value("y_dir_port",           "0x378" ).toString());
-    ui->lineEdit_y_enable_bit       ->setText(setting.value("y_enable_bit",         "0x01"  ).toString());
-    ui->lineEdit_y_enable_port      ->setText(setting.value("y_enable_port",        "0x378" ).toString());
-    ui->lineEdit_y_limit_max_active ->setText(setting.value("y_limit_max_active",   "1"      ).toString());
-    ui->lineEdit_y_limit_max_bit    ->setText(setting.value("y_limit_max_bit",      "0x40"  ).toString());
-    ui->lineEdit_y_limit_max_port   ->setText(setting.value("y_limit_max_port",     "0x379" ).toString());
-    ui->lineEdit_y_limit_min_active ->setText(setting.value("y_limit_min_active",   "1"     ).toString());
-    ui->lineEdit_y_limit_min_bit    ->setText(setting.value("y_limit_min_bit",      "0x06"  ).toString());
-    ui->lineEdit_y_limit_min_port   ->setText(setting.value("y_limit_min_port",     "0x379" ).toString());
-    ui->lineEdit_y_step_bit         ->setText(setting.value("y_step_bit",           "0x20"  ).toString());
-    ui->lineEdit_y_step_port        ->setText(setting.value("y_step_port",          "0x378" ).toString());
+    ui->lineEdit_y_dir_bit          ->setText(QString::number(setting.value("y_dir_bit",            0x10  ).toInt(),16));
+    ui->lineEdit_y_dir_logic        ->setText(QString::number(setting.value("y_dir_logic",          1     ).toInt(),16));
+    ui->lineEdit_y_dir_port         ->setText(QString::number(setting.value("y_dir_port",           0x378 ).toInt(),16));
+    ui->lineEdit_y_enable_bit       ->setText(QString::number(setting.value("y_enable_bit",         0x01  ).toInt(),16));
+    ui->lineEdit_y_enable_port      ->setText(QString::number(setting.value("y_enable_port",        0x378 ).toInt(),16));
+    ui->lineEdit_y_limit_max_active ->setText(QString::number(setting.value("y_limit_max_active",   1     ).toInt(),16));
+    ui->lineEdit_y_limit_max_bit    ->setText(QString::number(setting.value("y_limit_max_bit",      0x40  ).toInt(),16));
+    ui->lineEdit_y_limit_max_port   ->setText(QString::number(setting.value("y_limit_max_port",     0x379 ).toInt(),16));
+    ui->lineEdit_y_limit_min_active ->setText(QString::number(setting.value("y_limit_min_active",   1     ).toInt(),16));
+    ui->lineEdit_y_limit_min_bit    ->setText(QString::number(setting.value("y_limit_min_bit",      0x06  ).toInt(),16));
+    ui->lineEdit_y_limit_min_port   ->setText(QString::number(setting.value("y_limit_min_port",     0x379 ).toInt(),16));
+    ui->lineEdit_y_step_bit         ->setText(QString::number(setting.value("y_step_bit",           0x20  ).toInt(),16));
+    ui->lineEdit_y_step_port        ->setText(QString::number(setting.value("y_step_port",          0x378 ).toInt(),16));
 
 
     setting.endGroup();
@@ -127,39 +127,39 @@ void Settings::saveSettings(){
     setting.beginGroup("Parallel port");
 
     //Laser (motor)port
-    setting.setValue("motor_port",ui->lineEdit_motor_port->text());
-    setting.setValue("motor_bit",ui->lineEdit_motor_bit->text());
+    setting.setValue("motor_port",ui->lineEdit_motor_port->text().toInt(nullptr,16));
+    setting.setValue("motor_bit",ui->lineEdit_motor_bit->text().toInt(nullptr,16));
 
 
     //saving x settings
-    setting.setValue("x_dir_bit",ui->lineEdit_x_dir_bit->text());
-    setting.setValue("x_dir_logic",ui->lineEdit_x_dir_logic->text());
-    setting.setValue("x_dir_port",ui->lineEdit_x_dir_port->text());
-    setting.setValue("x_enable_bit",ui->lineEdit_x_enable_bit->text());
-    setting.setValue("x_enable_port",ui->lineEdit_x_enable_port->text());
-    setting.setValue("x_limit_max_active",ui->lineEdit_x_limit_max_active->text());
-    setting.setValue("x_limit_max_bit",ui->lineEdit_x_limit_max_bit->text());
-    setting.setValue("x_limit_max_port",ui->lineEdit_x_limit_max_port->text());
-    setting.setValue("x_limit_min_active",ui->lineEdit_x_limit_min_active->text());
-    setting.setValue("x_limit_min_bit",ui->lineEdit_x_limit_min_bit->text());
-    setting.setValue("x_limit_min_port",ui->lineEdit_x_limit_min_port->text());
-    setting.setValue("x_step_bit",ui->lineEdit_x_step_bit->text());
-    setting.setValue("x_step_port",ui->lineEdit_x_step_port->text());
+    setting.setValue("x_dir_bit",ui->lineEdit_x_dir_bit->text().toInt(nullptr,16));
+    setting.setValue("x_dir_logic",ui->lineEdit_x_dir_logic->text().toInt(nullptr,16));
+    setting.setValue("x_dir_port",ui->lineEdit_x_dir_port->text().toInt(nullptr,16));
+    setting.setValue("x_enable_bit",ui->lineEdit_x_enable_bit->text().toInt(nullptr,16));
+    setting.setValue("x_enable_port",ui->lineEdit_x_enable_port->text().toInt(nullptr,16));
+    setting.setValue("x_limit_max_active",ui->lineEdit_x_limit_max_active->text().toInt(nullptr,16));
+    setting.setValue("x_limit_max_bit",ui->lineEdit_x_limit_max_bit->text().toInt(nullptr,16));
+    setting.setValue("x_limit_max_port",ui->lineEdit_x_limit_max_port->text().toInt(nullptr,16));
+    setting.setValue("x_limit_min_active",ui->lineEdit_x_limit_min_active->text().toInt(nullptr,16));
+    setting.setValue("x_limit_min_bit",ui->lineEdit_x_limit_min_bit->text().toInt(nullptr,16));
+    setting.setValue("x_limit_min_port",ui->lineEdit_x_limit_min_port->text().toInt(nullptr,16));
+    setting.setValue("x_step_bit",ui->lineEdit_x_step_bit->text().toInt(nullptr,16));
+    setting.setValue("x_step_port",ui->lineEdit_x_step_port->text().toInt(nullptr,16));
 
     //saving y settings
-    setting.setValue("y_dir_bit",ui->lineEdit_y_dir_bit->text());
-    setting.setValue("y_dir_logic",ui->lineEdit_y_dir_logic->text());
-    setting.setValue("y_dir_port",ui->lineEdit_y_dir_port->text());
-    setting.setValue("y_enable_bit",ui->lineEdit_y_enable_bit->text());
-    setting.setValue("y_enable_port",ui->lineEdit_y_enable_port->text());
-    setting.setValue("y_limit_max_active",ui->lineEdit_y_limit_max_active->text());
-    setting.setValue("y_limit_max_bit",ui->lineEdit_y_limit_max_bit->text());
-    setting.setValue("y_limit_max_port",ui->lineEdit_y_limit_max_port->text());
-    setting.setValue("y_limit_min_active",ui->lineEdit_y_limit_min_active->text());
-    setting.setValue("y_limit_min_bit",ui->lineEdit_y_limit_min_bit->text());
-    setting.setValue("y_limit_min_port",ui->lineEdit_y_limit_min_port->text());
-    setting.setValue("y_step_bit",ui->lineEdit_y_step_bit->text());
-    setting.setValue("y_step_port",ui->lineEdit_y_step_port->text());
+    setting.setValue("y_dir_bit",ui->lineEdit_y_dir_bit->text().toInt(nullptr,16));
+    setting.setValue("y_dir_logic",ui->lineEdit_y_dir_logic->text().toInt(nullptr,16));
+    setting.setValue("y_dir_port",ui->lineEdit_y_dir_port->text().toInt(nullptr,16));
+    setting.setValue("y_enable_bit",ui->lineEdit_y_enable_bit->text().toInt(nullptr,16));
+    setting.setValue("y_enable_port",ui->lineEdit_y_enable_port->text().toInt(nullptr,16));
+    setting.setValue("y_limit_max_active",ui->lineEdit_y_limit_max_active->text().toInt(nullptr,16));
+    setting.setValue("y_limit_max_bit",ui->lineEdit_y_limit_max_bit->text().toInt(nullptr,16));
+    setting.setValue("y_limit_max_port",ui->lineEdit_y_limit_max_port->text().toInt(nullptr,16));
+    setting.setValue("y_limit_min_active",ui->lineEdit_y_limit_min_active->text().toInt(nullptr,16));
+    setting.setValue("y_limit_min_bit",ui->lineEdit_y_limit_min_bit->text().toInt(nullptr,16));
+    setting.setValue("y_limit_min_port",ui->lineEdit_y_limit_min_port->text().toInt(nullptr,16));
+    setting.setValue("y_step_bit",ui->lineEdit_y_step_bit->text().toInt(nullptr,16));
+    setting.setValue("y_step_port",ui->lineEdit_y_step_port->text().toInt(nullptr,16));
 
 
     setting.endGroup();
