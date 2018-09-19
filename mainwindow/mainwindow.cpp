@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     x_current_position=0;
     y_current_position=0;
     laserON=false;
+    commands.loadini();
     commands.laser(laserON);
     hwf.set_vxy(20);
 
@@ -168,7 +169,10 @@ void MainWindow::adaptiveThreshold(){
 }
 
 void MainWindow::loadSettings(){
+    hwf.read_port_ini();
+    commands.loadini();
     QSettings setting("cengrave.conf");
+
 
 
 }

@@ -40,6 +40,8 @@ private:
     QPlainTextEdit *logs;
     HWF *hwf;
     bool secure;
+    long speed;
+    int step;
 
 public:
     CommandContainer();
@@ -53,15 +55,16 @@ public:
     bool execute(bool simulation);
     bool insert(commands command);
     bool insertSet(int x,int y);
-    bool insertAfterCurrent(commands command);
-    bool insertAfterCurrentSet(int x,int y);
-    bool insertBeforeCurrent(commands command);
-    bool insertBeforeCurrentSet(int x,int y);
-    void deleteCommand(int index);
+    //bool insertAfterCurrent(commands command);
+    //bool insertAfterCurrentSet(int x,int y);
+    //bool insertBeforeCurrent(commands command);
+    //bool insertBeforeCurrentSet(int x,int y);
+    //void deleteCommand(int index);
     void deleteAll();
     bool loadFile(QString const &path);
     bool saveFile(QString const &path);
     void printToQListView(QListWidget *listView);
+    void loadini();
 
     //manual controls
 public:

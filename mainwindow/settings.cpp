@@ -23,11 +23,11 @@ void Settings::loadSettings(){
 
 
     //Step
-    switch(setting.value("Step",1).toInt()){
+    switch(setting.value("step",1).toInt()){
     case 1: ui->step01mm->setChecked(true); break;
+    case 5:ui->step05mm->setChecked(true); break;
     case 10:ui->step1mm->setChecked(true); break;
-    case 100:ui->step10mm->setChecked(true); break;
-    case 1000:ui->step100mm->setChecked(true); break;
+    case 15:ui->step15mm->setChecked(true); break;
     default:ui->step01mm->setChecked(true); break;
     }
     ui->SpinBox_stepX->setValue(setting.value("step_x",133.0).toFloat());
@@ -37,10 +37,10 @@ void Settings::loadSettings(){
 
 
     //Movement speed
-    ui->slider_movement_speed->setValue(setting.value("Movement speed",1).toInt());
+    ui->slider_movement_speed->setValue(setting.value("movement speed",1).toInt());
     ui->spinBox_movement_speed->setValue(ui->slider_movement_speed->value());
     //Engraving speed
-    ui->slider_engrave_speed->setValue(setting.value("Engraving speed",1).toInt());
+    ui->slider_engrave_speed->setValue(setting.value("engraving speed",1).toInt());
     ui->spinBox_engrave_speed->setValue(ui->slider_engrave_speed->value());
 
 
@@ -55,6 +55,7 @@ void Settings::loadSettings(){
     //Reading Laser (motor) settings
     ui->lineEdit_motor_port->setText(QString::number(setting.value("motor_port",0x37a).toInt(),16));
     ui->lineEdit_motor_bit->setText(QString::number(setting.value("motor_bit",0x02).toInt(),16));
+    ui->lineEdit_msec_delay_const->setText(QString::number(setting.value("msec_delay_const",356).toInt()));
 
 
     //reading x setting
@@ -100,24 +101,24 @@ void Settings::saveSettings(){
 
     //step
     if(ui->step01mm->isChecked()){
-        setting.setValue("Step",1);
+        setting.setValue("step",1);
     }
     else if(ui->step1mm->isChecked()){
-        setting.setValue("Step",10);
+        setting.setValue("step",10);
     }
-    else if(ui->step10mm->isChecked()){
-        setting.setValue("Step",100);
+    else if(ui->step15mm->isChecked()){
+        setting.setValue("step",15);
     }
     else{
-        setting.setValue("Step",1000);
+        setting.setValue("step",5);
     }
     setting.setValue("step_x",ui->SpinBox_stepX->value());
     setting.setValue("step_y",ui->SpinBox_stepY->value());
 
     //Movement speed
-    setting.setValue("Movement speed",ui->slider_movement_speed->value());
+    setting.setValue("movement speed",ui->slider_movement_speed->value());
     //Engraving speed
-    setting.setValue("Engraving speed",ui->slider_engrave_speed->value());
+    setting.setValue("engraving speed",ui->slider_engrave_speed->value());
 
     setting.endGroup();
     //end of movement settings
@@ -129,7 +130,7 @@ void Settings::saveSettings(){
     //Laser (motor)port
     setting.setValue("motor_port",ui->lineEdit_motor_port->text().toInt(nullptr,16));
     setting.setValue("motor_bit",ui->lineEdit_motor_bit->text().toInt(nullptr,16));
-
+    setting.setValue("msec_delay_const",ui->lineEdit_msec_delay_const->text().toInt());
 
     //saving x settings
     setting.setValue("x_dir_bit",ui->lineEdit_x_dir_bit->text().toInt(nullptr,16));

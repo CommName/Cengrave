@@ -80,7 +80,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page"/>
    <widget class="QWidget" name="movement">
@@ -111,6 +111,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QRadioButton" name="step05mm">
+          <property name="text">
+           <string>0.5 mm</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QRadioButton" name="step1mm">
           <property name="text">
            <string>1 mm</string>
@@ -118,16 +125,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="step10mm">
+         <widget class="QRadioButton" name="step15mm">
           <property name="text">
-           <string>10 mm</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="step100mm">
-          <property name="text">
-           <string>100 mm</string>
+           <string>1.5 mm</string>
           </property>
          </widget>
         </item>
@@ -311,6 +311,20 @@
          </item>
          <item row="0" column="1">
           <widget class="QLineEdit" name="lineEdit_motor_bit"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QFormLayout" name="formLayout_5">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_msec_delay_const">
+           <property name="text">
+            <string>Milliseconds delay const</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEdit_msec_delay_const"/>
          </item>
         </layout>
        </item>
