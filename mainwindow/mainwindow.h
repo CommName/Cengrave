@@ -111,6 +111,8 @@ private slots:
 
     void on_checkBox_keep_aspect_ratio_stateChanged(int arg1);
 
+    void on_radio_auto_toggled();
+
 private:
     Ui::MainWindow *ui;
 

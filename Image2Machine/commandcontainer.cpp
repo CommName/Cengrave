@@ -191,8 +191,8 @@ void CommandContainer::executeSet(int x,int y,int x_previous,int y_previous,bool
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
-        hwf->stepx((x-x_previous)*step,1);
-        hwf->stepy((y-y_previous)*step,1);
+        hwf->stepx((x-x_previous)*step*1000/hwf->get_korak_x(),1);
+        hwf->stepy((y-y_previous)*step*1000/hwf->get_korak_y(),1);
 
     }
 }
@@ -213,7 +213,7 @@ void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
-        hwf->stepy(-1*step,1);
+        hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
     }
 
 }
@@ -234,7 +234,7 @@ void CommandContainer::executeDOWN(int x_previous,int y_previous, bool simulatio
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
-        hwf->stepy(step,1);
+        hwf->stepy(step*1000/hwf->get_korak_y(),1);
 
     }
 }
@@ -255,7 +255,7 @@ void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
-        hwf->stepx(-1*step,1);
+        hwf->stepx(-1*step*1000/hwf->get_korak_x(),1);
     }
 }
 void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulation){
@@ -275,7 +275,7 @@ void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulatio
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
-        hwf->stepx(step,1);
+        hwf->stepx(step*1000/hwf->get_korak_x(),1);
 
     }
 }
@@ -296,8 +296,8 @@ void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulati
     //execute
     if(!simulation){
         hwf->set_vxy(10);
-        hwf->stepx(-1*speed,1);
-        hwf->stepy(-1*step,1);
+        hwf->stepx(-1*speed*1000/hwf->get_korak_x(),1);
+        hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
 
     }
 }
@@ -318,8 +318,8 @@ void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simula
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
-        hwf->stepx(-1*step,1);
-        hwf->stepy(step,1);
+        hwf->stepx(-1*step*1000/hwf->get_korak_x(),1);
+        hwf->stepy(step*1000/hwf->get_korak_y(),1);
     }
 }
 void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulation){
@@ -339,8 +339,8 @@ void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulat
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
-        hwf->stepx(step,1);
-        hwf->stepy(-1*step,1);
+        hwf->stepx(step*1000/hwf->get_korak_x(),1);
+        hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
     }
 }
 void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simulation){
@@ -360,24 +360,24 @@ void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simul
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
-       hwf->stepx(step,1);
-       hwf->stepy(step,1);
+       hwf->stepx(step*1000/hwf->get_korak_x(),1);
+       hwf->stepy(step*1000/hwf->get_korak_y(),1);
     }
 }
 void CommandContainer::laser(bool on){
 
 
-    if(!on){
+    if(on){
         if(logs!=nullptr){
             logs->appendPlainText("Laser on");
-        hwf->motor_on();
+        hwf->motor_off(); //reversed logic
         }
     }
     else{
         if(logs!=nullptr){
             logs->appendPlainText("Laser off");
         }
-        hwf->motor_off();
+        hwf->motor_on(); //reversed logic
     }
 
 }

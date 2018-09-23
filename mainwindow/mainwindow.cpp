@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include "settings.h"
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -79,6 +80,10 @@ void MainWindow::loadImage(QString const &path){
 
    if(path=="")
        return;
+   if(!QFile::exists(path)){
+       QMessageBox::critical(this,"File not found","Could not find a file");
+       return;
+   }
 
    if(!imageMode0.empty())
         imageMode0.release();
@@ -185,6 +190,7 @@ void MainWindow::execute(){
             QApplication::processEvents();
 
     }
+    commands.laser(false);
 }
 
 
@@ -217,7 +223,9 @@ void MainWindow::on_buttonLoad_mode0_clicked()
 }
 void MainWindow::on_buttonReload_mode0_clicked()
 {
-    loadImage(imagePath);
+
+        loadImage(imagePath);
+
 }
 void MainWindow::on_buttonEngrave_clicked()
 {
@@ -442,7 +450,7 @@ void MainWindow::on_button_stop_auto_clicked()
 void MainWindow::on_button_continue_auto_clicked()
 {
     stop=false;
-
+    commands.laser(true);
     execute();
 }
 
@@ -536,3 +544,9 @@ void MainWindow::on_check_simulation_stateChanged(int arg1)
 
 
 
+
+void MainWindow::on_radio_auto_toggled()
+{
+    laserON=false;
+    commands.laser(false);
+}
