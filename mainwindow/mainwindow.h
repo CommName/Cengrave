@@ -105,6 +105,12 @@ private slots:
 
     void on_check_simulation_stateChanged(int arg1);
 
+    void on_spinBox_resize_x_mode0_valueChanged(int arg1);
+
+    void on_spinBox_resize_y_mode0_valueChanged(int arg1);
+
+    void on_checkBox_keep_aspect_ratio_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 

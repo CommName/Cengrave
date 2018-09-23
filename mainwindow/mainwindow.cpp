@@ -233,6 +233,26 @@ void MainWindow::on_button_resize_mode0_clicked()
     displayImageInfo();
     displayImageMode0();
 }
+void MainWindow::on_checkBox_keep_aspect_ratio_stateChanged(int arg1)
+{
+    if(arg1){
+       on_spinBox_resize_x_mode0_valueChanged(ui->spinBox_resize_x_mode0->value());
+    }
+}
+
+void MainWindow::on_spinBox_resize_x_mode0_valueChanged(int arg1)
+{
+    if(ui->checkBox_keep_aspect_ratio->isChecked()&&!imageMode0.empty()&&(arg1!=ui->spinBox_resize_y_mode0->value()*imageMode0.cols/imageMode0.rows))
+    ui->spinBox_resize_y_mode0->setValue(arg1*imageMode0.rows/imageMode0.cols);
+
+}
+void MainWindow::on_spinBox_resize_y_mode0_valueChanged(int arg1)
+{
+    if(ui->checkBox_keep_aspect_ratio->isChecked()&&!imageMode0.empty()&&(arg1!=ui->spinBox_resize_x_mode0->value()*imageMode0.rows/imageMode0.cols))
+    ui->spinBox_resize_x_mode0->setValue((arg1*imageMode0.cols/imageMode0.rows));
+}
+
+
 void MainWindow::on_checkBox_FlipVertical_mode0_clicked()
 {
     if(imageMode0.empty())
@@ -511,3 +531,8 @@ void MainWindow::on_check_simulation_stateChanged(int arg1)
 
 
 }
+
+
+
+
+
