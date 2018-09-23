@@ -36,6 +36,7 @@ void Settings::loadSettings(){
 
 
 
+
     //Movement speed
     ui->slider_movement_speed->setValue(setting.value("movement speed",1).toInt());
     ui->spinBox_movement_speed->setValue(ui->slider_movement_speed->value());

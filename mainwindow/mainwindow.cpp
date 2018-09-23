@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     laserON=false;
     commands.loadini();
     commands.laser(laserON);
-    hwf.set_vxy(20);
+
 
     //mode2 image transformation combobox
     ui->comboBox_engraveMode->addItem("Threshold");
@@ -99,7 +99,8 @@ void MainWindow::displayImageInfo(){
 
     ui->label_Height->setText( QString::number(imageMode0.rows));
     ui->label_Width->setText(QString::number(imageMode0.cols));
-
+    ui->label_HeightCM->setText(QString::number((float)(imageMode0.rows)*commands.getStep()/100));
+    ui->label_WidthCM->setText(QString::number((float)(imageMode0.cols)*commands.getStep()/100));
 }
 void MainWindow::displayImageMode0(){
     //transform CV:MAT to QImage
@@ -433,6 +434,9 @@ void MainWindow::on_actionSettings_triggered()
  settings.setModal(true);
  settings.exec();
  loadSettings();
+
+ displayImageInfo();
+
 }
 
 

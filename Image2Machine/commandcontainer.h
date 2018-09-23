@@ -51,7 +51,7 @@ public:
     void setCurrent(int index);
     void setImageOutput(cv::Mat *image);
     void setLogOutput(QPlainTextEdit *console);
-    void inline setHWF(HWF *h){hwf=h;}
+
     bool execute(bool simulation);
     bool insert(commands command);
     bool insertSet(int x,int y);
@@ -65,6 +65,10 @@ public:
     bool saveFile(QString const &path);
     void printToQListView(QListWidget *listView);
     void loadini();
+
+
+    int  inline getStep(){return step;}
+    void inline setHWF(HWF *h){hwf=h;}
 
     //manual controls
 public:
