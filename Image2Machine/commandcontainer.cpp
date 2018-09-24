@@ -13,14 +13,16 @@ CommandContainer::CommandContainer()
     logs=nullptr;
     hwf=nullptr;
     secure=false;
+    progressbar=nullptr;
     displayX=nullptr;
     displayY=nullptr;
+    numOfElemets=0;
     speed=20;
     step=20;
 
 }
-CommandContainer::CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h){
-    CommandContainer();
+CommandContainer::CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h):CommandContainer(){
+
     display=image;
     logs=log;
     displayX=x;
@@ -45,6 +47,7 @@ void CommandContainer::deleteAll(){
    root=nullptr;
    last=nullptr;
    current=nullptr;
+   numOfElemets=0;
 }
 
 bool CommandContainer::insert(commands command){
@@ -56,6 +59,7 @@ bool CommandContainer::insert(commands command){
     last->next->next=nullptr;
     last->next->previous=last;
     last->next->command=command;
+    last->next->index=last->index+1;
     switch (last->next->command) {
     case commands::UP: last->next->x=last->x; last->next->y=last->y-1; break;
     case commands::DOWN: last->next->x=last->x; last->next->y=last->y+1; break;
@@ -68,22 +72,29 @@ bool CommandContainer::insert(commands command){
     default: return false;
     }
     last=last->next;
+    numOfElemets++;
+    progressbar->setMaximum(numOfElemets);
     return true;
 }
 bool CommandContainer::insertSet(int x,int y){
     if(root==nullptr){
         root=last=current=new container;
+        root->index=0;
         last->previous=nullptr;
+
     }
     else{
         last->next=new container;
         last->next->previous=last;
+        last->next->index=last->index+1;
         last=last->next;
     }
     last->x=x;
     last->y=y;
     last->command=commands::SET;
     last->next=nullptr;
+    numOfElemets++;
+    progressbar->setMaximum(numOfElemets);
     return true;
 }
 
@@ -167,6 +178,9 @@ bool CommandContainer::execute(bool simulation){
 
     }
     Sleeper::msleep(100);
+    if(progressbar!=nullptr){
+        progressbar->setValue(current->index+1);
+    }
     current=current->next;
     return true;
 }
@@ -174,9 +188,7 @@ bool CommandContainer::execute(bool simulation){
 void CommandContainer::setImageOutput(cv::Mat *image){
     display=image;
 }
-void CommandContainer::setLogOutput(QPlainTextEdit *console){
-    logs=console;
-}
+
 void CommandContainer::setCurrent(int index){
 
     current=root;
@@ -305,11 +317,11 @@ void CommandContainer::displayAll(int x,int y,commands com){
     //image privew
     if(display!=nullptr){
         if(y<0||x<0||y>=display->cols||x>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
+            //if(secure)
+            //    throw QString("Image out of range");
         }
         else
-        display->at<uint8_t>(y,x)=0;
+            display->at<uint8_t>(y,x)=0;
     }
     if(displayX!=nullptr)
         *displayX=x;

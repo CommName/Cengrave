@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     x_current_position=0;
     y_current_position=0;
     commands.setLogOutput(ui->consoleOutput_mode2);
+    commands.setProgressBar(ui->progressBar_automode_mode2);
     laserON=false;
     commands.laser(laserON);
 

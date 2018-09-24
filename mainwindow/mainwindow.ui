@@ -1127,6 +1127,9 @@
                            <height>0</height>
                           </size>
                          </property>
+                         <property name="maximum">
+                          <number>500</number>
+                         </property>
                         </widget>
                        </item>
                       </layout>
@@ -1147,6 +1150,9 @@
                            <width>70</width>
                            <height>0</height>
                           </size>
+                         </property>
+                         <property name="maximum">
+                          <number>500</number>
                          </property>
                         </widget>
                        </item>
@@ -1292,6 +1298,13 @@
                 <layout class="QVBoxLayout" name="verticalLayout_13">
                  <item>
                   <widget class="QListWidget" name="command_listWidget"/>
+                 </item>
+                 <item>
+                  <widget class="QProgressBar" name="progressBar_automode_mode2">
+                   <property name="value">
+                    <number>0</number>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <layout class="QGridLayout" name="auto_controls">

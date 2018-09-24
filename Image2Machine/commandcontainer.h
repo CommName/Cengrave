@@ -6,6 +6,7 @@
 #include <opencv2/opencv.hpp>
 #include <QPlainTextEdit>
 #include "Image2Machine/hwf.h"
+#include <QProgressBar>
 class mainwindow;
 
 enum commands{
@@ -26,6 +27,7 @@ struct container{
     int y;
     container* next;
     container* previous;
+    long index;
 
 };
 
@@ -46,6 +48,7 @@ private:
 protected:
     cv::Mat *display;
     QPlainTextEdit *logs;
+    QProgressBar *progressbar;
     int *displayX;
     int *displayY;
 
@@ -61,7 +64,8 @@ protected:
 public:
     void setCurrent(int index);
     void setImageOutput(cv::Mat *image);
-    void setLogOutput(QPlainTextEdit *console);
+    void inline setLogOutput(QPlainTextEdit *console){logs=console;}
+    void inline setProgressBar(QProgressBar *bar){progressbar=bar;}
 
     bool execute(bool simulation);
     bool insert(commands command);
