@@ -13,9 +13,22 @@ CommandContainer::CommandContainer()
     logs=nullptr;
     hwf=nullptr;
     secure=false;
+    displayX=nullptr;
+    displayY=nullptr;
     speed=20;
     step=20;
 
+}
+CommandContainer::CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h){
+    CommandContainer();
+    display=image;
+    logs=log;
+    displayX=x;
+    displayY=y;
+
+    hwf=h;
+
+    loadini();
 }
 
 CommandContainer::~CommandContainer(){
@@ -23,7 +36,7 @@ CommandContainer::~CommandContainer(){
 }
 
 void CommandContainer::deleteAll(){
-   container* tmp;
+   container* tmp=root;
    while(tmp!=nullptr){
        container* del=tmp;
        tmp=tmp->next;
@@ -175,19 +188,6 @@ void CommandContainer::setCurrent(int index){
 
 //Manual controls
 void CommandContainer::executeSet(int x,int y,int x_previous,int y_previous,bool simulation){
-    //image privew
-    if(display!=nullptr){
-        if(y<0||x<0||y>=display->cols||x>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
-        }
-        else
-        display->at<uint8_t>(y,x)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("SET "+QString::number(x)+' '+QString::number(y));
-    }
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
@@ -195,104 +195,46 @@ void CommandContainer::executeSet(int x,int y,int x_previous,int y_previous,bool
         hwf->stepy((y-y_previous)*step*1000/hwf->get_korak_y(),1);
 
     }
+    displayAll(x,y,commands::SET);
 }
 void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
-    //image privew
-    if(display!=nullptr){
-        if(y_previous-1<0||x_previous<0||y_previous-1>=display->cols||x_previous>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
-        }
-        else
-        display->at<uint8_t>(y_previous-1,x_previous)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("UP");
-    }
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
         hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
     }
+    displayAll(x_previous,y_previous-1,commands::UP);
 
 }
 void CommandContainer::executeDOWN(int x_previous,int y_previous, bool simulation){
-    //image privew
-    if(display!=nullptr){
-        if(y_previous+1<0||x_previous<0||y_previous+1>=display->cols||x_previous>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
-        }
-        else
-        display->at<uint8_t>(y_previous+1,x_previous)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("DOWN");
-    }
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
         hwf->stepy(step*1000/hwf->get_korak_y(),1);
 
     }
+    displayAll(x_previous,y_previous+1,commands::DOWN);
 }
 void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation){
-    //image privew
-    if(display!=nullptr){
-        if(y_previous<0||x_previous-1<0||y_previous>=display->cols||x_previous-1>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
-        }
-        else
-        display->at<uint8_t>(y_previous,x_previous-1)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("LEFT");
-    }
+
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
         hwf->stepx(-1*step*1000/hwf->get_korak_x(),1);
     }
+    displayAll(x_previous-1,y_previous,commands::LEFT);
 }
 void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulation){
-    //image privew
-    if(display!=nullptr){
-        if(y_previous<0||x_previous+1<0||y_previous>=display->cols||x_previous+1>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
-        }
-        else
-        display->at<uint8_t>(y_previous,x_previous+1)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("RIGHT");
-    }
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
         hwf->stepx(step*1000/hwf->get_korak_x(),1);
 
     }
+    displayAll(x_previous+1,y_previous,commands::RIGHT);
 }
 void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulation){
-    //image privew
-    if(display!=nullptr){
-        if(y_previous-1<0||x_previous-1<0||y_previous-1>=display->cols||x_previous-1>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
-        }
-        else
-        display->at<uint8_t>(y_previous-1,x_previous-1)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("UPLEFT");
-    }
+
     //execute
     if(!simulation){
         hwf->set_vxy(10);
@@ -300,69 +242,38 @@ void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulati
         hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
 
     }
+    displayAll(x_previous-1,y_previous-1,commands::UPLEFT);
 }
 void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simulation){
-    //image privew
-    if(display!=nullptr){
-            if(y_previous+1<0||x_previous-1<0||y_previous+1>=display->cols||x_previous-1>=display->rows){
-                if(secure)
-                    throw QString("Image out of range");
-            }
-            else
-        display->at<uint8_t>(y_previous+1,x_previous-1)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("DOWNLEFT");
-    }
+
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
         hwf->stepx(-1*step*1000/hwf->get_korak_x(),1);
         hwf->stepy(step*1000/hwf->get_korak_y(),1);
     }
+    displayAll(x_previous-1,y_previous+1,commands::DOWNLEFT);
 }
 void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulation){
-    //image privew
-    if(display!=nullptr){
-        if(y_previous-1<0||x_previous+1<0||y_previous-1>=display->cols||x_previous+1>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
-        }
-        else
-        display->at<uint8_t>(y_previous-1,x_previous+1)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("UPRIGHT");
-    }
+
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
         hwf->stepx(step*1000/hwf->get_korak_x(),1);
         hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
     }
+    displayAll(x_previous+1,y_previous-1,commands::UPRIGHT);
 }
 void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simulation){
-    //image privew
-    if(display!=nullptr){
-        if(y_previous+1<0||x_previous+1<0||y_previous+1>=display->cols||x_previous+1>=display->rows){
-            if(secure)
-                throw QString("Image out of range");
-        }
-        else
-        display->at<uint8_t>(y_previous+1,x_previous+1)=0;
-    }
-    //logs output
-    if(logs!=nullptr){
-        logs->appendPlainText("DOWNRIGHT");
-    }
+
+
     //execute
     if(!simulation){
         hwf->set_vxy(speed);
        hwf->stepx(step*1000/hwf->get_korak_x(),1);
        hwf->stepy(step*1000/hwf->get_korak_y(),1);
     }
+    displayAll(x_previous+1,y_previous+1,commands::DOWNRIGHT);
 }
 void CommandContainer::laser(bool on){
 
@@ -390,4 +301,33 @@ void CommandContainer::loadini(){
     settings.endGroup();
 }
 
+void CommandContainer::displayAll(int x,int y,commands com){
+    //image privew
+    if(display!=nullptr){
+        if(y<0||x<0||y>=display->cols||x>=display->rows){
+            if(secure)
+                throw QString("Image out of range");
+        }
+        else
+        display->at<uint8_t>(y,x)=0;
+    }
+    if(displayX!=nullptr)
+        *displayX=x;
+    if(displayY!=nullptr)
+        *displayY=y;
+    //logs output
+    if(logs!=nullptr){
+        switch (com) {
+        case commands::UP:          logs->appendPlainText("UP"); break;
+        case commands::DOWN:        logs->appendPlainText("DOWN"); break;
+        case commands::LEFT:        logs->appendPlainText("LEFT"); break;
+        case commands::RIGHT:       logs->appendPlainText("RIGHT"); break;
+        case commands::UPLEFT:      logs->appendPlainText("UPLEFT"); break;
+        case commands::UPRIGHT:     logs->appendPlainText("UPRIGHT"); break;
+        case commands::DOWNLEFT:    logs->appendPlainText("DOWNLEFT"); break;
+        case commands::DOWNRIGHT:   logs->appendPlainText("DOWNRIGHT"); break;
+        case commands::SET:         logs->appendPlainText("SET "+QString::number(x)+' '+QString::number(y)); break;
+        }
+    }
+}
 

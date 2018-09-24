@@ -113,6 +113,10 @@ private slots:
 
     void on_radio_auto_toggled();
 
+    void on_button_set_home_clicked();
+
+    void on_button_go_home_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -139,12 +143,15 @@ private:
 //funcions
 private:
     void loadImage(QString const &path);
-    void displayImageInfo();
+
+
+
 
     bool engrave();
     void setEngraveModesInvisible();
     void thresholdMode();
     void adaptiveThreshold();
+
 
     void loadSettings();
     void saveSettings();
@@ -155,6 +162,9 @@ public:
     void displayImageMode0();
     void displayImageMode1();
     void displayImageMode2();
+    void displayImageInfo();
+    void displayCordinates();
+
 
 
 

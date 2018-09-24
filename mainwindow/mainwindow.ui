@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>960</width>
+    <width>977</width>
     <height>772</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -1093,16 +1093,16 @@
                    <item>
                     <layout class="QHBoxLayout" name="setaxis">
                      <item>
-                      <widget class="QPushButton" name="button_set_x_axis">
+                      <widget class="QPushButton" name="button_set_home">
                        <property name="text">
-                        <string>Set x axis</string>
+                        <string>Set home</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="button_set_y_axis">
+                      <widget class="QPushButton" name="button_go_home">
                        <property name="text">
-                        <string>Set y axis</string>
+                        <string>Go to home</string>
                        </property>
                       </widget>
                      </item>
@@ -1345,7 +1345,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>960</width>
+     <width>977</width>
      <height>21</height>
     </rect>
    </property>

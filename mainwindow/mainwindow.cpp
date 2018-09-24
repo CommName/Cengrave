@@ -9,7 +9,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    commands(&imageMode2,ui->consoleOutput_mode2,&x_current_position,&y_current_position,&hwf)
 {
     ui->setupUi(this);
     ui->modeWidget->setCurrentIndex(0);
@@ -25,13 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
     imageMode2.create(500,500,CV_8U);
     imageMode2= cv::Scalar(255);
 
-    commands.setImageOutput(&imageMode2);
-    commands.setLogOutput(ui->consoleOutput_mode2);
-    commands.setHWF(&hwf);
     x_current_position=0;
     y_current_position=0;
+    commands.setLogOutput(ui->consoleOutput_mode2);
     laserON=false;
-    commands.loadini();
     commands.laser(laserON);
 
 
@@ -187,6 +185,7 @@ void MainWindow::execute(){
     hwf.set_vxy(100);
     while(commands.execute(ui->check_simulation->isChecked())&&!stop){
             displayImageMode2();
+            displayCordinates();
             QApplication::processEvents();
 
     }
@@ -475,36 +474,40 @@ void MainWindow::on_button_set_coordinates_clicked()
 {
 
     commands.executeSet(ui->spinBox_set_x->value(),ui->spinBox_set_y->value(),x_current_position,y_current_position,ui->check_simulation->isChecked());
-    x_current_position=ui->spinBox_set_x->value();
-    y_current_position=ui->spinBox_set_y->value();
     displayImageMode2();
+    displayCordinates();
 }
 void MainWindow::on_movement_upleft_clicked()
 {
-    commands.executeUPLEFT(x_current_position--,y_current_position--,ui->check_simulation->isChecked());
+    commands.executeUPLEFT(x_current_position,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
+    displayCordinates();
 
 }
 void MainWindow::on_movement_up_clicked()
 {
-    commands.executeUP(x_current_position,y_current_position--,ui->check_simulation->isChecked());
+    commands.executeUP(x_current_position,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
+    displayCordinates();
 
 }
 void MainWindow::on_movement_upright_clicked()
 {
-    commands.executeUPRIGHT(x_current_position++,y_current_position--,ui->check_simulation->isChecked());
+    commands.executeUPRIGHT(x_current_position,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
+    displayCordinates();
 }
 void MainWindow::on_movement_left_clicked()
 {
-    commands.executeLEFT(x_current_position--,y_current_position,ui->check_simulation->isChecked());
+    commands.executeLEFT(x_current_position,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
+    displayCordinates();
 }
 void MainWindow::on_movement_right_clicked()
 {
-    commands.executeRIGHT(x_current_position++,y_current_position,ui->check_simulation->isChecked());
+    commands.executeRIGHT(x_current_position,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
+    displayCordinates();
 }
 void MainWindow::on_laser_on_off_clicked()
 {
@@ -514,18 +517,21 @@ void MainWindow::on_laser_on_off_clicked()
 }
 void MainWindow::on_movement_downleft_clicked()
 {
-    commands.executeDOWNLEFT(x_current_position--,y_current_position++,ui->check_simulation->isChecked());
+    commands.executeDOWNLEFT(x_current_position,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
+    displayCordinates();
 }
 void MainWindow::on_movement_down_clicked()
 {
-    commands.executeDOWN(x_current_position,y_current_position++,ui->check_simulation->isChecked());
+    commands.executeDOWN(x_current_position,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
+    displayCordinates();
 }
 void MainWindow::on_movement_downright_clicked()
 {
-    commands.executeDOWNRIGHT(x_current_position++,y_current_position++,ui->check_simulation->isChecked());
+    commands.executeDOWNRIGHT(x_current_position,y_current_position,ui->check_simulation->isChecked());
     displayImageMode2();
+    displayCordinates();
 }
 void MainWindow::on_check_simulation_stateChanged(int arg1)
 {
@@ -541,12 +547,27 @@ void MainWindow::on_check_simulation_stateChanged(int arg1)
 }
 
 
-
-
-
-
 void MainWindow::on_radio_auto_toggled()
 {
     laserON=false;
     commands.laser(false);
+}
+
+void MainWindow::on_button_set_home_clicked()
+{
+    x_current_position=0;
+    y_current_position=0;
+    displayCordinates();
+}
+
+void MainWindow::on_button_go_home_clicked()
+{
+    commands.executeSet(0,0,x_current_position,y_current_position,ui->check_simulation->isChecked());
+    x_current_position=0;
+    y_current_position=0;
+}
+
+void MainWindow::displayCordinates(){
+    ui->number_rn_x->display(x_current_position);
+    ui->number_rn_y->display(y_current_position);
 }

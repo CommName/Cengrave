@@ -36,16 +36,27 @@ private:
     container* last;
     container* current;
     long numOfElemets;
-    cv::Mat *display;
-    QPlainTextEdit *logs;
+
+
     HWF *hwf;
     bool secure;
     long speed;
     int step;
 
+protected:
+    cv::Mat *display;
+    QPlainTextEdit *logs;
+    int *displayX;
+    int *displayY;
+
 public:
+
     CommandContainer();
+    CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h);
     ~CommandContainer();
+protected:
+    void displayAll(int x,int y, commands com);
+
 
 public:
     void setCurrent(int index);
@@ -69,6 +80,7 @@ public:
 
     int  inline getStep(){return step;}
     void inline setHWF(HWF *h){hwf=h;}
+
 
     //manual controls
 public:
