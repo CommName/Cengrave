@@ -339,7 +339,7 @@ void CommandContainer::displayAll(int x,int y,commands com){
 void CommandContainer::workhorse(int x,int y){
     switch(mode){
     case 0:
-
+tmclg.SendCmd("jjjj");
         break;
     default:
     case 1:

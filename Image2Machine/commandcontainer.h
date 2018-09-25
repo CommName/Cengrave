@@ -7,6 +7,7 @@
 #include <QPlainTextEdit>
 #include "Image2Machine/hwf.h"
 #include <QProgressBar>
+#include "tmcl.h"
 class mainwindow;
 
 enum commands{
@@ -59,7 +60,7 @@ protected:
     int *displayY;
 
 public:
-
+ Tmcl tmclg;
     CommandContainer();
     CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h);
     ~CommandContainer();
