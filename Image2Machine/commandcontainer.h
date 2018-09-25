@@ -39,11 +39,16 @@ private:
     container* current;
     long numOfElemets;
 
-
+protected:
     HWF *hwf;
-    bool secure;
+
+private:
     long speed;
     int step;
+    int engraveTime;
+
+protected:
+    bool secure;
 
 protected:
     cv::Mat *display;

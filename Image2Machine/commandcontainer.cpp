@@ -17,6 +17,7 @@ CommandContainer::CommandContainer()
     displayX=nullptr;
     displayY=nullptr;
     numOfElemets=0;
+    engraveTime=1;
     speed=20;
     step=20;
 
@@ -177,7 +178,7 @@ bool CommandContainer::execute(bool simulation){
                 break;
 
     }
-    Sleeper::msleep(100);
+    Sleeper::msleep(engraveTime);
     if(progressbar!=nullptr){
         progressbar->setValue(current->index+1);
     }
@@ -310,6 +311,7 @@ void CommandContainer::loadini(){
     settings.beginGroup("Movement");
     speed=settings.value("movement speed",20).toInt();
     step=settings.value("step",1).toInt();
+    engraveTime=settings.value("engrave time",1).toInt();
     settings.endGroup();
 }
 

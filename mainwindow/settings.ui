@@ -99,35 +99,48 @@
         <item>
          <widget class="QLabel" name="label_step">
           <property name="text">
-           <string>Step:</string>
+           <string>Step (mm):</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="step01mm">
-          <property name="text">
-           <string>0.1 mm</string>
+         <widget class="QSlider" name="horizontalSlider_Step">
+          <property name="maximumSize">
+           <size>
+            <width>250</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="minimum">
+           <number>10</number>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+          <property name="singleStep">
+           <number>10</number>
+          </property>
+          <property name="pageStep">
+           <number>10</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="step05mm">
-          <property name="text">
-           <string>0.5 mm</string>
+         <widget class="QDoubleSpinBox" name="spinBox_step">
+          <property name="decimals">
+           <number>1</number>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="step1mm">
-          <property name="text">
-           <string>1 mm</string>
+          <property name="minimum">
+           <double>0.100000000000000</double>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="step15mm">
-          <property name="text">
-           <string>1.5 mm</string>
+          <property name="maximum">
+           <double>2.500000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -170,19 +183,19 @@
       <item>
        <layout class="QHBoxLayout" name="engravespeed">
         <item>
-         <widget class="QLabel" name="label_engrave_speed">
+         <widget class="QLabel" name="label_engrave_time">
           <property name="text">
-           <string>Engraving speed:</string>
+           <string>Engraving time (ms):</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QSlider" name="slider_engrave_speed">
+         <widget class="QSlider" name="slider_engrave_time">
           <property name="minimum">
-           <number>1</number>
+           <number>0</number>
           </property>
           <property name="maximum">
-           <number>80</number>
+           <number>300</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -190,12 +203,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_engrave_speed">
+         <widget class="QSpinBox" name="spinBox_engrave_time">
           <property name="minimum">
-           <number>1</number>
+           <number>0</number>
           </property>
           <property name="maximum">
-           <number>80</number>
+           <number>300</number>
           </property>
          </widget>
         </item>
@@ -762,9 +775,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>spinBox_engrave_speed</sender>
+   <sender>spinBox_engrave_time</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>slider_engrave_speed</receiver>
+   <receiver>slider_engrave_time</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -778,9 +791,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>slider_engrave_speed</sender>
+   <sender>slider_engrave_time</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>spinBox_engrave_speed</receiver>
+   <receiver>spinBox_engrave_time</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">

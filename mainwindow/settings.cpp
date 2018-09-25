@@ -23,15 +23,9 @@ void Settings::loadSettings(){
 
 
     //Step
-    switch(setting.value("step",1).toInt()){
-    case 1: ui->step01mm->setChecked(true); break;
-    case 5:ui->step05mm->setChecked(true); break;
-    case 10:ui->step1mm->setChecked(true); break;
-    case 15:ui->step15mm->setChecked(true); break;
-    default:ui->step01mm->setChecked(true); break;
-    }
-    ui->SpinBox_stepX->setValue(setting.value("step_x",133.0).toFloat());
-    ui->SpinBox_stepY->setValue(setting.value("step_y",42.0).toFloat());
+    ui->spinBox_step->setValue(setting.value("step",1).toInt());
+    ui->SpinBox_stepX->setValue(setting.value("step_x",42.0).toDouble());
+    ui->SpinBox_stepY->setValue(setting.value("step_y",42.0).toDouble());
 
 
 
@@ -40,9 +34,9 @@ void Settings::loadSettings(){
     //Movement speed
     ui->slider_movement_speed->setValue(setting.value("movement speed",1).toInt());
     ui->spinBox_movement_speed->setValue(ui->slider_movement_speed->value());
-    //Engraving speed
-    ui->slider_engrave_speed->setValue(setting.value("engraving speed",1).toInt());
-    ui->spinBox_engrave_speed->setValue(ui->slider_engrave_speed->value());
+    //Engrave time
+    ui->slider_engrave_time->setValue(setting.value("engrave time",1).toInt());
+    ui->spinBox_engrave_time->setValue(ui->slider_engrave_time->value());
 
 
     setting.endGroup();
@@ -101,25 +95,16 @@ void Settings::saveSettings(){
     setting.beginGroup("Movement");
 
     //step
-    if(ui->step01mm->isChecked()){
-        setting.setValue("step",1);
-    }
-    else if(ui->step1mm->isChecked()){
-        setting.setValue("step",10);
-    }
-    else if(ui->step15mm->isChecked()){
-        setting.setValue("step",15);
-    }
-    else{
-        setting.setValue("step",5);
-    }
+
+    setting.setValue("step",ui->spinBox_step->value());
+
     setting.setValue("step_x",ui->SpinBox_stepX->value());
     setting.setValue("step_y",ui->SpinBox_stepY->value());
 
     //Movement speed
     setting.setValue("movement speed",ui->slider_movement_speed->value());
-    //Engraving speed
-    setting.setValue("engraving speed",ui->slider_engrave_speed->value());
+    //Engrave time
+    setting.setValue("engrave time",ui->slider_engrave_time->value());
 
     setting.endGroup();
     //end of movement settings
@@ -199,3 +184,15 @@ void Settings::on_button_ok_clicked()
 }
 
 
+
+void Settings::on_horizontalSlider_Step_valueChanged(int value)
+{
+    if(value!=ui->spinBox_step->value()*100)
+    ui->spinBox_step->setValue(value*0.01);
+}
+
+void Settings::on_spinBox_step_valueChanged(double arg1)
+{
+    if(arg1!=ui->horizontalSlider_Step->value()*0.01)
+    ui->horizontalSlider_Step->setValue((arg1*100));
+}

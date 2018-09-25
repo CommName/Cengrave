@@ -66,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->groupBox_test_insert->setVisible(false);
     ui->groupBox_resize_cm_mode0->setVisible(false);
     ui->groupBox_imageEffects_mode0->setVisible(false);
-
+    loadSettings();
 }
 
 MainWindow::~MainWindow()
@@ -177,6 +177,8 @@ void MainWindow::loadSettings(){
     hwf.read_port_ini();
     commands.loadini();
     QSettings setting("cengrave.conf");
+    setting.beginGroup("Movement");
+
 
 
 

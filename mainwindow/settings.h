@@ -26,6 +26,10 @@ private slots:
 
     void on_button_general_clicked();
 
+    void on_horizontalSlider_Step_valueChanged(int value);
+
+    void on_spinBox_step_valueChanged(double arg1);
+
 private:
     Ui::Settings *ui;
 
