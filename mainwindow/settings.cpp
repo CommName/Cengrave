@@ -6,6 +6,8 @@ Settings::Settings(QWidget *parent) :
     ui(new Ui::Settings)
 {
     ui->setupUi(this);
+    ui->comboBox_mode->addItem("Serial port");
+    ui->comboBox_mode->addItem("Parallel port");
     loadSettings();
 
 }
@@ -18,17 +20,18 @@ Settings::~Settings()
 void Settings::loadSettings(){
     QSettings setting("cengrave.ini",QSettings::IniFormat);
 
+   //General
+    setting.beginGroup("General");
+    ui->comboBox_mode->setCurrentIndex(setting.value("mode",0).toInt());
+    setting.endGroup();
+
     //Reading movement settings
     setting.beginGroup("Movement");
-
 
     //Step
     ui->spinBox_step->setValue(setting.value("step",1).toInt());
     ui->SpinBox_stepX->setValue(setting.value("step_x",42.0).toDouble());
     ui->SpinBox_stepY->setValue(setting.value("step_y",42.0).toDouble());
-
-
-
 
 
     //Movement speed
@@ -90,6 +93,11 @@ void Settings::loadSettings(){
 }
 void Settings::saveSettings(){
     QSettings setting("cengrave.ini",QSettings::IniFormat);
+
+    //General
+     setting.beginGroup("General");
+     setting.setValue("mode",ui->comboBox_mode->currentIndex());
+     setting.endGroup();
 
     //Movement settings
     setting.beginGroup("Movement");

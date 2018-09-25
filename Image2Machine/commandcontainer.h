@@ -40,6 +40,7 @@ private:
     long numOfElemets;
 
 protected:
+    int mode;
     HWF *hwf;
 
 private:
@@ -89,9 +90,11 @@ public:
 
     int  inline getStep(){return step;}
     void inline setHWF(HWF *h){hwf=h;}
-
+    long getIndex();
 
     //manual controls
+private:
+    void workhorse(int x,int y);
 public:
     void executeSet(int x,int y,int x_previous,int y_previous,bool simulation);
     void executeUP(int x_previous,int y_previous,bool simulation);

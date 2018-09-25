@@ -189,6 +189,7 @@ void MainWindow::execute(){
     while(commands.execute(ui->check_simulation->isChecked())&&!stop){
             displayImageMode2();
             displayCordinates();
+            ui->command_listWidget->setCurrentRow(commands.getIndex());
             QApplication::processEvents();
 
     }

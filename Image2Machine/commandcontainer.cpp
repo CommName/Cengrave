@@ -20,6 +20,7 @@ CommandContainer::CommandContainer()
     engraveTime=1;
     speed=20;
     step=20;
+    mode=1;
 
 }
 CommandContainer::CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h):CommandContainer(){
@@ -203,18 +204,14 @@ void CommandContainer::setCurrent(int index){
 void CommandContainer::executeSet(int x,int y,int x_previous,int y_previous,bool simulation){
     //execute
     if(!simulation){
-        hwf->set_vxy(speed);
-        hwf->stepx((x-x_previous)*step*1000/hwf->get_korak_x(),1);
-        hwf->stepy((y-y_previous)*step*1000/hwf->get_korak_y(),1);
-
+        workhorse(x-x_previous,y-y_previous);
     }
     displayAll(x,y,commands::SET);
 }
 void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
     //execute
     if(!simulation){
-        hwf->set_vxy(speed);
-        hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
+        workhorse(0,-1);
     }
     displayAll(x_previous,y_previous-1,commands::UP);
 
@@ -222,8 +219,7 @@ void CommandContainer::executeUP(int x_previous,int y_previous,bool simulation){
 void CommandContainer::executeDOWN(int x_previous,int y_previous, bool simulation){
     //execute
     if(!simulation){
-        hwf->set_vxy(speed);
-        hwf->stepy(step*1000/hwf->get_korak_y(),1);
+        workhorse(0,1);
 
     }
     displayAll(x_previous,y_previous+1,commands::DOWN);
@@ -232,17 +228,14 @@ void CommandContainer::executeLEFT(int x_previous,int y_previous,bool simulation
 
     //execute
     if(!simulation){
-        hwf->set_vxy(speed);
-        hwf->stepx(-1*step*1000/hwf->get_korak_x(),1);
+        workhorse(-1,0);
     }
     displayAll(x_previous-1,y_previous,commands::LEFT);
 }
 void CommandContainer::executeRIGHT(int x_previous,int y_previous,bool simulation){
     //execute
     if(!simulation){
-        hwf->set_vxy(speed);
-        hwf->stepx(step*1000/hwf->get_korak_x(),1);
-
+        workhorse(1,0);
     }
     displayAll(x_previous+1,y_previous,commands::RIGHT);
 }
@@ -250,9 +243,7 @@ void CommandContainer::executeUPLEFT(int x_previous,int y_previous,bool simulati
 
     //execute
     if(!simulation){
-        hwf->set_vxy(10);
-        hwf->stepx(-1*speed*1000/hwf->get_korak_x(),1);
-        hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
+        workhorse(-1,-1);
 
     }
     displayAll(x_previous-1,y_previous-1,commands::UPLEFT);
@@ -261,9 +252,7 @@ void CommandContainer::executeDOWNLEFT(int x_previous,int y_previous,bool simula
 
     //execute
     if(!simulation){
-        hwf->set_vxy(speed);
-        hwf->stepx(-1*step*1000/hwf->get_korak_x(),1);
-        hwf->stepy(step*1000/hwf->get_korak_y(),1);
+        workhorse(-1,1);
     }
     displayAll(x_previous-1,y_previous+1,commands::DOWNLEFT);
 }
@@ -271,9 +260,7 @@ void CommandContainer::executeUPRIGHT(int x_previous,int y_previous,bool simulat
 
     //execute
     if(!simulation){
-        hwf->set_vxy(speed);
-        hwf->stepx(step*1000/hwf->get_korak_x(),1);
-        hwf->stepy(-1*step*1000/hwf->get_korak_y(),1);
+        workhorse(1,-1);
     }
     displayAll(x_previous+1,y_previous-1,commands::UPRIGHT);
 }
@@ -282,9 +269,7 @@ void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simul
 
     //execute
     if(!simulation){
-        hwf->set_vxy(speed);
-       hwf->stepx(step*1000/hwf->get_korak_x(),1);
-       hwf->stepy(step*1000/hwf->get_korak_y(),1);
+        workhorse(1,1);
     }
     displayAll(x_previous+1,y_previous+1,commands::DOWNRIGHT);
 }
@@ -308,6 +293,12 @@ void CommandContainer::laser(bool on){
 
 void CommandContainer::loadini(){
     QSettings settings("cengrave.ini",QSettings::IniFormat);
+
+    //General
+    settings.beginGroup("General");
+    mode=settings.value("mode",0).toInt();
+    settings.endGroup();
+
     settings.beginGroup("Movement");
     speed=settings.value("movement speed",20).toInt();
     step=settings.value("step",1).toInt();
@@ -345,3 +336,23 @@ void CommandContainer::displayAll(int x,int y,commands com){
     }
 }
 
+void CommandContainer::workhorse(int x,int y){
+    switch(mode){
+    case 0:
+
+        break;
+    default:
+    case 1:
+        hwf->set_vxy(speed);
+        hwf->stepx(x*step*1000/hwf->get_korak_x(),1);
+        hwf->stepy(y*step*1000/hwf->get_korak_y(),1);
+        break;
+    }
+}
+
+long CommandContainer::getIndex(){
+    if(current!=nullptr)
+        return current->index;
+    else
+        return 0;
+}

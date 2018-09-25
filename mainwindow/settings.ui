@@ -80,9 +80,20 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
-   <widget class="QWidget" name="page"/>
+   <widget class="QWidget" name="general">
+    <widget class="QComboBox" name="comboBox_mode">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>50</y>
+       <width>131</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="movement">
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
