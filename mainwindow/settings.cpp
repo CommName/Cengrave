@@ -1,13 +1,48 @@
 #include "settings.h"
 #include "ui_settings.h"
 #include <QSettings>
+#include <qextserialenumerator.h>
+#include <qextserialport.h>
+#include <QList>
 Settings::Settings(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Settings)
 {
     ui->setupUi(this);
+
+    //General
     ui->comboBox_mode->addItem("Serial port");
     ui->comboBox_mode->addItem("Parallel port");
+
+    //Serial port
+    //Baurd
+    ui->comboBox_Baud->addItem("110");
+    ui->comboBox_Baud->addItem("300");
+    ui->comboBox_Baud->addItem("600");
+    ui->comboBox_Baud->addItem("1200");
+    ui->comboBox_Baud->addItem("2400");
+    ui->comboBox_Baud->addItem("4800");
+    ui->comboBox_Baud->addItem("9600");
+    ui->comboBox_Baud->addItem("19200");
+    ui->comboBox_Baud->addItem("38400");
+    ui->comboBox_Baud->addItem("115200");
+    //ParityType
+    ui->comboBox_Parity_type->addItem("None");
+    ui->comboBox_Parity_type->addItem("Odd");
+    ui->comboBox_Parity_type->addItem("Even");
+    ui->comboBox_Parity_type->addItem("Mark");
+    ui->comboBox_Parity_type->addItem("Space");
+    //Flow type
+    ui->comboBox_Flow_Type->addItem("OFF");
+    ui->comboBox_Flow_Type->addItem("Hardware");
+    ui->comboBox_Flow_Type->addItem("XONXOFF");
+    //Stop bits
+    ui->comboBox_Stop_bits->addItem("1");
+    ui->comboBox_Stop_bits->addItem("1.5");
+    ui->comboBox_Stop_bits->addItem("2");
+    //Ports
+    detectPorts();
+
     loadSettings();
 
 }
@@ -45,7 +80,18 @@ void Settings::loadSettings(){
     setting.endGroup();
     //end of movement settings
 
+    //Serial port
+    setting.beginGroup("Serial port");
+    ui->comboBox_COM->setCurrentText(setting.value("com_port","COM4").toString());
+    ui->comboBox_Baud->setCurrentText(QString::number(setting.value("baud",115200).toInt()));
+    ui->spinBox_Data_bits->setValue(setting.value("data_bits",8).toInt());
+    ui->comboBox_Parity_type->setCurrentIndex(setting.value("parity_type",0).toInt());
+    ui->comboBox_Flow_Type->setCurrentIndex(setting.value("flow_type",0).toInt());
+    ui->comboBox_Stop_bits->setCurrentIndex(setting.value("stop_bits",0).toInt());
+    ui->spinBox_Timeout->setValue(setting.value("timeout",100).toInt());
 
+    setting.endGroup();
+    //end of serial port settings
 
     //Reading parallel port settings
     setting.beginGroup("Parallel port");
@@ -117,6 +163,20 @@ void Settings::saveSettings(){
     setting.endGroup();
     //end of movement settings
 
+    //Serial port
+    setting.beginGroup("Serial port");
+
+    setting.setValue("com_port",ui->comboBox_COM->currentText());
+    setting.setValue("baud",ui->comboBox_Baud->currentText().toInt());
+    setting.setValue("data_bits",ui->spinBox_Data_bits->value());
+    setting.setValue("parity_type",ui->comboBox_Parity_type->currentIndex());
+    setting.setValue("flow_type",ui->comboBox_Flow_Type->currentIndex());
+    setting.setValue("stop_bits",ui->comboBox_Stop_bits->currentIndex());
+    setting.setValue("timeout",ui->spinBox_Timeout->value());
+
+    setting.endGroup();
+    //end of serial port settings
+
 
     //Parallel port settings
     setting.beginGroup("Parallel port");
@@ -161,7 +221,13 @@ void Settings::saveSettings(){
     //end of parallel port settings
 }
 
-
+void Settings::detectPorts(){
+   QList<QextPortInfo> ports;
+   ports= QextSerialEnumerator::getPorts();
+   for(int i=0; i<ports.length();i++){
+       ui->comboBox_COM->addItem(ports[i].portName);
+   }
+}
 
 
 //Switching tabs
@@ -173,10 +239,16 @@ void Settings::on_button_set_machine_controls_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
-void Settings::on_butto_parallel_port_clicked()
+void Settings::on_button_serial_port_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+
 }
+void Settings::on_butto_parallel_port_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
 
 
 
@@ -198,9 +270,9 @@ void Settings::on_horizontalSlider_Step_valueChanged(int value)
     if(value!=ui->spinBox_step->value()*100)
     ui->spinBox_step->setValue(value*0.01);
 }
-
 void Settings::on_spinBox_step_valueChanged(double arg1)
 {
     if(arg1!=ui->horizontalSlider_Step->value()*0.01)
     ui->horizontalSlider_Step->setValue((arg1*100));
 }
+

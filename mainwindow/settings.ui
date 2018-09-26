@@ -62,6 +62,13 @@
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="button_serial_port">
+      <property name="text">
+       <string>Serial port</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="butto_parallel_port">
       <property name="text">
        <string>Parallel port</string>
@@ -80,7 +87,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="general">
     <widget class="QComboBox" name="comboBox_mode">
@@ -286,6 +293,116 @@
          </spacer>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="serial_port">
+    <widget class="QGroupBox" name="Connection">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>241</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Connection</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_6">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_COM">
+        <property name="text">
+         <string>COM</string>
+        </property>
+        <property name="buddy">
+         <cstring>comboBox_COM</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox_COM"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_Baud">
+        <property name="text">
+         <string>Baud</string>
+        </property>
+        <property name="buddy">
+         <cstring>comboBox_Baud</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="comboBox_Baud"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_FloW_Type">
+        <property name="text">
+         <string>FlowType</string>
+        </property>
+        <property name="buddy">
+         <cstring>comboBox_Flow_Type</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="comboBox_Flow_Type"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_Parity_type">
+        <property name="text">
+         <string>Parity Type</string>
+        </property>
+        <property name="buddy">
+         <cstring>comboBox_Parity_type</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QComboBox" name="comboBox_Parity_type"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_Data_bits">
+        <property name="text">
+         <string>Data bits</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QSpinBox" name="spinBox_Data_bits">
+        <property name="minimum">
+         <number>5</number>
+        </property>
+        <property name="maximum">
+         <number>8</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QComboBox" name="comboBox_Stop_bits"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_Stop_bits">
+        <property name="text">
+         <string>Stop bits</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_Timeout">
+        <property name="text">
+         <string>Timeout (ms)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QSpinBox" name="spinBox_Timeout">
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

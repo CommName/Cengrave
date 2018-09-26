@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Cengrave
 TEMPLATE = app
-include(C:/Qt/3rdparty/qextserialport-master/src/qextserialport.pri)
+include($(3rdparty)\qextserialport-master\src\qextserialport.pri)
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -32,7 +32,7 @@ SOURCES += \
     mainwindow/settings.cpp \
     Image2Machine/hwf.cpp \
     Image2Machine/tmcl.cpp
-    #Image2Machine/hwf.cpp
+
 
 HEADERS += \
     mainwindow/mainwindow.h \
@@ -41,7 +41,7 @@ HEADERS += \
     mainwindow/settings.h \
     Image2Machine/hwf.h \
     Image2Machine/tmcl.h
-    #Image2Machine/hwf.h
+
 
 FORMS += \
         mainwindow/mainwindow.ui \

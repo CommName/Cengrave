@@ -7,7 +7,7 @@
 #include <QString>
 #include <QGraphicsItem>
 #include "Image2Machine/commandcontainer.h"
-
+#include "Image2Machine/tmcl.h"
 #include "Image2Machine/hwf.h"
 
 namespace Ui {
@@ -128,6 +128,7 @@ private:
     cv::Mat imageMode2;
     CommandContainer commands;
     HWF hwf;
+    Tmcl tmcl;
     QString imagePath;
     QGraphicsScene *scene0;
     QGraphicsScene *scene1;

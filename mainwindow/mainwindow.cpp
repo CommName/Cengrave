@@ -10,7 +10,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    commands(&imageMode2,ui->consoleOutput_mode2,&x_current_position,&y_current_position,&hwf)
+    commands(&imageMode2,ui->consoleOutput_mode2,&x_current_position,&y_current_position,&hwf,&tmcl)
 {
     ui->setupUi(this);
     ui->modeWidget->setCurrentIndex(0);
@@ -175,12 +175,8 @@ void MainWindow::adaptiveThreshold(){
 
 void MainWindow::loadSettings(){
     hwf.read_port_ini();
+    tmcl.read_port_ini();
     commands.loadini();
-    QSettings setting("cengrave.conf");
-    setting.beginGroup("Movement");
-
-
-
 
 }
 
@@ -541,10 +537,10 @@ void MainWindow::on_check_simulation_stateChanged(int arg1)
 {
 
     if(arg1==0){
-        hwf.enable_on();
+        commands.connect(true);
     }
     else{
-        hwf.enable_off();
+        commands.connect(false);
     }
 
 

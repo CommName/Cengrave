@@ -23,13 +23,13 @@ CommandContainer::CommandContainer()
     mode=1;
 
 }
-CommandContainer::CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h):CommandContainer(){
+CommandContainer::CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h,Tmcl *tmcl):CommandContainer(){
 
     display=image;
     logs=log;
     displayX=x;
     displayY=y;
-
+    tmclg=tmcl;
     hwf=h;
 
     loadini();
@@ -290,6 +290,23 @@ void CommandContainer::laser(bool on){
     }
 
 }
+void CommandContainer::connect(bool on){
+    switch (mode) {
+    case 0:
+        if(on)
+            tmclg->openSerialPortx();
+        else
+            tmclg->closeSerialPortx();
+        break;
+    case 1:
+    default:
+        if(on)
+            hwf->enable_on();
+        else
+            hwf->enable_off();
+        break;
+    }
+}
 
 void CommandContainer::loadini(){
     QSettings settings("cengrave.ini",QSettings::IniFormat);
@@ -339,10 +356,11 @@ void CommandContainer::displayAll(int x,int y,commands com){
 void CommandContainer::workhorse(int x,int y){
     switch(mode){
     case 0:
-tmclg.SendCmd("jjjj");
+        tmclg->SendCmd(QString("G0X"+QString::number(x)+"Y"+QString::number(y)+"F"+QString::number(speed)+"\r\n"));
         break;
-    default:
+
     case 1:
+    default:
         hwf->set_vxy(speed);
         hwf->stepx(x*step*1000/hwf->get_korak_x(),1);
         hwf->stepy(y*step*1000/hwf->get_korak_y(),1);

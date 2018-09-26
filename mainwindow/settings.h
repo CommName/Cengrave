@@ -30,6 +30,8 @@ private slots:
 
     void on_spinBox_step_valueChanged(double arg1);
 
+    void on_button_serial_port_clicked();
+
 private:
     Ui::Settings *ui;
 
@@ -37,6 +39,9 @@ private:
 private:
     void loadSettings();
     void saveSettings();
+
+private:
+    void detectPorts();
 };
 
 #endif // SETTINGS_H

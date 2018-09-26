@@ -43,6 +43,7 @@ private:
 protected:
     int mode;
     HWF *hwf;
+    Tmcl *tmclg;
 
 private:
     long speed;
@@ -60,9 +61,9 @@ protected:
     int *displayY;
 
 public:
- Tmcl tmclg;
+
     CommandContainer();
-    CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h);
+    CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h,Tmcl *tmcl);
     ~CommandContainer();
 protected:
     void displayAll(int x,int y, commands com);
@@ -107,6 +108,7 @@ public:
     void executeDOWNLEFT(int x_previous,int y_previous,bool simulation);
     void executeDOWNRIGHT(int x_previous,int y_previous,bool simulation);
     void laser(bool on);
+    void connect(bool on);
 };
 
 #endif // COMMANDCONTAINER_H

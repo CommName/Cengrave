@@ -1,5 +1,6 @@
 #include "tmcl.h"
 #include <QObject>
+#include <QtDebug>
 #include<iostream>
 #include<cstdio>//to pause console screen
 
@@ -22,7 +23,6 @@ Tmcl::Tmcl(QObject *parent) :
     //  timer->setInterval(40);
     portx = new QextSerialPort(x_com_port, settingsx, QextSerialPort::Polling);
     //port = new QextSerialPort(x_com_port, settings, QextSerialPort::EventDriven);
-openSerialPortx();
 
 }
 
@@ -48,11 +48,13 @@ void Tmcl::openSerialPortx()
     portx->setTimeout( 5000 ) ;
 
     //check presence of the board
-
     if (portx->isOpen()){
-//uradi nesto
+        //something
     }
     //   RequestTargetPositioReachedEvent();
+
+}
+void Tmcl::closeSerialPortx(){
 
 }
 
@@ -83,22 +85,20 @@ int Tmcl::PollComport(int port)
 
 
 
-void Tmcl::SendCmd(const QByteArray &data)
+
+void Tmcl::SendCmd(QString data)
 
 {
-    int i;
 
-    QByteArray message;
-    message= "G91X15Y15F1000\r\n";
+    QByteArray message(data.toLocal8Bit().constData());
 
         if (portx->isOpen()){
 
             portx->write(message);
-               qDebug() << "poruka"<<message;
+               qDebug() << "message"<<message;
         }
 
 }
-
 
 //Read the result that is returned by the module
 //Parameters: Handle: handle of the serial port, as returned by OpenRS232
@@ -109,9 +109,6 @@ void Tmcl::SendCmd(const QByteArray &data)
 //              TMCL_RESULT_NOT_READY: not enough bytes read so far (try again)
 //              TMCL_RESULT_CHECKSUM_ERROR: checksum of reply packet wrong
 
-
-
-//int MainWindow::GetResult( UCHAR *Address, UCHAR *Status, int *Value)
 int Tmcl::GetResult(int port,int check)
 
 {
@@ -178,34 +175,25 @@ int Tmcl::GetResult(int port,int check)
 }
 
 
-
-
-
-/*--------------------------------------------------------------------------*/
 int Tmcl::read_port_ini(void)
 {
 
     //default
-
-    x_com_port="COM4";
-    x_baudrate=BAUD115200;
-    x_databits=DATA_8;
-    x_stopbits=STOP_1;
-    x_parity=PAR_NONE;
-    x_flowcontrol=FLOW_OFF;
-    //    x_mode=1
-    x_time_interval=100;
-
+    QSettings settings("cengrave.ini",QSettings::IniFormat);
+    settings.beginGroup("Serial port");
+    x_com_port= settings.value("com_port","COM4").toString();
+    x_baudrate= (BaudRateType)settings.value("baud",115200).toInt();
+    x_databits= (DataBitsType)settings.value("data_bits",8).toInt();
+    x_stopbits= (StopBitsType)settings.value("stop_bits",0).toInt();
+    x_parity=   (ParityType)settings.value("parity_type",0).toInt();
+    x_flowcontrol=(FlowType)settings.value("flow_type",0).toInt();
+    x_time_interval= settings.value("time_interval",100).toInt();
+    qDebug()<< "serial port" << x_com_port;
+    qDebug()<< "baud" << (int)x_baudrate;
+    settings.endGroup();
 }
 
-/*
-QString x_com_port;
-BaudRateType x_baudrate;
-DataBitsType x_databits;
-StopBitsType x_stopbits;
-ParityType x_parity;
-FlowType x_flowcontrol;
-*/
+
 
 ParityType Tmcl::parity(QString  str)
 {

@@ -232,7 +232,8 @@ public:
     //    int read_port_ini(void);
 
     //void SendCmd(int port,int Address, int Command, int Type, int Motor, int Value);
-    void SendCmd(const QByteArray &data);
+    //void SendCmd(const QByteArray &data);
+    void SendCmd(QString data);
 
     int  GetResult(int port,int check);
     int  Card_identify(int motor );
