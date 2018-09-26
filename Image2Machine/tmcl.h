@@ -226,38 +226,10 @@ public:
     void readData();
     int read_port_ini(void);
 
-    //    void showPortInfo(int idx);
-    //    void onReadyRead();
-    //    int write_port_ini(void);
-    //    int read_port_ini(void);
-
-    //void SendCmd(int port,int Address, int Command, int Type, int Motor, int Value);
-    //void SendCmd(const QByteArray &data);
     void SendCmd(QString data);
-
     int  GetResult(int port,int check);
-    int  Card_identify(int motor );
-    int  Set_current(int motor);
-    int  Set_microstep_resolution(int motor );
-    int  Set_encoder_position(int motor,int n );
-    int  Set_actual_position(int motor,int n );
-    int  Set_actual_speed(int motor,int n );
-    int  Set_position_speed(int motor,int n );
-    int  Motor_stop(int motor,int n );
-
-    int  Motor_move(int motor, long Value );
-    int  step(int motor,long pom);
-    int stepxy(long pomx, long pomy, int v);
-    int  motor_init(int motor);
-    long get_position(int motor);
-    long get_machine_position(int motor);
-    int  z_motor_enable(int card, int enable);
-    int  z_motor_direction(int card,int dir);
-    int kvasenje(int card, int on);
-    int motor(int card, int on);
 
     int get_status(int motor);
-
     int RequestTargetPositioReachedEvent(int motor );
 
     int  PollComport(int port);
@@ -275,16 +247,6 @@ public:
      //x_mode=1
      long x_time_interval;
 
-     int  z_delay;
-
-     QString y_com_port;
-     BaudRateType y_baudrate;
-     DataBitsType y_databits;
-     StopBitsType y_stopbits;
-     ParityType y_parity;
-     FlowType y_flowcontrol;
-     //y_mode=1
-     long y_time_interval;
 
     TMotorConfig MotorConfig[2];
 

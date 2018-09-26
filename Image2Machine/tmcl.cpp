@@ -16,13 +16,8 @@ Tmcl::Tmcl(QObject *parent) :
 
     timer = new QTimer(this);
     timer->setInterval(100);
-
-    //PortSettings settings = {BAUD115200, DATA_8, PAR_NONE, STOP_1, FLOW_OFF, 10};
     PortSettings settingsx = {x_baudrate, x_databits, x_parity, x_stopbits, x_flowcontrol, x_time_interval};
-    //   timer = new QTimer(this);
-    //  timer->setInterval(40);
     portx = new QextSerialPort(x_com_port, settingsx, QextSerialPort::Polling);
-    //port = new QextSerialPort(x_com_port, settings, QextSerialPort::EventDriven);
 
 }
 
@@ -31,41 +26,21 @@ void Tmcl::openSerialPortx()
 {
 
     if (!portx->isOpen()) {
-        //        port->setPortName(ui->portBox->currentText());
-        //        port->open(QIODevice::ReadWrite);
-
         portx->open( QIODevice::ReadWrite | QIODevice::Unbuffered ) ;
-               qDebug()<< "port otvoren";
+               qDebug()<< "port open";
     }
 
     //If using polling mode, we need a QTimer
-
     if (portx->isOpen() && portx->queryMode() == QextSerialPort::Polling)
         timer->start();
     else
         timer->stop();
-
     portx->setTimeout( 5000 ) ;
-
-    //check presence of the board
-    if (portx->isOpen()){
-        //something
-    }
-    //   RequestTargetPositioReachedEvent();
 
 }
 void Tmcl::closeSerialPortx(){
-
+    portx->close();
 }
-
-
-int  Tmcl::Card_identify(int motor )
-{
-
-
-    return(0);
-}
-
 
 
 int Tmcl::PollComport(int port)
@@ -82,8 +57,6 @@ int Tmcl::PollComport(int port)
         return 0;
     return(n);
 }
-
-
 
 
 void Tmcl::SendCmd(QString data)
@@ -110,7 +83,6 @@ void Tmcl::SendCmd(QString data)
 //              TMCL_RESULT_CHECKSUM_ERROR: checksum of reply packet wrong
 
 int Tmcl::GetResult(int port,int check)
-
 {
     unsigned char Checksum;
     int i;
@@ -127,12 +99,6 @@ int Tmcl::GetResult(int port,int check)
         data = portx->readAll();
 
 
-
-
-    //for(i=0;i<data.length();i++)
-    //   ui->terminalconsole->appendPlainText(QString::number(data[i], 16));
-
-
     if(data.length()==9){
         Checksum=0;
         for(i=0; i<8; i++)
@@ -140,37 +106,25 @@ int Tmcl::GetResult(int port,int check)
         TMCL_Checksum=(unsigned char)data[8];
 
         if((check==1) && (Checksum!=TMCL_Checksum)){
-            //     ui->terminalconsole->appendPlainText("CHEKSUM\n");
-            //    ui->terminalconsole->appendPlainText(QString::number(TMCL_Checksum, 16));
-            //   ui->terminalconsole->appendPlainText(QString::number(Checksum, 16));
             return TMCL_RESULT_CHECKSUM_ERROR;
         }
 
         TMCL_Address=data[0];
-        //ui->terminalconsole->appendPlainText("Address ");
-        //ui->terminalconsole->appendPlainText(QString::number(TMCL_Address, 16));
 
         TMCL_Status=data[2];
 
-        //ui->terminalconsole->appendPlainText("Status ");
-        //ui->terminalconsole->appendPlainText(QString::number(TMCL_Status, 16));
         TMCL_Instr=data[3];
         TMCL_Byte[0]=data[4];
         TMCL_Byte[1]=data[5];
         TMCL_Byte[2]=data[6];
         TMCL_Byte[3]=data[7];
         TMCL_Value=(TMCL_Byte[0]<<24)|(TMCL_Byte[1]<<16)|(TMCL_Byte[2]<<8)|(TMCL_Byte[3]);
-        //Value=(data[4] << 24) | (data[5] << 16) | (data[6] << 8) | data[7];
-        //ui->terminalconsole->appendPlainText("Value ");
-        //ui->terminalconsole->appendPlainText(QString::number(TMCL_Value, 16));
 
     }
     else{
-        //ui->terminalconsole->appendPlainText("NOT READY\n");
         qDebug()<<TMCL_RESULT_NOT_READY;
         return TMCL_RESULT_NOT_READY;
     }
-    //ui->terminalconsole->appendPlainText("OK\n");
     return TMCL_RESULT_OK;
 }
 
@@ -178,18 +132,15 @@ int Tmcl::GetResult(int port,int check)
 int Tmcl::read_port_ini(void)
 {
 
-    //default
     QSettings settings("cengrave.ini",QSettings::IniFormat);
     settings.beginGroup("Serial port");
-    x_com_port= settings.value("com_port","COM4").toString();
-    x_baudrate= (BaudRateType)settings.value("baud",115200).toInt();
-    x_databits= (DataBitsType)settings.value("data_bits",8).toInt();
-    x_stopbits= (StopBitsType)settings.value("stop_bits",0).toInt();
-    x_parity=   (ParityType)settings.value("parity_type",0).toInt();
-    x_flowcontrol=(FlowType)settings.value("flow_type",0).toInt();
-    x_time_interval= settings.value("time_interval",100).toInt();
-    qDebug()<< "serial port" << x_com_port;
-    qDebug()<< "baud" << (int)x_baudrate;
+    x_com_port=                     settings.value("com_port","COM4").toString();
+    x_baudrate=     (BaudRateType)  settings.value("baud",115200).toInt();
+    x_databits=     (DataBitsType)  settings.value("data_bits",8).toInt();
+    x_stopbits=     (StopBitsType)  settings.value("stop_bits",0).toInt();
+    x_parity=       (ParityType)    settings.value("parity_type",0).toInt();
+    x_flowcontrol=  (FlowType)      settings.value("flow_type",0).toInt();
+    x_time_interval=                settings.value("time_interval",100).toInt();
     settings.endGroup();
 }
 
@@ -202,7 +153,6 @@ ParityType Tmcl::parity(QString  str)
     else if(str=="PAR_EVEN")return(PAR_EVEN);
 return(PAR_NONE);
 }
-
 DataBitsType Tmcl::databits(QString  str)
 {
     if(str=="DATA_5")return(DATA_5);
@@ -218,7 +168,6 @@ StopBitsType Tmcl::stopbits(QString  str)
     else if(str=="STOP_2")return(STOP_2);
 return(STOP_1);
 }
-
 FlowType Tmcl::flowcontrol(QString str)
 {
     if(str=="FLOW_OFF")return(FLOW_OFF);

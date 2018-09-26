@@ -356,7 +356,7 @@ void CommandContainer::displayAll(int x,int y,commands com){
 void CommandContainer::workhorse(int x,int y){
     switch(mode){
     case 0:
-        tmclg->SendCmd(QString("G0X"+QString::number(x)+"Y"+QString::number(y)+"F"+QString::number(speed)+"\r\n"));
+        tmclg->SendCmd(QString("G91X"+QString::number(x*step)+"Y"+QString::number(y*step)+"F"+QString::number(speed)+"\r\n"));
         break;
 
     case 1:
