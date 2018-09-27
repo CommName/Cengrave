@@ -41,7 +41,7 @@ protected:
     void deleteAll();
 
     void printCommand(pixel* atm, pixel*next ,std::ofstream &f);
-
+    void commandContainerInsert(pixel *atm, pixel*next, CommandContainer &com);
 
 
 public:
@@ -57,6 +57,8 @@ public:
 public:
     bool tooFileHeightWidth(QString const &path);
     bool tooFileDepth(QString const &path);
+    bool tooCommandContainerHeightWidth(CommandContainer &con);
+    bool tooCommandContainerDepth(CommandContainer &con);
 
 public:
     bool test(QString const &filePath);

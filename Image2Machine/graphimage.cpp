@@ -263,8 +263,8 @@ bool GraphImage::test(QString const &filePath){
 }
 
 void GraphImage::printCommand(pixel* atm, pixel*next,std::ofstream &f){
-if(atm==nullptr||next==nullptr||!f)
-    return;
+    if(atm==nullptr||next==nullptr||!f)
+        return;
 //UP
 if((next->y)==(atm->y-1)){
     //UPLEFT
@@ -387,4 +387,123 @@ bool GraphImage::tooFileDepth(QString const &path){
     }
     f.close();
     return true;
+}
+
+bool GraphImage::tooCommandContainerHeightWidth(CommandContainer &con){
+    con.deleteAll();
+    pixel *tmp=root;
+    con.insertSet(root->x,root->y);
+    while(tmp!=nullptr){
+        commandContainerInsert(tmp,tmp->next,con);
+        tmp=tmp->next;
+    }
+    return true;
+}
+bool GraphImage::tooCommandContainerDepth(CommandContainer &con){
+    con.deleteAll();
+    pixel* tmp=root;
+    //seting status to 0
+    while(tmp!=nullptr){
+        tmp->status=0;
+        tmp=tmp->next;
+    }
+    tmp=root;
+    while(tmp!=nullptr){
+        if(tmp->status==0){ //unprocessed pixel
+            con.insertSet(tmp->x,tmp->y);
+            pixel* branch=tmp;
+            QStack<pixel*> stack;
+            stack.push(nullptr);
+            branch->status=1; //mark it is in queue for processing
+            while(branch!=nullptr){
+                pixel* next=nullptr;
+                if(branch->status!=2){//proccessing pixel
+                    branch->status=2;
+                    //adding adjusted to queue for processing
+                    edge *temp=branch->link;
+                    while(temp!=nullptr){
+                        if(temp->dest->status==0){
+                            temp->dest->status=1;
+                            //left has priority
+                            if((temp->dest->x-1==branch->x)&&(temp->dest->y==branch->y))
+                                    next=temp->dest;
+                            else{
+                                stack.push(temp->dest);
+                            }
+                        }
+                        temp=temp->link;
+                    }
+                //chosing next pixel
+                if(next==nullptr){
+                    next=stack.pop();
+                }
+                commandContainerInsert(branch,next,con);
+                branch=next;
+                }
+            }
+        }
+        tmp=tmp->next;
+    }
+    return true;
+}
+
+void GraphImage::commandContainerInsert(pixel *atm,pixel *next,CommandContainer &com){
+    if(atm==nullptr||next==nullptr)
+        return;
+    //UP
+    if((next->y)==(atm->y-1)){
+        //UPLEFT
+        if((next->x)==(atm->x-1)){
+            com.insert(commands::UPLEFT);
+        }
+        //UPRIGHT
+        else if((next->x)==(atm->x+1)){
+            com.insert(commands::UPRIGHT);
+        }
+        //UP
+        else if((next->x)==(atm->x)){
+            com.insert(commands::UP);
+        }
+        else{
+            com.insertSet(next->x,next->y);
+        }
+    }
+    //DOWN
+    else if((next->y)==(atm->y+1)){
+        //DOWNLEFT
+        if((next->x)==(atm->x-1)){
+            com.insert(commands::DOWNLEFT);
+        }
+        //DOWNRIGHT
+        else if((next->x)==(atm->x+1)){
+            com.insert(commands::DOWNRIGHT);
+        }
+        //DOWN
+        else if((next->x)==(atm->x)){
+            com.insert(commands::DOWN);
+        }
+        else{
+            com.insertSet(next->x,next->y);
+        }
+    }
+    //SAME LEVEL
+    else if((next->y)==(atm->y)){
+        //LEFT
+        if((next->x)==(atm->x-1))
+            com.insert(commands::LEFT);
+        //RIGHT
+        else if((next->x)==(atm->x+1)){
+            com.insert(commands::RIGHT);
+        }
+        //SAME PIXEL
+        else if((next->x)==(atm->x)){
+            return;
+        }
+        else{
+            com.insertSet(next->x,next->y);
+        }
+    }
+    else{
+        com.insertSet(next->x,next->y);
+    }
 }

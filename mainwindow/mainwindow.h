@@ -117,6 +117,8 @@ private slots:
 
     void on_button_go_home_clicked();
 
+    void on_button_toMachine_clicked();
+
 private:
     Ui::MainWindow *ui;
 

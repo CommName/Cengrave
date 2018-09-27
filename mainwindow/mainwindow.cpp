@@ -426,6 +426,23 @@ void MainWindow::on_button_extract_clicked()
     default:    break;
     }
 }
+void MainWindow::on_button_toMachine_clicked()
+{
+    GraphImage temp;
+    switch (ui->comboBox_extractmode->currentIndex()) {
+    case 0:temp.insertColsRowsNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
+    case 1:temp.insertRowsColsNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
+    case 2:temp.insertColsRowsZigZagNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
+    case 3:temp.insertRowsColsZigZagNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
+    case 4:temp.insertColsRows(imageMode1); temp.tooCommandContainerDepth(commands); break;
+    case 5:temp.insertRowsCols(imageMode1); temp.tooCommandContainerDepth(commands); break;
+    case 6:temp.insertColsRowsZigZag(imageMode1); temp.tooCommandContainerDepth(commands); break;
+    case 7:temp.insertRowsColsZigZag(imageMode1); temp.tooCommandContainerDepth(commands); break;
+    default:    break;
+    }
+    commands.printToQListView(ui->command_listWidget);
+    ui->modeWidget->setCurrentIndex(2);
+}
 
 //mode2 auto mode
 void MainWindow::on_button_load_auto_clicked()
@@ -571,3 +588,5 @@ void MainWindow::displayCordinates(){
     ui->number_rn_x->display(x_current_position);
     ui->number_rn_y->display(y_current_position);
 }
+
+

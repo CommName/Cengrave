@@ -141,6 +141,7 @@ bool CommandContainer::saveFile(QString const &path){
 }
 void CommandContainer::printToQListView(QListWidget *listView){
     container *temp=root;
+    listView->clear();
     while(temp!=nullptr){
         switch (temp->command) {
         case commands::UP: listView->addItem("UP"); break;
@@ -374,3 +375,4 @@ long CommandContainer::getIndex(){
     else
         return 0;
 }
+
