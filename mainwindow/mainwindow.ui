@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>977</width>
+    <width>1000</width>
     <height>772</height>
    </rect>
   </property>
@@ -499,7 +499,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,0">
+         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,0,0">
           <item>
            <widget class="QGroupBox" name="EngraveSettings">
             <property name="title">
@@ -751,6 +751,19 @@
              </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
@@ -1039,8 +1052,8 @@
                     <rect>
                      <x>10</x>
                      <y>23</y>
-                     <width>169</width>
-                     <height>19</height>
+                     <width>173</width>
+                     <height>21</height>
                     </rect>
                    </property>
                    <layout class="QHBoxLayout" name="selectmode">
@@ -1358,8 +1371,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>977</width>
-     <height>21</height>
+     <width>1000</width>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1388,7 +1401,7 @@
      <addaction name="window_engrave_engrave_mode"/>
      <addaction name="window_engrave_extract_mode"/>
      <addaction name="separator"/>
-     <addaction name="actionTest_inser_functions"/>
+     <addaction name="window_engrave_test_function"/>
     </widget>
     <widget class="QMenu" name="menuMachine_Control">
      <property name="title">
@@ -1453,7 +1466,7 @@
     <string>Engrave mode</string>
    </property>
   </action>
-  <action name="actionTest_inser_functions">
+  <action name="window_engrave_test_function">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1676,22 +1689,6 @@
     <hint type="destinationlabel">
      <x>867</x>
      <y>236</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>window_engrave_extract_mode</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>extractmode</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>196</x>
-     <y>676</y>
     </hint>
    </hints>
   </connection>
@@ -1932,6 +1929,38 @@
     <hint type="destinationlabel">
      <x>815</x>
      <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_engrave_extract_mode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>extractmode</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>676</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>window_engrave_test_function</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_test_insert</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>482</y>
     </hint>
    </hints>
   </connection>

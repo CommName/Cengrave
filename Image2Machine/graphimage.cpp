@@ -274,6 +274,67 @@ bool GraphImage::insertDiagonal(cv::Mat const &image){
     return true;
 }
 
+bool GraphImage::insertDiagonalZigZag(cv::Mat const &image){
+    if(image.empty())
+        return false;
+    if(root!=nullptr)
+        deleteAll();
+    int c=0,r=image.rows;
+    //bottom half
+    for(int i=0;i<image.cols;i++){
+        if(i%2==0){
+            c=i; r=image.rows-1;
+            while(c>=0){
+                if(r>=0&&r<image.rows)
+                if(image.at<uint8_t>(r,c)==0)
+                       if(!insert(c,r,&GraphImage::findNotConnected))
+                           return false;
+                c--;
+                r--;
+            }
+        }
+        else{
+            c=0;r=image.rows-i-1;
+            while(c<image.cols){
+                if(r>=0&&r<image.rows)
+                if(image.at<uint8_t>(r,c)==0)
+                       if(!insert(c,r,&GraphImage::findNotConnected))
+                           return false;
+                c++;
+                r++;
+            }
+
+        }
+    }
+    //upper half
+    for(int i=1;i<=image.rows;i++){
+    if(i%2==image.cols%2){
+        c=image.cols-1; r=image.rows-i-1;
+        while(c>=0){
+            if(r>=0&&r<image.rows)
+            if(image.at<uint8_t>(r,c)==0)
+                   if(!insert(c,r,&GraphImage::findNotConnected))
+                       return false;
+            c--;
+            r--;
+        }
+    }
+    else{
+        c=0; r=image.rows-i-image.cols;
+        while(c<image.cols){
+            if(r>=0&&r<image.rows)
+            if(image.at<uint8_t>(r,c)==0)
+                   if(!insert(c,r,&GraphImage::findNotConnected))
+                       return false;
+            c++;
+            r++;
+        }
+    }
+    }
+
+    return true;
+}
+
 
 bool GraphImage::test(QString const &filePath){
     std::ofstream f(filePath.toLocal8Bit().constData(),std::ios::out);

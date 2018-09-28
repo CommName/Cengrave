@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_extractmode->addItem("Depth Col-Row ZZ");
     ui->comboBox_extractmode->addItem("Depth Row-Col ZZ");
     ui->comboBox_extractmode->addItem("Diagonal");
+    ui->comboBox_extractmode->addItem("Diagonal ZZ");
     ui->comboBox_extractmode->setCurrentIndex(0);
     //mode2 test
     ui->comboBox_testmode->addItem("Test Width Height Not Connected");
@@ -59,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_testmode->addItem("Test Width Height ZZ");
     ui->comboBox_testmode->addItem("Test Height Width ZZ");
     ui->comboBox_testmode->addItem("Test Diagonal");
+    ui->comboBox_testmode->addItem("Test Diagonal ZZ");
     ui->comboBox_testmode->setCurrentIndex(0);
 
     //enabled disabled stuff
@@ -408,6 +410,7 @@ void MainWindow::on_button_extract_test_clicked()
     case 6: temp.insertColsRowsZigZag(imageMode1); break;
     case 7: temp.insertRowsColsZigZag(imageMode1); break;
     case 8: temp.insertDiagonal(imageMode1); break;
+    case 9: temp.insertDiagonalZigZag(imageMode1); break;
     default: break;
     }
     temp.test(testPath);
@@ -427,6 +430,7 @@ void MainWindow::on_button_extract_clicked()
     case 6:temp.insertColsRowsZigZag(imageMode1); temp.tooFileDepth(extractPath); break;
     case 7:temp.insertRowsColsZigZag(imageMode1); temp.tooFileDepth(extractPath); break;
     case 8:temp.insertDiagonal(imageMode1); temp.tooFileHeightWidth(extractPath); break;
+    case 9:temp.insertDiagonalZigZag(imageMode1); temp.tooFileHeightWidth(extractPath); break;
     default:    break;
     }
 }
@@ -443,6 +447,7 @@ void MainWindow::on_button_toMachine_clicked()
     case 6:temp.insertColsRowsZigZag(imageMode1); temp.tooCommandContainerDepth(commands); break;
     case 7:temp.insertRowsColsZigZag(imageMode1); temp.tooCommandContainerDepth(commands); break;
     case 8:temp.insertDiagonal(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
+    case 9:temp.insertDiagonalZigZag(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
     default:    break;
     }
     commands.printToQListView(ui->command_listWidget);
