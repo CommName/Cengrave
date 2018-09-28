@@ -228,6 +228,7 @@ public:
 
     void SendCmd(QString data);
     int  GetResult(int port,int check);
+    int GetResult_ok(int port,int check);
 
     int get_status(int motor);
     int RequestTargetPositioReachedEvent(int motor );

@@ -70,6 +70,8 @@ void Tmcl::SendCmd(QString data)
             portx->write(message);
                qDebug() << "message"<<message;
         }
+        GetResult_ok(0,0);
+
 
 }
 
@@ -127,6 +129,35 @@ int Tmcl::GetResult(int port,int check)
     }
     return TMCL_RESULT_OK;
 }
+
+
+int Tmcl::GetResult_ok(int port,int check)
+{
+    int i;
+    int n;
+    QByteArray data;
+
+    n=0;
+
+        if (!portx->isOpen())
+            return -1;
+
+        while (n <4)
+            n = PollComport(port);
+
+        data = portx->readAll();
+
+    qDebug() <<"podaci sa porta" <<data;
+    if(data.length()>=2){
+        if(data[0]=='o' && data[1]=='k');
+        return(0);
+    }
+    else{
+        return(1);
+    }
+    return(-2);
+}
+
 
 
 int Tmcl::read_port_ini(void)

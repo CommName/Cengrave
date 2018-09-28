@@ -276,18 +276,26 @@ void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simul
 }
 void CommandContainer::laser(bool on){
 
-
     if(on){
         if(logs!=nullptr){
             logs->appendPlainText("Laser on");
-        hwf->motor_off(); //reversed logic
+
+        switch(mode){
+        case 0: tmclg->SendCmd(QString("G01 F1000 M3 S1000\r\n")); break;
+        default:
+        case 1:hwf->motor_off(); break; //reversed logic
+        }
         }
     }
     else{
         if(logs!=nullptr){
             logs->appendPlainText("Laser off");
         }
-        hwf->motor_on(); //reversed logic
+        switch(mode){
+        case 0:tmclg->SendCmd(QString("M5\r\n")); break;
+        default:
+        case 1:hwf->motor_on(); break;//reversed logic
+        }
     }
 
 }
@@ -357,7 +365,7 @@ void CommandContainer::displayAll(int x,int y,commands com){
 void CommandContainer::workhorse(int x,int y){
     switch(mode){
     case 0:
-        tmclg->SendCmd(QString("G91X"+QString::number(x*step)+"Y"+QString::number(y*step)+"F"+QString::number(speed)+"\r\n"));
+        tmclg->SendCmd(QString("G91X"+QString::number(x*step*0.1)+"Y"+QString::number(y*step*0.1)+"F"+QString::number(speed)+"\r\n"));
         break;
 
     case 1:
