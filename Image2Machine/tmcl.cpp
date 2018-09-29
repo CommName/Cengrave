@@ -20,6 +20,20 @@ Tmcl::Tmcl(QObject *parent) :
     portx = new QextSerialPort(x_com_port, settingsx, QextSerialPort::Polling);
 
 }
+int Tmcl::PollComport(int port)
+{
+    int n ;
+
+        if (portx == NULL || !portx->isOpen())
+            return 0;
+
+        n = portx->bytesAvailable();
+
+
+    if (!n)
+        return 0;
+    return(n);
+}
 
 //! [4]
 void Tmcl::openSerialPortx()
@@ -41,39 +55,18 @@ void Tmcl::openSerialPortx()
 void Tmcl::closeSerialPortx(){
     portx->close();
 }
-
-
-int Tmcl::PollComport(int port)
-{
-    int n ;
-
-        if (portx == NULL || !portx->isOpen())
-            return 0;
-
-        n = portx->bytesAvailable();
-
-
-    if (!n)
-        return 0;
-    return(n);
+bool Tmcl::move(float x,float y,int speed){
+    SendCmd(QString("G91X"+QString::number(x_dir?-1*x:x)+"Y"+QString::number(y_dir?-1*y:y)+"F"+QString::number(speed)+"\r\n"));
+    return true;
+}
+bool Tmcl::laserOn(bool on,int strength){
+    if(on)
+        SendCmd(QString("G01 F1000"+laserOnCommand+'S'+strength+"\r\n"));
+    else
+        SendCmd(QString(laserOffCommand+"\r\n"));
+    return true;
 }
 
-
-void Tmcl::SendCmd(QString data)
-
-{
-
-    QByteArray message(data.toLocal8Bit().constData());
-
-        if (portx->isOpen()){
-
-            portx->write(message);
-               qDebug() << "message"<<message;
-        }
-        GetResult_ok(0,0);
-
-
-}
 
 //Read the result that is returned by the module
 //Parameters: Handle: handle of the serial port, as returned by OpenRS232
@@ -83,7 +76,21 @@ void Tmcl::SendCmd(QString data)
 //Return value: TMCL_RESULT_OK: result has been read without errors
 //              TMCL_RESULT_NOT_READY: not enough bytes read so far (try again)
 //              TMCL_RESULT_CHECKSUM_ERROR: checksum of reply packet wrong
+int Tmcl::SendCmd(QString data)
+{
 
+    QByteArray message(data.toLocal8Bit().constData());
+
+        if (portx->isOpen()){
+
+            portx->write(message);
+               qDebug() << "message"<<message;
+        }
+
+        return GetResult_ok(0,0);
+
+
+}
 int Tmcl::GetResult(int port,int check)
 {
     unsigned char Checksum;
@@ -129,8 +136,6 @@ int Tmcl::GetResult(int port,int check)
     }
     return TMCL_RESULT_OK;
 }
-
-
 int Tmcl::GetResult_ok(int port,int check)
 {
     int i;
@@ -147,7 +152,7 @@ int Tmcl::GetResult_ok(int port,int check)
 
         data = portx->readAll();
 
-    qDebug() <<"podaci sa porta" <<data;
+    qDebug() <<"Message from port" <<data;
     if(data.length()>=2){
         if(data[0]=='o' && data[1]=='k');
         return(0);
@@ -157,9 +162,6 @@ int Tmcl::GetResult_ok(int port,int check)
     }
     return(-2);
 }
-
-
-
 int Tmcl::read_port_ini(void)
 {
 
@@ -172,10 +174,12 @@ int Tmcl::read_port_ini(void)
     x_parity=       (ParityType)    settings.value("parity_type",0).toInt();
     x_flowcontrol=  (FlowType)      settings.value("flow_type",0).toInt();
     x_time_interval=                settings.value("time_interval",100).toInt();
+    laserOnCommand =                settings.value("laser_on","M3").toString();
+    laserOffCommand =               settings.value("laser_off","M5").toString();
+    x_dir =         (bool)          settings.value("x_dir",0).toInt();
+    y_dir =         (bool)          settings.value("y_dir",0).toInt();
     settings.endGroup();
 }
-
-
 
 ParityType Tmcl::parity(QString  str)
 {

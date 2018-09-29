@@ -219,19 +219,25 @@ public:
        QextSerialEnumerator *enumerator;
        QByteArray TxBuffer;
 
+private:
+       QString laserOnCommand;
+       QString laserOffCommand;
+       bool x_dir;
+       bool y_dir;
+
+public:
     void openSerialPortx();
     void closeSerialPortx();
-
-    void writeData(const QByteArray &data);
-    void readData();
+    bool move(float x,float y, int speed);
+    bool laserOn(bool on,int strength);
     int read_port_ini(void);
 
-    void SendCmd(QString data);
+    int SendCmd(QString data);
+    void readData();
+
     int  GetResult(int port,int check);
     int GetResult_ok(int port,int check);
 
-    int get_status(int motor);
-    int RequestTargetPositioReachedEvent(int motor );
 
     int  PollComport(int port);
     ParityType parity(QString str);
@@ -256,8 +262,6 @@ public:
 signals:
 
     void poz_updatex(long);
-    void poz_updatey(long);
-    void poz_updatez(long);
 
     void setLivePoint(double x, double y, bool isMM);
     void setVisCurrLine(int currLine);
