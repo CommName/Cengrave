@@ -67,7 +67,8 @@ void Settings::loadSettings(){
     ui->spinBox_step->setValue(setting.value("step",1).toInt()*0.1);
     ui->SpinBox_stepX->setValue(setting.value("step_x",42.0).toDouble());
     ui->SpinBox_stepY->setValue(setting.value("step_y",42.0).toDouble());
-
+    ui->spinBox_maxStrength->setValue(setting.value("max_strength",255).toInt());
+    ui->spinBox_minStrebth->setValue(setting.value("min_strength",0).toInt());
 
     //Movement speed
     ui->slider_movement_speed->setValue(setting.value("movement speed",1).toInt());
@@ -89,6 +90,11 @@ void Settings::loadSettings(){
     ui->comboBox_Flow_Type->setCurrentIndex(setting.value("flow_type",0).toInt());
     ui->comboBox_Stop_bits->setCurrentIndex(setting.value("stop_bits",0).toInt());
     ui->spinBox_Timeout->setValue(setting.value("timeout",100).toInt());
+    ui->spinBox_xDir->setValue(setting.value("x_dir",0).toInt());
+    ui->spinBox_yDir->setValue(setting.value("y_dir",0).toInt());
+    ui->lineEdit_laserOn->setText(setting.value("laser_on","M3").toString());
+    ui->lineEdit_laserOff->setText(setting.value("laser_off","M5").toString());
+
 
     setting.endGroup();
     //end of serial port settings
@@ -159,7 +165,8 @@ void Settings::saveSettings(){
     setting.setValue("movement speed",ui->slider_movement_speed->value());
     //Engrave time
     setting.setValue("engrave time",ui->slider_engrave_time->value());
-
+    setting.setValue("max_strength",ui->spinBox_maxStrength->value());
+    setting.setValue("min_strength",ui->spinBox_minStrebth->value());
     setting.endGroup();
     //end of movement settings
 
@@ -173,6 +180,10 @@ void Settings::saveSettings(){
     setting.setValue("flow_type",ui->comboBox_Flow_Type->currentIndex());
     setting.setValue("stop_bits",ui->comboBox_Stop_bits->currentIndex());
     setting.setValue("timeout",ui->spinBox_Timeout->value());
+    setting.setValue("x_dir",ui->spinBox_xDir->value());
+    setting.setValue("y_dir",ui->spinBox_yDir->value());
+    setting.setValue("laser_on",ui->lineEdit_laserOn->text());
+    setting.setValue("laser_off",ui->lineEdit_laserOff->text());
 
     setting.endGroup();
     //end of serial port settings
