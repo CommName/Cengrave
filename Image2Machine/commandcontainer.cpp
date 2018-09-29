@@ -174,9 +174,9 @@ bool CommandContainer::execute(bool simulation){
     case commands::DOWNLEFT: this->executeDOWNLEFT(current->previous->x,current->previous->y,simulation); break;
     case commands::DOWNRIGHT: this->executeDOWNRIGHT(current->previous->x,current->previous->y,simulation); break;
     case commands::SET:
-                laser(false);
+                laser(false,simulation);
                 this->executeSet(current->x,current->y,current->previous==nullptr?0:current->previous->x,current->previous==nullptr?0:current->previous->y,simulation);
-                laser(true);
+                laser(true,simulation);
                 break;
 
     }
@@ -274,16 +274,17 @@ void CommandContainer::executeDOWNRIGHT(int x_previous,int y_previous,bool simul
     }
     displayAll(x_previous+1,y_previous+1,commands::DOWNRIGHT);
 }
-void CommandContainer::laser(bool on){
+void CommandContainer::laser(bool on,bool simulation){
 
     if(on){
         if(logs!=nullptr){
             logs->appendPlainText("Laser on");
-
+        if(!simulation){
         switch(mode){
-        case 0: tmclg->SendCmd(QString("G01 F1000 M3 S1000\r\n")); break;
+        case 0: tmclg->laserOn(true,maxStrength); break;
         default:
         case 1:hwf->motor_off(); break; //reversed logic
+        }
         }
         }
     }
@@ -291,10 +292,12 @@ void CommandContainer::laser(bool on){
         if(logs!=nullptr){
             logs->appendPlainText("Laser off");
         }
+        if(simulation){
         switch(mode){
-        case 0:tmclg->SendCmd(QString("M5\r\n")); break;
+        case 0:tmclg->laserOn(false,0); break;
         default:
         case 1:hwf->motor_on(); break;//reversed logic
+        }
         }
     }
 
@@ -329,6 +332,8 @@ void CommandContainer::loadini(){
     speed=settings.value("movement speed",20).toInt();
     step=settings.value("step",1).toInt();
     engraveTime=settings.value("engrave time",1).toInt();
+    minStrenght=settings.value("min_strenght",0).toInt();
+    maxStrength=settings.value("max_strength",255).toInt();
     settings.endGroup();
 }
 
@@ -365,6 +370,7 @@ void CommandContainer::displayAll(int x,int y,commands com){
 void CommandContainer::workhorse(int x,int y){
     switch(mode){
     case 0:
+        tmclg->move(x*step*0.1,y*step*0.1,speed);
         tmclg->SendCmd(QString("G91X"+QString::number(x*step*0.1)+"Y"+QString::number(y*step*0.1)+"F"+QString::number(speed)+"\r\n"));
         break;
 

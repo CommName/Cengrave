@@ -49,6 +49,8 @@ private:
     long speed;
     int step;
     int engraveTime;
+    int minStrenght;
+    int maxStrength;
 
 protected:
     bool secure;
@@ -107,7 +109,7 @@ public:
     void executeUPRIGHT(int x_previous,int y_previous,bool simulation);
     void executeDOWNLEFT(int x_previous,int y_previous,bool simulation);
     void executeDOWNRIGHT(int x_previous,int y_previous,bool simulation);
-    void laser(bool on);
+    void laser(bool on,bool simulation);
     void connect(bool on);
 };
 

@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     commands.setLogOutput(ui->consoleOutput_mode2);
     commands.setProgressBar(ui->progressBar_automode_mode2);
     laserON=false;
-    commands.laser(laserON);
+    commands.laser(laserON,ui->check_simulation->isChecked());
 
 
     //mode2 image transformation combobox
@@ -193,7 +193,7 @@ void MainWindow::execute(){
             QApplication::processEvents();
 
     }
-    commands.laser(false);
+    commands.laser(false,false);
 }
 
 
@@ -476,7 +476,7 @@ void MainWindow::on_button_stop_auto_clicked()
 void MainWindow::on_button_continue_auto_clicked()
 {
     stop=false;
-    commands.laser(true);
+    commands.laser(true,ui->check_simulation->isChecked());
     execute();
 }
 
@@ -539,7 +539,7 @@ void MainWindow::on_movement_right_clicked()
 void MainWindow::on_laser_on_off_clicked()
 {
     laserON=!laserON;
-    commands.laser(laserON);
+    commands.laser(laserON,ui->check_simulation->isChecked());
 
 }
 void MainWindow::on_movement_downleft_clicked()
@@ -577,7 +577,7 @@ void MainWindow::on_check_simulation_stateChanged(int arg1)
 void MainWindow::on_radio_auto_toggled()
 {
     laserON=false;
-    commands.laser(false);
+    commands.laser(false,ui->check_simulation->isChecked());
 }
 
 void MainWindow::on_button_set_home_clicked()
