@@ -64,7 +64,7 @@ void Settings::loadSettings(){
     setting.beginGroup("Movement");
 
     //Step
-    ui->spinBox_step->setValue(setting.value("step",1).toInt());
+    ui->spinBox_step->setValue(setting.value("step",1).toInt()*0.1);
     ui->SpinBox_stepX->setValue(setting.value("step_x",42.0).toDouble());
     ui->SpinBox_stepY->setValue(setting.value("step_y",42.0).toDouble());
 
@@ -150,7 +150,7 @@ void Settings::saveSettings(){
 
     //step
 
-    setting.setValue("step",ui->spinBox_step->value());
+    setting.setValue("step",(int)(ui->spinBox_step->value()*100+1)/10); //because 0.7*100=69
 
     setting.setValue("step_x",ui->SpinBox_stepX->value());
     setting.setValue("step_y",ui->SpinBox_stepY->value());
