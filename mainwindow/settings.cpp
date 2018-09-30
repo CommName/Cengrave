@@ -89,7 +89,7 @@ void Settings::loadSettings(){
     ui->comboBox_Parity_type->setCurrentIndex(setting.value("parity_type",0).toInt());
     ui->comboBox_Flow_Type->setCurrentIndex(setting.value("flow_type",0).toInt());
     ui->comboBox_Stop_bits->setCurrentIndex(setting.value("stop_bits",0).toInt());
-    ui->spinBox_Timeout->setValue(setting.value("timeout",100).toInt());
+    ui->spinBox_Timeout->setValue(setting.value("timeout",10000).toInt());
     ui->spinBox_xDir->setValue(setting.value("x_dir",0).toInt());
     ui->spinBox_yDir->setValue(setting.value("y_dir",0).toInt());
     ui->lineEdit_laserOn->setText(setting.value("laser_on","M3").toString());

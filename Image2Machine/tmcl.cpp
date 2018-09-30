@@ -3,6 +3,8 @@
 #include <QtDebug>
 #include<iostream>
 #include<cstdio>//to pause console screen
+#include <QTimer>
+#include <QApplication>
 
 Tmcl::Tmcl(QObject *parent) :
     QObject(parent)
@@ -15,7 +17,7 @@ Tmcl::Tmcl(QObject *parent) :
     poz_nula[2]=0;
 
     timer = new QTimer(this);
-    timer->setInterval(100);
+    timer->setInterval(timeout);
     PortSettings settingsx = {x_baudrate, x_databits, x_parity, x_stopbits, x_flowcontrol, x_time_interval};
     portx = new QextSerialPort(x_com_port, settingsx, QextSerialPort::Polling);
 
@@ -44,12 +46,7 @@ void Tmcl::openSerialPortx()
                qDebug()<< "port open";
     }
 
-    //If using polling mode, we need a QTimer
-    if (portx->isOpen() && portx->queryMode() == QextSerialPort::Polling)
-        timer->start();
-    else
-        timer->stop();
-    portx->setTimeout( 5000 ) ;
+    portx->setTimeout(timeout) ;
 
 }
 void Tmcl::closeSerialPortx(){
@@ -146,15 +143,21 @@ int Tmcl::GetResult_ok(int port,int check)
 
         if (!portx->isOpen())
             return -1;
+    timer->setInterval(this->timeout);
 
-        while (n <4)
+    timer->start();
+        while (n <4 && timer->remainingTime()!=0){
             n = PollComport(port);
+        }
 
-        data = portx->readAll();
+    if(timer->remainingTime()==0)
+        throw QString("Timeout accrued!");
 
+    timer->stop();
+    data = portx->readAll();
     qDebug() <<"Message from port" <<data;
     if(data.length()>=2){
-        if(data[0]=='o' && data[1]=='k');
+        if(data[0]=='o' && data[1]=='k')
         return(0);
     }
     else{
@@ -178,6 +181,7 @@ int Tmcl::read_port_ini(void)
     laserOffCommand =               settings.value("laser_off","M5").toString();
     x_dir =         (bool)          settings.value("x_dir",0).toInt();
     y_dir =         (bool)          settings.value("y_dir",0).toInt();
+    timeout=                        settings.value("timeout",10000).toInt();
     settings.endGroup();
 }
 

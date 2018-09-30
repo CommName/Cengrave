@@ -183,15 +183,24 @@ void MainWindow::loadSettings(){
     commands.loadini();
 
 }
+void MainWindow::error(QString &error){
+    commands.laser(false,false);
+    laserON=false;
+    QMessageBox::critical(this,"Error",error);
+}
 
 void MainWindow::execute(){
-    hwf.set_vxy(100);
+    try{
     while(commands.execute(ui->check_simulation->isChecked())&&!stop){
             displayImageMode2();
             displayCordinates();
             ui->command_listWidget->setCurrentRow(commands.getIndex());
             QApplication::processEvents();
 
+    }
+    }
+    catch(QString error){
+        this->error(error);
     }
     commands.laser(false,false);
 }
@@ -499,64 +508,112 @@ void MainWindow::on_actionSettings_triggered()
 //Manual movement
 void MainWindow::on_button_set_coordinates_clicked()
 {
-
+    try{
     commands.executeSet(ui->spinBox_set_x->value(),ui->spinBox_set_y->value(),x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 }
 void MainWindow::on_movement_upleft_clicked()
 {
+    try{
     commands.executeUPLEFT(x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 
 }
 void MainWindow::on_movement_up_clicked()
 {
+    try{
     commands.executeUP(x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 
 }
 void MainWindow::on_movement_upright_clicked()
 {
+    try{
     commands.executeUPRIGHT(x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 }
 void MainWindow::on_movement_left_clicked()
 {
+    try{
     commands.executeLEFT(x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 }
 void MainWindow::on_movement_right_clicked()
 {
+    try{
     commands.executeRIGHT(x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 }
 void MainWindow::on_laser_on_off_clicked()
 {
     laserON=!laserON;
+    try{
     commands.laser(laserON,ui->check_simulation->isChecked());
-
+    }
+    catch(QString error){
+        this->error(error);
+    }
 }
 void MainWindow::on_movement_downleft_clicked()
 {
+    try{
     commands.executeDOWNLEFT(x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 }
 void MainWindow::on_movement_down_clicked()
 {
+    try{
     commands.executeDOWN(x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 }
 void MainWindow::on_movement_downright_clicked()
 {
+    try{
     commands.executeDOWNRIGHT(x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     displayImageMode2();
     displayCordinates();
 }
@@ -589,9 +646,15 @@ void MainWindow::on_button_set_home_clicked()
 
 void MainWindow::on_button_go_home_clicked()
 {
+    try{
     commands.executeSet(0,0,x_current_position,y_current_position,ui->check_simulation->isChecked());
+    }
+    catch(QString error){
+        this->error(error);
+    }
     x_current_position=0;
     y_current_position=0;
+    displayCordinates();
 }
 
 void MainWindow::displayCordinates(){

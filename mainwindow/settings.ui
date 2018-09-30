@@ -87,7 +87,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="general">
     <widget class="QComboBox" name="comboBox_mode">
@@ -434,7 +434,7 @@
         <item row="6" column="1">
          <widget class="QSpinBox" name="spinBox_Timeout">
           <property name="maximum">
-           <number>10000</number>
+           <number>90000</number>
           </property>
          </widget>
         </item>

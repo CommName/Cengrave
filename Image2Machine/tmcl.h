@@ -224,6 +224,7 @@ private:
        QString laserOffCommand;
        bool x_dir;
        bool y_dir;
+       int timeout;
 
 public:
     void openSerialPortx();
@@ -237,7 +238,6 @@ public:
 
     int  GetResult(int port,int check);
     int GetResult_ok(int port,int check);
-
 
     int  PollComport(int port);
     ParityType parity(QString str);

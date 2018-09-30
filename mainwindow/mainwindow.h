@@ -147,17 +147,14 @@ private:
 private:
     void loadImage(QString const &path);
 
-
-
-
     bool engrave();
     void setEngraveModesInvisible();
     void thresholdMode();
     void adaptiveThreshold();
 
-
     void loadSettings();
     void saveSettings();
+    void error(QString &error);
 
     void execute();
 
