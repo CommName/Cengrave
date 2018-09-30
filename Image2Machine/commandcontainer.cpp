@@ -292,7 +292,7 @@ void CommandContainer::laser(bool on,bool simulation){
         if(logs!=nullptr){
             logs->appendPlainText("Laser off");
         }
-        if(simulation){
+        if(!simulation){
         switch(mode){
         case 0:tmclg->laserOn(false,0); break;
         default:
@@ -371,7 +371,6 @@ void CommandContainer::workhorse(int x,int y){
     switch(mode){
     case 0:
         tmclg->move(x*step*0.1,y*step*0.1,speed);
-        tmclg->SendCmd(QString("G91X"+QString::number(x*step*0.1)+"Y"+QString::number(y*step*0.1)+"F"+QString::number(speed)+"\r\n"));
         break;
 
     case 1:

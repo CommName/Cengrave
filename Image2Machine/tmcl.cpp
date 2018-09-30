@@ -53,14 +53,18 @@ void Tmcl::closeSerialPortx(){
     portx->close();
 }
 bool Tmcl::move(float x,float y,int speed){
-    SendCmd(QString("G91X"+QString::number(x_dir?-1*x:x)+"Y"+QString::number(y_dir?-1*y:y)+"F"+QString::number(speed)+"\r\n"));
+    if(x_dir)
+        x*=-1;
+    if(y_dir)
+        y*=-1;
+    SendCmd(QString("G91X"+QString::number(x)+"Y"+QString::number(y)+"F"+QString::number(speed)+"\r\n"));
     return true;
 }
 bool Tmcl::laserOn(bool on,int strength){
     if(on)
-        SendCmd(QString("G01 F1000"+laserOnCommand+'S'+strength+"\r\n"));
+        SendCmd(QString("G01 F1000 "+laserOnCommand.toLocal8Bit()+'S'+QString::number(strength)+"\r\n"));
     else
-        SendCmd(QString(laserOffCommand+"\r\n"));
+        SendCmd(QString(laserOffCommand.toLocal8Bit()+"\r\n"));
     return true;
 }
 
