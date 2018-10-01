@@ -17,10 +17,13 @@ CommandContainer::CommandContainer()
     displayX=nullptr;
     displayY=nullptr;
     numOfElemets=0;
+    height=0;
+    width=0;
     engraveTime=1;
     speed=20;
     step=20;
     mode=1;
+
 
 }
 CommandContainer::CommandContainer(cv::Mat *image,QPlainTextEdit *log,int *x,int *y,HWF *h,Tmcl *tmcl):CommandContainer(){
@@ -50,6 +53,9 @@ void CommandContainer::deleteAll(){
    last=nullptr;
    current=nullptr;
    numOfElemets=0;
+   width=0;
+   height=9;
+
 }
 
 bool CommandContainer::insert(commands command){
@@ -75,6 +81,16 @@ bool CommandContainer::insert(commands command){
     }
     last=last->next;
     numOfElemets++;
+    if(last->x>width){
+        width=last->x;
+        display->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
+        *display = cv::Scalar(255);
+    }
+    if(last->y>height){
+        height=last->y;
+        display->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
+        *display = cv::Scalar(255);
+    }
     progressbar->setMaximum(numOfElemets);
     return true;
 }
@@ -96,6 +112,16 @@ bool CommandContainer::insertSet(int x,int y){
     last->command=commands::SET;
     last->next=nullptr;
     numOfElemets++;
+    if(last->x>width){
+        width=x;
+        display->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
+        *display = cv::Scalar(255);
+    }
+    if(last->y>height){
+        height=last->y;
+        display->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
+        *display = cv::Scalar(255);
+    }
     progressbar->setMaximum(numOfElemets);
     return true;
 }
@@ -340,7 +366,7 @@ void CommandContainer::loadini(){
 void CommandContainer::displayAll(int x,int y,commands com){
     //image privew
     if(display!=nullptr){
-        if(y<0||x<0||y>=display->cols||x>=display->rows){
+        if(y<0||x<0||y>=display->rows||x>=display->cols){
             //if(secure)
             //    throw QString("Image out of range");
         }
@@ -389,3 +415,16 @@ long CommandContainer::getIndex(){
         return 0;
 }
 
+void CommandContainer::displayPreview(cv::Mat *image){
+    if(image->cols!=(width+10)&&image->rows!=(height+10)){
+    image->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
+    *image = cv::Scalar(255);
+    }
+    container *tmp =root;
+    while(tmp!=nullptr){
+        if(image->at<uint8_t>(tmp->y,tmp->x)!=0)
+            image->at<uint8_t>(tmp->y,tmp->x)=187;
+        tmp=tmp->next;
+    }
+
+}

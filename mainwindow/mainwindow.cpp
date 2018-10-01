@@ -5,7 +5,9 @@
 #include <QMessageBox>
 #include <QSettings>
 #include "settings.h"
+#include <cstdint>
 #include <QFile>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,14 +41,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_engraveMode->addItem("Adaptive Threshold");
     ui->comboBox_engraveMode->setCurrentIndex(0);
     //mode2 extract image
-    ui->comboBox_extractmode->addItem("Col-Row");
-    ui->comboBox_extractmode->addItem("Row-Col");
-    ui->comboBox_extractmode->addItem("Col-Row ZZ");
-    ui->comboBox_extractmode->addItem("Row-Col ZZ");
-    ui->comboBox_extractmode->addItem("Depth Col-Row");
-    ui->comboBox_extractmode->addItem("Depth Row-Co");
-    ui->comboBox_extractmode->addItem("Depth Col-Row ZZ");
-    ui->comboBox_extractmode->addItem("Depth Row-Col ZZ");
+    ui->comboBox_extractmode->addItem("Horizontal");
+    ui->comboBox_extractmode->addItem("Vertical");
+    ui->comboBox_extractmode->addItem("Horizontal ZZ");
+    ui->comboBox_extractmode->addItem("Vertical ZZ");
+    ui->comboBox_extractmode->addItem("Depth 1");
+    ui->comboBox_extractmode->addItem("Depth 2");
+    ui->comboBox_extractmode->addItem("Depth 3");
+    ui->comboBox_extractmode->addItem("Depth 4");
     ui->comboBox_extractmode->addItem("Diagonal");
     ui->comboBox_extractmode->addItem("Diagonal ZZ");
     ui->comboBox_extractmode->setCurrentIndex(0);
@@ -104,11 +106,22 @@ void MainWindow::loadImage(QString const &path){
    return;
 }
 void MainWindow::displayImageInfo(){
-
+    ui->label_ImageName->setText(imagePath.right(imagePath.size()-1-imagePath.lastIndexOf("/",-1,Qt::CaseSensitivity::CaseSensitive)));
     ui->label_Height->setText( QString::number(imageMode0.rows));
     ui->label_Width->setText(QString::number(imageMode0.cols));
     ui->label_HeightCM->setText(QString::number((float)(imageMode0.rows)*commands.getStep()/100));
     ui->label_WidthCM->setText(QString::number((float)(imageMode0.cols)*commands.getStep()/100));
+}
+void MainWindow::displayImageMode2Info(){
+    ui->label_imagemode2_Height->setText(QString::number(commands.getHeight()));
+    ui->label_imagemode2_Width->setText(QString::number(commands.getWidth()));
+    ui->label_imagemode2_Height_cm->setText(QString::number((float)(commands.getHeight())*commands.getStep()/100));
+    ui->label_imagemode2_Width_cm->setText(QString::number((float)(commands.getWidth())*commands.getStep()/100));
+    ui->label_imagemode2_EngravingTime->setText(QString::number((commands.getNumberOfElements()*commands.getEngravingTime()/60000)+(commands.getNumberOfElements()*commands.getStep()/(commands.getSpeed()*254))));
+    if(ui->checkBox_imagemode2_preview->isChecked()){
+        displayimagemode2Privew();
+    }
+
 }
 void MainWindow::displayImageMode0(){
     //transform CV:MAT to QImage
@@ -181,6 +194,8 @@ void MainWindow::loadSettings(){
     hwf.read_port_ini();
     tmcl.read_port_ini();
     commands.loadini();
+    displayImageInfo();
+    displayImageMode2Info();
 
 }
 void MainWindow::error(QString &error){
@@ -190,6 +205,8 @@ void MainWindow::error(QString &error){
 }
 
 void MainWindow::execute(){
+    ui->button_start_auto->setEnabled(false);
+    ui->button_continue_auto->setEnabled(false);
     try{
     while(commands.execute(ui->check_simulation->isChecked())&&!stop){
             displayImageMode2();
@@ -203,6 +220,23 @@ void MainWindow::execute(){
         this->error(error);
     }
     commands.laser(false,false);
+    ui->button_start_auto->setEnabled(true);
+    ui->button_continue_auto->setEnabled(true);
+}
+void MainWindow::displayimagemode2Privew(){
+    if(ui->checkBox_imagemode2_preview->isChecked()){
+        commands.displayPreview(&imageMode2);
+
+    }
+    else{
+        for(int c=0;c<imageMode2.cols;c++){
+            for(int r=0;r<imageMode2.rows;r++){
+                if(imageMode2.at<uint8_t>(r,c)==187)
+                    imageMode2.at<uint8_t>(r,c)=255;
+            }
+        }
+    }
+    displayImageMode2();
 }
 
 
@@ -391,11 +425,11 @@ void MainWindow::on_button_mode2_zoom_normal_clicked()
 void MainWindow::on_button_clear_console_clicked()
 {
     ui->consoleOutput_mode2->clear();
-
 }
 void MainWindow::on_button_clear_image_clicked()
 {
     imageMode2=cv::Scalar(255);
+    displayimagemode2Privew();
     displayImageMode2();
 }
 
@@ -408,7 +442,7 @@ void MainWindow::on_button_clear_image_clicked()
 void MainWindow::on_button_extract_test_clicked()
 {
     GraphImage temp;
-    QString testPath = QFileDialog::getSaveFileName(this,"Save as","C://");
+    QString testPath = QFileDialog::getSaveFileName(this,"Save as",QDir::homePath());
     switch(ui->comboBox_testmode->currentIndex()){
     case 0: temp.insertColsRowsNotConnected(imageMode1); break;
     case 1: temp.insertRowsColsNotConnected(imageMode1); break;
@@ -428,7 +462,8 @@ void MainWindow::on_button_extract_test_clicked()
 void MainWindow::on_button_extract_clicked()
 {
     GraphImage temp;
-    QString extractPath = QFileDialog::getSaveFileName(this,"Save as","C://");
+    QString filter = "cmc";
+    QString extractPath = QFileDialog::getSaveFileName(this,"Save as",QDir::homePath(),"CommandContainer (*.cmc)",&filter);
     switch (ui->comboBox_extractmode->currentIndex()) {
     case 0:temp.insertColsRowsNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
     case 1:temp.insertRowsColsNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
@@ -442,6 +477,8 @@ void MainWindow::on_button_extract_clicked()
     case 9:temp.insertDiagonalZigZag(imageMode1); temp.tooFileHeightWidth(extractPath); break;
     default:    break;
     }
+
+
 }
 void MainWindow::on_button_toMachine_clicked()
 {
@@ -459,16 +496,22 @@ void MainWindow::on_button_toMachine_clicked()
     case 9:temp.insertDiagonalZigZag(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
     default:    break;
     }
+    ui->label_imagemode2_Name->setText(ui->label_ImageName->text());
     commands.printToQListView(ui->command_listWidget);
     ui->modeWidget->setCurrentIndex(2);
+    displayImageMode2Info();
 }
 
 //mode2 auto mode
 void MainWindow::on_button_load_auto_clicked()
 {
-    QString loadPath = QFileDialog::getOpenFileName(this,"Load commands");
+    QString loadPath = QFileDialog::getOpenFileName(this,"Load commands","","CommandContainer (*.cmc)",0);
+    if(loadPath!=""){
+    ui->label_imagemode2_Name->setText(loadPath.right(loadPath.size()-1-loadPath.lastIndexOf('/',-1,Qt::CaseSensitive)));
     commands.loadFile(loadPath);
     commands.printToQListView(ui->command_listWidget);
+    displayImageMode2Info();
+    }
 
 }
 void MainWindow::on_button_start_auto_clicked()
@@ -663,3 +706,8 @@ void MainWindow::displayCordinates(){
 }
 
 
+
+void MainWindow::on_checkBox_imagemode2_preview_stateChanged(int arg1)
+{
+    displayimagemode2Privew();
+}

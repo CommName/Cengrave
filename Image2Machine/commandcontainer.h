@@ -39,6 +39,8 @@ private:
     container* last;
     container* current;
     long numOfElemets;
+    int height;
+    int width;
 
 protected:
     int mode;
@@ -76,6 +78,7 @@ public:
     void setImageOutput(cv::Mat *image);
     void inline setLogOutput(QPlainTextEdit *console){logs=console;}
     void inline setProgressBar(QProgressBar *bar){progressbar=bar;}
+    void inline setHWF(HWF *h)          {hwf=h;}
 
     bool execute(bool simulation);
     bool insert(commands command);
@@ -89,12 +92,18 @@ public:
     bool loadFile(QString const &path);
     bool saveFile(QString const &path);
     void printToQListView(QListWidget *listView);
+    void displayPreview(cv::Mat *image);
     void loadini();
 
 
-    int  inline getStep(){return step;}
-    void inline setHWF(HWF *h){hwf=h;}
+    int  inline getStep()               {return step;}
+    int  inline getHeight()             {return height;}
+    int  inline getWidth()              {return width;}
+    int  inline getNumberOfElements()   {return numOfElemets;}
+    int  inline getEngravingTime()      {return engraveTime;}
+    int  inline getSpeed()              {return speed;}
     long getIndex();
+
 
     //manual controls
 private:

@@ -119,6 +119,8 @@ private slots:
 
     void on_button_toMachine_clicked();
 
+    void on_checkBox_imagemode2_preview_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 
@@ -163,7 +165,9 @@ public:
     void displayImageMode1();
     void displayImageMode2();
     void displayImageInfo();
+    void displayImageMode2Info();
     void displayCordinates();
+    void displayimagemode2Privew();
 
 
 
