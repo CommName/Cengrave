@@ -3,8 +3,10 @@
 #include <QSettings>
 #include <qextserialenumerator.h>
 #include <qextserialport.h>
+#include <QMessageBox>
 #include <QList>
-Settings::Settings(QWidget *parent) :
+#include <QDesktopServices>
+Settings::Settings(QWidget *parent,int index) :
     QDialog(parent),
     ui(new Ui::Settings)
 {
@@ -43,7 +45,8 @@ Settings::Settings(QWidget *parent) :
     //Ports
     detectPorts();
 
-    loadSettings();
+    loadSettings("cengrave.ini");
+    ui->stackedWidget->setCurrentIndex(index);
 
 }
 
@@ -52,8 +55,8 @@ Settings::~Settings()
     delete ui;
 }
 
-void Settings::loadSettings(){
-    QSettings setting("cengrave.ini",QSettings::IniFormat);
+void Settings::loadSettings(QString file){
+    QSettings setting(file,QSettings::IniFormat);
 
    //General
     setting.beginGroup("General");
@@ -260,6 +263,11 @@ void Settings::on_butto_parallel_port_clicked()
     ui->stackedWidget->setCurrentIndex(3);
 }
 
+void Settings::on_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
 
 
 
@@ -285,5 +293,32 @@ void Settings::on_spinBox_step_valueChanged(double arg1)
 {
     if(arg1!=ui->horizontalSlider_Step->value()*0.01)
     ui->horizontalSlider_Step->setValue((arg1*100));
+}
+
+
+void Settings::on_pushButton_clicked()
+{
+    loadSettings("default");
+}
+
+//Licences
+void Settings::on_button_Qt_licence_clicked()
+{
+    QDesktopServices::openUrl(QUrl("file:./Licenses/qt.txt"));
+}
+
+void Settings::on_button_openCv_licence_clicked()
+{
+     QDesktopServices::openUrl(QUrl("file:./Licenses/opencv.txt"));
+}
+
+void Settings::on_button_inpout32_licence_clicked()
+{
+     QDesktopServices::openUrl(QUrl("file:./Licenses/Highrez.txt"));
+}
+
+void Settings::on_button_SerialPort_licence_clicked()
+{
+     QDesktopServices::openUrl(QUrl("file:./Licenses/qextserialport.txt"));
 }
 

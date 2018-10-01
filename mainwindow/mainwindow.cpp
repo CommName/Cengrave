@@ -189,7 +189,15 @@ void MainWindow::adaptiveThreshold(){
  cv::adaptiveThreshold(imageMode1,imageMode1,255,ui->adapriveThreshold_MeanC_radiobutton->isChecked()?cv::ADAPTIVE_THRESH_MEAN_C:cv::ADAPTIVE_THRESH_GAUSSIAN_C,ui->adaptiveThreshold_invert_checkBox->isChecked()?cv::THRESH_BINARY_INV:cv::THRESH_BINARY,ui->adaptiveThreshold_block_size_slider->value()*2+1,ui->adaptiveThreshold_C_slider->value());
 
 }
+void MainWindow::openSettings(int index){
+    Settings settings(this,index);
+    settings.setModal(true);
+    settings.exec();
+    loadSettings();
 
+    displayImageInfo();
+
+}
 void MainWindow::loadSettings(){
     hwf.read_port_ini();
     tmcl.read_port_ini();
@@ -534,17 +542,26 @@ void MainWindow::on_button_continue_auto_clicked()
 
 
 //Settings
-void MainWindow::on_actionSettings_triggered()
+void MainWindow::on_settings_settings_triggered()
 {
- Settings settings(this);
- settings.setModal(true);
- settings.exec();
- loadSettings();
-
- displayImageInfo();
-
+    openSettings(0);
 }
-
+void MainWindow::on_settings_Movement_triggered()
+{
+    openSettings(1);
+}
+void MainWindow::on_settings_Serial_port_triggered()
+{
+    openSettings(2);
+}
+void MainWindow::on_settings_Parallel_port_triggered()
+{
+    openSettings(3);
+}
+void MainWindow::on_settings_about_triggered()
+{
+    openSettings(4);
+}
 
 
 
@@ -711,3 +728,20 @@ void MainWindow::on_checkBox_imagemode2_preview_stateChanged(int arg1)
 {
     displayimagemode2Privew();
 }
+
+void MainWindow::on_file_open_image_triggered()
+{
+    ui->modeWidget->setCurrentIndex(0);
+    on_buttonLoad_mode0_clicked();
+}
+
+void MainWindow::on_file_open_command_container_triggered()
+{
+    ui->modeWidget->setCurrentIndex(2);
+    on_button_load_auto_clicked();
+}
+
+
+
+
+

@@ -12,7 +12,8 @@ class Settings : public QDialog
     Q_OBJECT
 
 public:
-    explicit Settings(QWidget *parent = nullptr);
+    explicit Settings(QWidget *parent = nullptr,int index=0);
+
     ~Settings();
 
 private slots:
@@ -32,12 +33,24 @@ private slots:
 
     void on_button_serial_port_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_button_Qt_licence_clicked();
+
+    void on_button_openCv_licence_clicked();
+
+    void on_button_inpout32_licence_clicked();
+
+    void on_button_SerialPort_licence_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::Settings *ui;
 
 
 private:
-    void loadSettings();
+    void loadSettings(QString file);
     void saveSettings();
 
 private:

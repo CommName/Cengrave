@@ -75,7 +75,7 @@ private slots:
 
     void on_button_clear_console_clicked();
 
-    void on_actionSettings_triggered();
+    void on_settings_settings_triggered();
 
     void on_button_clear_image_clicked();
 
@@ -121,6 +121,18 @@ private slots:
 
     void on_checkBox_imagemode2_preview_stateChanged(int arg1);
 
+    void on_file_open_image_triggered();
+
+    void on_file_open_command_container_triggered();
+
+    void on_settings_Movement_triggered();
+
+    void on_settings_Serial_port_triggered();
+
+    void on_settings_Parallel_port_triggered();
+
+    void on_settings_about_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -154,6 +166,7 @@ private:
     void thresholdMode();
     void adaptiveThreshold();
 
+    void openSettings(int index);
     void loadSettings();
     void saveSettings();
     void error(QString &error);

@@ -75,6 +75,13 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>About</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QStackedWidget" name="stackedWidget">
@@ -87,18 +94,43 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="general">
-    <widget class="QComboBox" name="comboBox_mode">
+    <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>50</y>
-       <width>131</width>
-       <height>21</height>
+       <x>370</x>
+       <y>360</y>
+       <width>111</width>
+       <height>31</height>
       </rect>
      </property>
+     <property name="text">
+      <string>Reset to default</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>201</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QFormLayout" name="formLayout_8">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Connection type</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="comboBox_mode"/>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="movement">
@@ -925,6 +957,98 @@
       </layout>
      </item>
     </layout>
+   </widget>
+   <widget class="QWidget" name="page">
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open source software used...</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>110</y>
+       <width>261</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QFormLayout" name="formLayout_9">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>&lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt FraneWork&lt;/a&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="button_Qt_licence">
+        <property name="text">
+         <string>Show licence</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>&lt;a href=&quot;https://opencv.org/&quot;&gt;OpenCV&lt;/a&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="button_openCv_licence">
+        <property name="text">
+         <string>Show licence</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>&lt;a href=&quot;http://www.highrez.co.uk/&quot;&gt;Highrez inpout32&lt;/a&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="button_inpout32_licence">
+        <property name="text">
+         <string>Show licence</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>&lt;a href=&quot;http://qextserialport.github.io//&quot;&gt;QextSerialPort&lt;/a&gt;</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::RichText</enum>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="button_SerialPort_licence">
+        <property name="text">
+         <string>Show licence</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
   <widget class="QWidget" name="layoutWidget">
