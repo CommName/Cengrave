@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -405,101 +405,66 @@
        <attribute name="title">
         <string>Engraving picture</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="5,2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="7,2">
         <item>
          <widget class="QGroupBox" name="preview_mode1">
           <property name="title">
            <string>Preview</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
+          <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0">
            <item>
             <widget class="QGraphicsView" name="imageViewMode1"/>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="options">
-             <item>
-              <widget class="QGroupBox" name="extractmode">
-               <property name="title">
-                <string>Extract mode</string>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_4">
-                <item row="2" column="1">
-                 <widget class="QPushButton" name="button_toMachine">
+            <widget class="QGroupBox" name="groupBox_extract_status">
+             <property name="title">
+              <string>Extracting</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <layout class="QFormLayout" name="extract_import">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_extract_import">
                   <property name="text">
-                   <string>Send to machine</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QPushButton" name="button_extract">
-                  <property name="text">
-                   <string>Extract</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QComboBox" name="comboBox_extractmode"/>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QPushButton" name="button_findOptimal">
-                  <property name="text">
-                   <string>Find optimal</string>
-                  </property>
-                  <property name="checkable">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupZoom_1">
-               <property name="title">
-                <string>Zoom</string>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_2">
-                <item row="1" column="1">
-                 <widget class="QPushButton" name="button_mode1_zoom_fit">
-                  <property name="text">
-                   <string>Fit window</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QPushButton" name="button_mode1_zoom_out">
-                  <property name="text">
-                   <string>Zoom out</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QPushButton" name="button_mode1_zoom_normal">
-                  <property name="text">
-                   <string>Normal size</string>
+                   <string>Generating commands:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QPushButton" name="button_mode1_zoom_in">
-                  <property name="text">
-                   <string>Zoom in</string>
+                 <widget class="QProgressBar" name="progressBar_extract_import">
+                  <property name="value">
+                   <number>0</number>
                   </property>
                  </widget>
                 </item>
                </layout>
-              </widget>
-             </item>
-            </layout>
+              </item>
+              <item>
+               <layout class="QFormLayout" name="extract_extract">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_extract_extract">
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QProgressBar" name="progressBar_extrac_extract">
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
            </item>
           </layout>
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,0,0">
+         <layout class="QVBoxLayout" name="commands_mode1" stretch="0,0,0,0,0">
           <item>
            <widget class="QGroupBox" name="EngraveSettings">
             <property name="title">
@@ -746,6 +711,82 @@
               <widget class="QPushButton" name="button_extract_test">
                <property name="text">
                 <string>Test</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="extractmode">
+            <property name="title">
+             <string>Extract mode</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="2" column="1">
+              <widget class="QPushButton" name="button_toMachine">
+               <property name="text">
+                <string>Send to machine</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QPushButton" name="button_extract">
+               <property name="text">
+                <string>Extract</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QComboBox" name="comboBox_extractmode"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="button_findOptimal">
+               <property name="text">
+                <string>Find optimal</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupZoom_1">
+            <property name="title">
+             <string>Zoom</string>
+            </property>
+            <property name="checkable">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="1" column="1">
+              <widget class="QPushButton" name="button_mode1_zoom_fit">
+               <property name="text">
+                <string>Fit window</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="button_mode1_zoom_out">
+               <property name="text">
+                <string>Zoom out</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="button_mode1_zoom_normal">
+               <property name="text">
+                <string>Normal size</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="button_mode1_zoom_in">
+               <property name="text">
+                <string>Zoom in</string>
                </property>
               </widget>
              </item>
@@ -2083,6 +2124,22 @@
     <hint type="destinationlabel">
      <x>500</x>
      <y>379</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radio_auto</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupImageMode2Info</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>453</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>816</x>
+     <y>306</y>
     </hint>
    </hints>
   </connection>

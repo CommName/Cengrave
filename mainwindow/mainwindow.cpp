@@ -30,10 +30,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     x_current_position=0;
     y_current_position=0;
+    laserON=false;
+
+
+    commands.laser(laserON,ui->check_simulation->isChecked());
+
+    //linking elements
     commands.setLogOutput(ui->consoleOutput_mode2);
     commands.setProgressBar(ui->progressBar_automode_mode2);
-    laserON=false;
-    commands.laser(laserON,ui->check_simulation->isChecked());
+
 
 
     //mode2 image transformation combobox
@@ -71,6 +76,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //hide unused stuff
     ui->groupBox_test_insert->setVisible(false);
     ui->groupBox_resize_cm_mode0->setVisible(false);
+    ui->groupBox_extract_status->setVisible(false);
     ui->groupBox_imageEffects_mode0->setVisible(false);
     loadSettings();
 }
@@ -469,7 +475,13 @@ void MainWindow::on_button_extract_test_clicked()
 //mode1 extract
 void MainWindow::on_button_extract_clicked()
 {
+    ui->label_extract_extract->setText("Writing a file");
+    ui->groupBox_extract_status->setVisible(true);
+
     GraphImage temp;
+    temp.setImportProgressBar(ui->progressBar_extract_import);
+    temp.setExportProgressBar(ui->progressBar_extrac_extract);
+
     QString filter = "cmc";
     QString extractPath = QFileDialog::getSaveFileName(this,"Save as",QDir::homePath(),"CommandContainer (*.cmc)",&filter);
     switch (ui->comboBox_extractmode->currentIndex()) {
@@ -485,12 +497,22 @@ void MainWindow::on_button_extract_clicked()
     case 9:temp.insertDiagonalZigZag(imageMode1); temp.tooFileHeightWidth(extractPath); break;
     default:    break;
     }
+    ui->groupBox_extract_status->setVisible(false);
+    ui->progressBar_extrac_extract->setValue(0);
+    ui->progressBar_extract_import->setValue(0);
+
 
 
 }
 void MainWindow::on_button_toMachine_clicked()
 {
+    ui->label_extract_extract->setText("Sending commands");
+    ui->groupBox_extract_status->setVisible(true);
+
     GraphImage temp;
+    temp.setImportProgressBar(ui->progressBar_extract_import);
+    temp.setExportProgressBar(ui->progressBar_extrac_extract);
+
     switch (ui->comboBox_extractmode->currentIndex()) {
     case 0:temp.insertColsRowsNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
     case 1:temp.insertRowsColsNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
@@ -505,9 +527,16 @@ void MainWindow::on_button_toMachine_clicked()
     default:    break;
     }
     ui->label_imagemode2_Name->setText(ui->label_ImageName->text());
-    commands.printToQListView(ui->command_listWidget);
-    ui->modeWidget->setCurrentIndex(2);
     displayImageMode2Info();
+    ui->modeWidget->setCurrentIndex(2);
+    commands.printToQListView(ui->command_listWidget);
+
+
+    ui->groupBox_extract_status->setVisible(false);
+    ui->progressBar_extrac_extract->setValue(0);
+    ui->progressBar_extract_import->setValue(0);
+
+
 }
 
 //mode2 auto mode

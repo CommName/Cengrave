@@ -27,10 +27,20 @@ class GraphImage
     pixel *root;
     pixel *end;
     long numOfElements;
-
+private:
+    QProgressBar *importing;
+    QProgressBar *exporting;
+protected:
+    void setUpImporting(int maxNumber);
+    void setUpExporting();
+    void updateImporting(int &status);
+    void updateExporting(int &status);
 public:
     GraphImage();
     ~GraphImage();
+public:
+    void inline setImportProgressBar(QProgressBar *bar){importing=bar;}
+    void inline setExportProgressBar(QProgressBar *bar){exporting=bar;}
 
 protected:
     bool insert(int x,int y,pixel* (GraphImage::*findFunction)(int,int));
