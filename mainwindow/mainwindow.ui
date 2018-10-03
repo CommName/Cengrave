@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -1113,8 +1113,11 @@
                            <height>0</height>
                           </size>
                          </property>
+                         <property name="minimum">
+                          <number>-1000</number>
+                         </property>
                          <property name="maximum">
-                          <number>500</number>
+                          <number>1000</number>
                          </property>
                         </widget>
                        </item>
@@ -1137,8 +1140,11 @@
                            <height>0</height>
                           </size>
                          </property>
+                         <property name="minimum">
+                          <number>-1000</number>
+                         </property>
                          <property name="maximum">
-                          <number>500</number>
+                          <number>1000</number>
                          </property>
                         </widget>
                        </item>
@@ -1160,6 +1166,9 @@
                        <property name="text">
                         <string>Up</string>
                        </property>
+                       <property name="shortcut">
+                        <string>Up</string>
+                       </property>
                       </widget>
                      </item>
                      <item row="0" column="2">
@@ -1167,11 +1176,17 @@
                        <property name="text">
                         <string>Upright</string>
                        </property>
+                       <property name="shortcut">
+                        <string>PgUp</string>
+                       </property>
                       </widget>
                      </item>
                      <item row="1" column="0">
                       <widget class="QPushButton" name="movement_left">
                        <property name="text">
+                        <string>Left</string>
+                       </property>
+                       <property name="shortcut">
                         <string>Left</string>
                        </property>
                       </widget>
@@ -1181,11 +1196,17 @@
                        <property name="text">
                         <string>On/Off</string>
                        </property>
+                       <property name="shortcut">
+                        <string>Clear</string>
+                       </property>
                       </widget>
                      </item>
                      <item row="1" column="2">
                       <widget class="QPushButton" name="movement_right">
                        <property name="text">
+                        <string>Right</string>
+                       </property>
+                       <property name="shortcut">
                         <string>Right</string>
                        </property>
                       </widget>
@@ -1195,12 +1216,18 @@
                        <property name="text">
                         <string>Upleft</string>
                        </property>
+                       <property name="shortcut">
+                        <string>Home</string>
+                       </property>
                       </widget>
                      </item>
                      <item row="2" column="0">
                       <widget class="QPushButton" name="movement_downleft">
                        <property name="text">
                         <string>Downleft</string>
+                       </property>
+                       <property name="shortcut">
+                        <string>End</string>
                        </property>
                       </widget>
                      </item>
@@ -1209,12 +1236,18 @@
                        <property name="text">
                         <string>Down</string>
                        </property>
+                       <property name="shortcut">
+                        <string>Down</string>
+                       </property>
                       </widget>
                      </item>
                      <item row="2" column="2">
                       <widget class="QPushButton" name="movement_downright">
                        <property name="text">
                         <string>Downright</string>
+                       </property>
+                       <property name="shortcut">
+                        <string>PgDown</string>
                        </property>
                       </widget>
                      </item>
