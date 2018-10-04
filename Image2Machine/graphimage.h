@@ -50,8 +50,8 @@ protected:
 
     void deleteAll();
 
-    void printCommand(pixel* atm, pixel*next ,std::ofstream &f);
-    void commandContainerInsert(pixel *atm, pixel*next, CommandContainer &com);
+    void printCommand(pixel* atm, pixel*next ,std::ofstream &f,commands *lastCommand=nullptr);
+    void commandContainerInsert(pixel *atm, pixel*next, CommandContainer &com,commands *lastCommand=nullptr);
 
 
 public:
