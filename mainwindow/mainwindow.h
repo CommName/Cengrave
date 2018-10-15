@@ -133,6 +133,14 @@ private slots:
 
     void on_settings_about_triggered();
 
+    void on_spinBox_engraveRGB_R_valueChanged(int arg1);
+
+    void on_spinBox_engraveRGB_G_valueChanged(int arg1);
+
+    void on_spinBox_engraveRGB_B_valueChanged(int arg1);
+
+    void on_checkBox_RGB_invert_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 
@@ -165,6 +173,7 @@ private:
     void setEngraveModesInvisible();
     void thresholdMode();
     void adaptiveThreshold();
+    void rgbAvrage();
 
     void openSettings(int index);
     void loadSettings();

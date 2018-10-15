@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -470,7 +470,7 @@
             <property name="title">
              <string>Engrave settings</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
+            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
              <item>
               <widget class="QComboBox" name="comboBox_engraveMode"/>
              </item>
@@ -695,6 +695,112 @@
                </layout>
               </widget>
              </item>
+             <item>
+              <widget class="QGroupBox" name="RGBengrave">
+               <property name="minimumSize">
+                <size>
+                 <width>280</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>RGB</string>
+               </property>
+               <layout class="QFormLayout" name="formLayout_6">
+                <item row="2" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_engraveRGB_B">
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="spinBox_engraveRGB_B">
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="1" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_11">
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_engraveRGB_G">
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="spinBox_engraveRGB_G">
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="0" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_9">
+                  <item>
+                   <widget class="QSlider" name="horizontalSlider_engraveRGB_R">
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="spinBox_engraveRGB_R">
+                    <property name="maximum">
+                     <number>255</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_engraveRGB_R">
+                  <property name="text">
+                   <string>R:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_engraveRGB_B">
+                  <property name="text">
+                   <string>G:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_engraveRGB_G">
+                  <property name="text">
+                   <string>B:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QCheckBox" name="checkBox_RGB_invert">
+                  <property name="text">
+                   <string>CheckBox</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -711,42 +817,6 @@
               <widget class="QPushButton" name="button_extract_test">
                <property name="text">
                 <string>Test</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="extractmode">
-            <property name="title">
-             <string>Extract mode</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_4">
-             <item row="2" column="1">
-              <widget class="QPushButton" name="button_toMachine">
-               <property name="text">
-                <string>Send to machine</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QPushButton" name="button_extract">
-               <property name="text">
-                <string>Extract</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QComboBox" name="comboBox_extractmode"/>
-             </item>
-             <item row="1" column="1">
-              <widget class="QPushButton" name="button_findOptimal">
-               <property name="text">
-                <string>Find optimal</string>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -787,6 +857,42 @@
               <widget class="QPushButton" name="button_mode1_zoom_in">
                <property name="text">
                 <string>Zoom in</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="extractmode">
+            <property name="title">
+             <string>Extract mode</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="2" column="1">
+              <widget class="QPushButton" name="button_toMachine">
+               <property name="text">
+                <string>Send to machine</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QPushButton" name="button_extract">
+               <property name="text">
+                <string>Extract</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QComboBox" name="comboBox_extractmode"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="button_findOptimal">
+               <property name="text">
+                <string>Find optimal</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -2173,6 +2279,102 @@
     <hint type="destinationlabel">
      <x>816</x>
      <y>306</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_engraveRGB_B</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_engraveRGB_B</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>812</x>
+     <y>417</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>934</x>
+     <y>417</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_engraveRGB_B</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider_engraveRGB_B</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>934</x>
+     <y>417</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>809</x>
+     <y>417</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_engraveRGB_G</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_engraveRGB_G</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>812</x>
+     <y>396</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>934</x>
+     <y>396</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_engraveRGB_G</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider_engraveRGB_G</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>934</x>
+     <y>396</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>812</x>
+     <y>396</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_engraveRGB_R</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_engraveRGB_R</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>812</x>
+     <y>375</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>934</x>
+     <y>375</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_engraveRGB_R</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider_engraveRGB_R</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>934</x>
+     <y>375</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>812</x>
+     <y>375</y>
     </hint>
    </hints>
   </connection>

@@ -394,7 +394,7 @@ bool GraphImage::test(QString const &filePath){
     return true;
 }
 
-void GraphImage::printCommand(pixel* atm, pixel*next,std::ofstream &f){
+void GraphImage::printCommand(pixel* atm, pixel*next,std::ofstream &f,commands *lastCommand){
     if(atm==nullptr||next==nullptr||!f)
         return;
 //UP
@@ -402,17 +402,25 @@ if((next->y)==(atm->y-1)){
     //UPLEFT
     if((next->x)==(atm->x-1)){
         f<<(uint8_t)(commands::UPLEFT);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::UPLEFT;
     }
     //UPRIGHT
     else if((next->x)==(atm->x+1)){
         f<<(uint8_t)(commands::UPRIGHT);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::UPRIGHT;
     }
     //UP
     else if((next->x)==(atm->x)){
         f<<(uint8_t)(commands::UP);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::UP;
     }
     else{
         f<<(uint8_t)(commands::SET)<<next->x<<'y'<<next->y;
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::SET;
     }
 }
 //DOWN
@@ -420,27 +428,40 @@ else if((next->y)==(atm->y+1)){
     //DOWNLEFT
     if((next->x)==(atm->x-1)){
         f<<(uint8_t)(commands::DOWNLEFT);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::DOWNLEFT;
     }
     //DOWNRIGHT
     else if((next->x)==(atm->x+1)){
         f<<(uint8_t)(commands::DOWNRIGHT);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::DOWNRIGHT;
     }
     //DOWN
     else if((next->x)==(atm->x)){
         f<<(uint8_t)(commands::DOWN);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::DOWN;
     }
     else{
         f<<(uint8_t)(commands::SET)<<next->x<<'y'<<next->y;
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::SET;
     }
 }
 //SAME LEVEL
 else if((next->y)==(atm->y)){
     //LEFT
-    if((next->x)==(atm->x-1))
+    if((next->x)==(atm->x-1)){
         f<<(uint8_t)(commands::LEFT);
+    if(lastCommand!=nullptr)
+        *lastCommand=commands::LEFT;
+    }
     //RIGHT
     else if((next->x)==(atm->x+1)){
         f<<(uint8_t)(commands::RIGHT);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::RIGHT;
     }
     //SAME PIXEL
     else if((next->x)==(atm->x)){
@@ -448,10 +469,14 @@ else if((next->y)==(atm->y)){
     }
     else{
         f<<(uint8_t)(commands::SET)<<next->x<<'y'<<next->y;
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::UPLEFT;
     }
 }
 else{
     f<<(uint8_t)(commands::SET)<<next->x<<'y'<<next->y;
+    if(lastCommand!=nullptr)
+        *lastCommand=commands::SET;
 }
 }
 
@@ -484,11 +509,13 @@ bool GraphImage::tooFileDepth(QString const &path){
         tmp=tmp->next;
     }
     int status=0;
+    commands lastCommand=commands::SET;
     setUpExporting();
     tmp=root;
     while(tmp!=nullptr){
         if(tmp->status==0){ //unprocessed pixel
             f<<(uint8_t)(commands::SET)<<tmp->x<<'y'<<tmp->y;
+            lastCommand=commands::SET;
             updateExporting(status);
             pixel* branch=tmp;
             QStack<pixel*> stack;
@@ -502,24 +529,76 @@ bool GraphImage::tooFileDepth(QString const &path){
                     edge *temp=branch->link;
                     while(temp!=nullptr){
                         if(temp->dest->status==0){
-                            temp->dest->status=1;
-                            //left has priority
-                            if((temp->dest->x-1==branch->x)&&(temp->dest->y==branch->y))
+                            switch(lastCommand){
+                            case commands::UP:
+                                if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y))
                                     next=temp->dest;
-                            else{
-                                stack.push(temp->dest);
+                                else
+                                    stack.push(temp->dest);
+                                break;
+                            case commands::DOWN:
+                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y))
+                                    next=temp->dest;
+                                else
+                                    stack.push(temp->dest);
+                                break;
+                            case commands::LEFT:
+                                if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y))
+                                    next=temp->dest;
+                                else
+                                    stack.push(temp->dest);
+                                break;
+                            case commands::RIGHT:
+                                if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y))
+                                    next=temp->dest;
+                                else
+                                    stack.push(temp->dest);
+                                break;
+                            case commands::UPLEFT:
+                                if((temp->dest->x+1)==(branch->x)&&(temp->dest->y+1)==(branch->y))
+                                    next=temp->dest;
+                                else
+                                    stack.push(temp->dest);
+                                break;
+                            case commands::UPRIGHT:
+                                if((temp->dest->x-1)==(branch->x)&&(temp->dest->y+1)==(branch->y))
+                                    next=temp->dest;
+                                else
+                                    stack.push(temp->dest);
+                                break;
+                            case commands::DOWNLEFT:
+                                if((temp->dest->x+1)==(branch->x)&&(temp->dest->y-1)==(branch->y))
+                                    next=temp->dest;
+                                else
+                                    stack.push(temp->dest);
+                                break;
+                            case commands::DOWNRIGHT:
+                                if((temp->dest->x-1)==(branch->x)&&(temp->dest->y-1)==(branch->y))
+                                    next=temp->dest;
+                                else
+                                    stack.push(temp->dest);
+                                break;
+                            case commands::SET:
+                                if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)) //LEFT has priority
+                                    next=temp->dest;
+                                else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)) //RIGHT has priority
+                                        next=temp->dest;
+                                    else
+                                    stack.push(temp->dest);
+                                break;
                             }
+                            temp->dest->status=1;
                         }
                         temp=temp->link;
                     }
+                }
                 //chosing next pixel
                 if(next==nullptr){
                     next=stack.pop();
                 }
-                printCommand(branch,next,f);
+                printCommand(branch,next,f,&lastCommand);
                 updateExporting(status);
                 branch=next;
-                }
             }
         }
         tmp=tmp->next;
@@ -552,9 +631,11 @@ bool GraphImage::tooCommandContainerDepth(CommandContainer &con){
     tmp=root;
     int status=0;
     setUpExporting();
+    commands lastCommand=commands::SET;
     while(tmp!=nullptr){
         if(tmp->status==0){ //unprocessed pixel
             con.insertSet(tmp->x,tmp->y);
+            lastCommand=commands::SET;
             updateExporting(status);
             pixel* branch=tmp;
             QStack<pixel*> stack;
@@ -568,24 +649,250 @@ bool GraphImage::tooCommandContainerDepth(CommandContainer &con){
                     edge *temp=branch->link;
                     while(temp!=nullptr){
                         if(temp->dest->status==0){
-                            temp->dest->status=1;
-                            //left has priority
-                            if((temp->dest->x-1==branch->x)&&(temp->dest->y==branch->y))
+                            switch(lastCommand){
+                            case commands::UP:
+                                if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)){
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                    }
                                     next=temp->dest;
-                            else{
-                                stack.push(temp->dest);
+                                }
+                                else
+                                    if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //LEFT has priority
+                                        next=temp->dest;
+                                    }
+                                    else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                            next=temp->dest;
+                                    }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                                next=temp->dest;
+                                            }
+                                            else
+                                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                    next=temp->dest;
+                                                }
+                                                else{
+                                                    stack.push(temp->dest);
+                                                }
+                                break;
+                            case commands::DOWN:
+                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)){
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                    }
+                                    next=temp->dest;
+                               }
+                                else
+                                    if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //LEFT has priority
+                                        next=temp->dest;
+                                    }
+                                    else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                            next=temp->dest;
+                                    }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                                next=temp->dest;
+                                            }
+                                            else
+                                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                    next=temp->dest;
+                                                }
+                                                else{
+                                                    stack.push(temp->dest);
+                                                }
+                                break;
+                            case commands::LEFT:
+                                if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)){
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                    }
+                                    next=temp->dest;
+                                }
+                                else
+                                    if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //LEFT has priority
+                                        next=temp->dest;
+                                    }
+                                    else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                            next=temp->dest;
+                                    }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                                next=temp->dest;
+                                            }
+                                            else
+                                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                    next=temp->dest;
+                                                }
+                                                else{
+                                                    stack.push(temp->dest);
+                                                }
+                                break;
+                            case commands::RIGHT:
+                                if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)){
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                    }
+                                    next=temp->dest;
+                                }
+                                else
+                                    if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //LEFT has priority
+                                        next=temp->dest;
+                                    }
+                                    else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                            next=temp->dest;
+                                    }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                                next=temp->dest;
+                                            }
+                                            else
+                                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                    next=temp->dest;
+                                                }
+                                                else{
+                                                    stack.push(temp->dest);
+                                                }
+                                break;
+                            case commands::UPLEFT:
+                                if((temp->dest->x+1)==(branch->x)&&(temp->dest->y+1)==(branch->y)){
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                    }
+                                    next=temp->dest;
+                                }
+                                else
+                                    if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //LEFT has priority
+                                        next=temp->dest;
+                                    }
+                                    else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                            next=temp->dest;
+                                    }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                                next=temp->dest;
+                                            }
+                                            else
+                                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                    next=temp->dest;
+                                                }
+                                                else{
+                                                    stack.push(temp->dest);
+                                                }
+                                break;
+                            case commands::UPRIGHT:
+                                if((temp->dest->x-1)==(branch->x)&&(temp->dest->y+1)==(branch->y)){
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                    }
+                                    next=temp->dest;
+                                }
+                                else
+                                    if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //LEFT has priority
+                                        next=temp->dest;
+                                    }
+                                    else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                            next=temp->dest;
+                                    }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                                next=temp->dest;
+                                            }
+                                            else
+                                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                    next=temp->dest;
+                                                }
+                                                else{
+                                                    stack.push(temp->dest);
+                                                }
+                                break;
+                            case commands::DOWNLEFT:
+                                if((temp->dest->x+1)==(branch->x)&&(temp->dest->y-1)==(branch->y)){
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                    }
+                                    next=temp->dest;
+                                }
+                                else
+                                    if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //LEFT has priority
+                                        next=temp->dest;
+                                    }
+                                    else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                            next=temp->dest;
+                                    }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                                next=temp->dest;
+                                            }
+                                            else
+                                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                    next=temp->dest;
+                                                }
+                                                else{
+                                                    stack.push(temp->dest);
+                                                }
+                                break;
+                            case commands::DOWNRIGHT:
+                                if((temp->dest->x-1)==(branch->x)&&(temp->dest->y-1)==(branch->y)){
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                    }
+                                    next=temp->dest;
+                                }
+                                else
+                                    if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //LEFT has priority
+                                        next=temp->dest;
+                                    }
+                                    else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                            next=temp->dest;
+                                    }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                                next=temp->dest;
+                                            }
+                                            else
+                                                if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                    next=temp->dest;
+                                                }
+                                                else{
+                                                    stack.push(temp->dest);
+                                                }
+                                break;
+                            case commands::SET:
+                                if((temp->dest->x+1)==(branch->x)&&(temp->dest->y)==(branch->y)){ //LEFT has priority
+                                    if(next!=nullptr){
+                                        stack.push(next);
+                                }
+                                    next=temp->dest;
+                                }
+                                else if((temp->dest->x-1)==(branch->x)&&(temp->dest->y)==(branch->y)&&(next==nullptr)){ //RIGHT has priority
+                                        next=temp->dest;
+                                }
+                                    else
+                                        if((temp->dest->x)==(branch->x)&&(temp->dest->y+1)==(branch->y)&&(next==nullptr)){ //UP has priority
+                                            next=temp->dest;
+                                        }
+                                        else
+                                            if((temp->dest->x)==(branch->x)&&(temp->dest->y-1)==(branch->y)&&(next==nullptr)){ //DOWN has priority
+                                                next=temp->dest;
+                                            }
+                                            else{
+                                                stack.push(temp->dest);
+                                            }
+                                break;
                             }
+                            temp->dest->status=1;
                         }
                         temp=temp->link;
                     }
+                }
                 //chosing next pixel
                 if(next==nullptr){
                     next=stack.pop();
                 }
                 updateExporting(status);
-                commandContainerInsert(branch,next,con);
+                commandContainerInsert(branch,next,con,&lastCommand);
                 branch=next;
-                }
             }
         }
         tmp=tmp->next;
@@ -593,7 +900,7 @@ bool GraphImage::tooCommandContainerDepth(CommandContainer &con){
     return true;
 }
 
-void GraphImage::commandContainerInsert(pixel *atm,pixel *next,CommandContainer &com){
+void GraphImage::commandContainerInsert(pixel *atm,pixel *next,CommandContainer &com,commands *lastCommand){
     if(atm==nullptr||next==nullptr)
         return;
     //UP
@@ -601,17 +908,25 @@ void GraphImage::commandContainerInsert(pixel *atm,pixel *next,CommandContainer 
         //UPLEFT
         if((next->x)==(atm->x-1)){
             com.insert(commands::UPLEFT);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::UPLEFT;
         }
         //UPRIGHT
         else if((next->x)==(atm->x+1)){
             com.insert(commands::UPRIGHT);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::UPRIGHT;
         }
         //UP
         else if((next->x)==(atm->x)){
             com.insert(commands::UP);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::UP;
         }
         else{
             com.insertSet(next->x,next->y);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::SET;
         }
     }
     //DOWN
@@ -619,27 +934,40 @@ void GraphImage::commandContainerInsert(pixel *atm,pixel *next,CommandContainer 
         //DOWNLEFT
         if((next->x)==(atm->x-1)){
             com.insert(commands::DOWNLEFT);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::DOWNLEFT;
         }
         //DOWNRIGHT
         else if((next->x)==(atm->x+1)){
             com.insert(commands::DOWNRIGHT);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::DOWNRIGHT;
         }
         //DOWN
         else if((next->x)==(atm->x)){
             com.insert(commands::DOWN);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::DOWN;
         }
         else{
             com.insertSet(next->x,next->y);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::SET;
         }
     }
     //SAME LEVEL
     else if((next->y)==(atm->y)){
         //LEFT
-        if((next->x)==(atm->x-1))
+        if((next->x)==(atm->x-1)){
             com.insert(commands::LEFT);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::LEFT;
+        }
         //RIGHT
         else if((next->x)==(atm->x+1)){
             com.insert(commands::RIGHT);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::RIGHT;
         }
         //SAME PIXEL
         else if((next->x)==(atm->x)){
@@ -647,10 +975,14 @@ void GraphImage::commandContainerInsert(pixel *atm,pixel *next,CommandContainer 
         }
         else{
             com.insertSet(next->x,next->y);
+            if(lastCommand!=nullptr)
+                *lastCommand=commands::SET;
         }
     }
     else{
         com.insertSet(next->x,next->y);
+        if(lastCommand!=nullptr)
+            *lastCommand=commands::SET;
     }
 }
 
