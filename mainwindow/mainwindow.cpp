@@ -206,10 +206,10 @@ void MainWindow::rgbAvrage(){
     for(int c=0;c<imageMode1.cols;c++){
         for(int r=0;r<imageMode1.rows;r++){
             if((imageMode0.at<cv::Vec3b>(r,c)[0]>=ui->spinBox_engraveRGB_B->value())&&(imageMode0.at<cv::Vec3b>(r,c)[1]>=ui->spinBox_engraveRGB_G->value())&&(imageMode0.at<cv::Vec3b>(r,c)[2]>=ui->spinBox_engraveRGB_R->value())){
-                imageMode1.at<uint8_t>(r,c)=255;
+                imageMode1.at<uint8_t>(r,c)=ui->checkBox_RGB_invert->isChecked()?0:255;
             }
             else{
-                imageMode1.at<uint8_t>(r,c)=0;
+                imageMode1.at<uint8_t>(r,c)=ui->checkBox_RGB_invert->isChecked()?255:0;
             }
         }
     }
@@ -420,6 +420,12 @@ void MainWindow::on_spinBox_engraveRGB_B_valueChanged(int arg1)
     rgbAvrage();
     displayImageMode1();
 }
+void MainWindow::on_checkBox_RGB_invert_stateChanged(int arg1)
+{
+    rgbAvrage();
+    displayImageMode1();
+}
+
 
 
 //Zoom functions
@@ -807,6 +813,7 @@ void MainWindow::on_file_open_command_container_triggered()
     ui->modeWidget->setCurrentIndex(2);
     on_button_load_auto_clicked();
 }
+
 
 
 
