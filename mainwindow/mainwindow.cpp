@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //mode2 image transformation combobox
     ui->comboBox_engraveMode->addItem("Threshold");
     ui->comboBox_engraveMode->addItem("Adaptive Threshold");
+    ui->comboBox_engraveMode->addItem("RGB");
     ui->comboBox_engraveMode->setCurrentIndex(0);
     //mode2 extract image
     ui->comboBox_extractmode->addItem("Horizontal");
@@ -166,6 +167,7 @@ bool MainWindow::engrave(){
     switch(ui->comboBox_engraveMode->currentIndex()){
     case 0: thresholdMode(); break;
     case 1: adaptiveThreshold(); break;
+    case 2: rgbAvrage(); break;
 
     default: break;
     }
@@ -175,6 +177,7 @@ bool MainWindow::engrave(){
 void MainWindow::setEngraveModesInvisible(){
     ui->thresholdmode->setVisible(false);
     ui->AdaptiveThresholdMode->setVisible(false);
+    ui->RGBengrave->setVisible(false);
 }
 void MainWindow::thresholdMode(){
  ui->thresholdmode->setVisible(true);
@@ -193,6 +196,23 @@ void MainWindow::adaptiveThreshold(){
  imageMode1.create(imageMode0.rows,imageMode1.cols,CV_8UC1);
  cv::cvtColor(imageMode0,imageMode1,CV_BGR2GRAY);
  cv::adaptiveThreshold(imageMode1,imageMode1,255,ui->adapriveThreshold_MeanC_radiobutton->isChecked()?cv::ADAPTIVE_THRESH_MEAN_C:cv::ADAPTIVE_THRESH_GAUSSIAN_C,ui->adaptiveThreshold_invert_checkBox->isChecked()?cv::THRESH_BINARY_INV:cv::THRESH_BINARY,ui->adaptiveThreshold_block_size_slider->value()*2+1,ui->adaptiveThreshold_C_slider->value());
+
+}
+void MainWindow::rgbAvrage(){
+    ui->RGBengrave->setVisible(true);
+    if(!imageMode1.empty())
+        imageMode1.release();
+    imageMode1.create(imageMode0.rows,imageMode0.cols,CV_8UC1);
+    for(int c=0;c<imageMode1.cols;c++){
+        for(int r=0;r<imageMode1.rows;r++){
+            if((imageMode0.at<cv::Vec3b>(r,c)[0]>=ui->spinBox_engraveRGB_B->value())&&(imageMode0.at<cv::Vec3b>(r,c)[1]>=ui->spinBox_engraveRGB_G->value())&&(imageMode0.at<cv::Vec3b>(r,c)[2]>=ui->spinBox_engraveRGB_R->value())){
+                imageMode1.at<uint8_t>(r,c)=255;
+            }
+            else{
+                imageMode1.at<uint8_t>(r,c)=0;
+            }
+        }
+    }
 
 }
 void MainWindow::openSettings(int index){
@@ -380,6 +400,24 @@ void MainWindow::on_adapriveThreshold_MeanC_radiobutton_clicked()
 void MainWindow::on_adapriveThreshold_GaussianC_radiobutton_clicked()
 {
     adaptiveThreshold();
+    displayImageMode1();
+}
+//RGB avrage
+void MainWindow::on_spinBox_engraveRGB_R_valueChanged(int arg1)
+{
+    rgbAvrage();
+    displayImageMode1();
+}
+
+void MainWindow::on_spinBox_engraveRGB_G_valueChanged(int arg1)
+{
+    rgbAvrage();
+    displayImageMode1();
+}
+
+void MainWindow::on_spinBox_engraveRGB_B_valueChanged(int arg1)
+{
+    rgbAvrage();
     displayImageMode1();
 }
 
@@ -769,6 +807,7 @@ void MainWindow::on_file_open_command_container_triggered()
     ui->modeWidget->setCurrentIndex(2);
     on_button_load_auto_clicked();
 }
+
 
 
 
