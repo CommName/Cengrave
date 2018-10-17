@@ -7,6 +7,7 @@
 #include <QString>
 #include <QGraphicsItem>
 #include "Image2Machine/commandcontainer.h"
+#include "Image2Machine/graphimage.h"
 #include "Image2Machine/tmcl.h"
 #include "Image2Machine/hwf.h"
 
@@ -141,6 +142,8 @@ private slots:
 
     void on_checkBox_RGB_invert_stateChanged(int arg1);
 
+    void on_button_extract_stop_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -150,6 +153,7 @@ private:
     cv::Mat imageMode0;
     cv::Mat imageMode1;
     cv::Mat imageMode2;
+    GraphImage graph;
     CommandContainer commands;
     HWF hwf;
     Tmcl tmcl;
