@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -1558,6 +1558,9 @@
                     <layout class="QGridLayout" name="auto_controls">
                      <item row="3" column="1">
                       <widget class="QPushButton" name="button_stop_auto">
+                       <property name="enabled">
+                        <bool>false</bool>
+                       </property>
                        <property name="text">
                         <string>Stop</string>
                        </property>

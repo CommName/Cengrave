@@ -241,6 +241,9 @@ void MainWindow::error(QString &error){
 void MainWindow::execute(){
     ui->button_start_auto->setEnabled(false);
     ui->button_continue_auto->setEnabled(false);
+    ui->button_stop_auto->setEnabled(true);
+    ui->groupSelectMode->setEnabled(false);
+    ui->button_load_auto->setEnabled(false);
     try{
     while(commands.execute(ui->check_simulation->isChecked())&&!stop){
             displayImageMode2();
@@ -255,7 +258,10 @@ void MainWindow::execute(){
     }
     commands.laser(false,false);
     ui->button_start_auto->setEnabled(true);
+    ui->groupSelectMode->setEnabled(true);
     ui->button_continue_auto->setEnabled(true);
+    ui->button_load_auto->setEnabled(true);
+    ui->button_stop_auto->setEnabled(false);
 }
 void MainWindow::displayimagemode2Privew(){
     if(ui->checkBox_imagemode2_preview->isChecked()){
