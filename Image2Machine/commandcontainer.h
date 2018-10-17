@@ -90,6 +90,7 @@ public:
     //void deleteCommand(int index);
     void deleteAll();
     bool loadFile(QString const &path);
+    bool loadGCode(QString const &path);
     bool saveFile(QString const &path);
     void printToQListView(QListWidget *listView);
     void displayPreview(cv::Mat *image);
