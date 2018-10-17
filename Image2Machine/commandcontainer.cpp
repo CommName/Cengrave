@@ -162,12 +162,11 @@ bool CommandContainer::loadGCode(QString const &path){
     //modes supported G01 and G91
     int mode=1,s=0,laser=0;
     float x=0,y=0;
-    float x_next,y_next;
+    float x_next=0,y_next=0;
 
     while(!f.eof()){
         char command;
-        f>>command;
-        qDebug()<<command;
+        command=f.get();
         switch(command){
         case 'M':
         case 'm':
@@ -190,10 +189,20 @@ bool CommandContainer::loadGCode(QString const &path){
             break;
         case 'X':
         case 'x':
+            switch(mode){
+            case 1: break;
+            case 91: x_next+=x; break;
+            default: break;
+            }
             f>>x_next;
             break;
         case 'Y':
         case 'y':
+            switch(mode){
+            case 1: break;
+            case 91: y_next+=y; break;
+            default: break;
+            }
             f>>y_next;
             break;
         case 'f':
@@ -202,6 +211,7 @@ bool CommandContainer::loadGCode(QString const &path){
             break;
         case '\n':
             if(laser==0||s==0){
+                if(x!=x_next||y!=y_next){
                 switch(mode){
                 case 1: this->insertSet(x_next*10/step,y_next*10/step); break;
                 case 91: this->insertSet((x_next+x)*10/step,(y_next+y)*10/step); break;
@@ -209,14 +219,12 @@ bool CommandContainer::loadGCode(QString const &path){
                 }
                 x=x_next;
                 y=y_next;
+                }
+
             }
             else{
-                switch(mode){
-                case 1: break;
-                case 91: x_next+=x; y_next+=y; bre
-                default: break;
-                }
-                while(x!=x_next && y!=y_next){
+
+                while(x!=x_next || y!=y_next){
                     if(x<x_next-(float)(step)/10){
                         if(y<y_next-(float)(step)/10){
                             this->insert(commands::DOWNRIGHT);
