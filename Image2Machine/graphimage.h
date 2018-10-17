@@ -31,6 +31,8 @@ private:
     QProgressBar *importing;
     QProgressBar *exporting;
 protected:
+    bool stop;
+protected:
     void setUpImporting(int maxNumber);
     void setUpExporting();
     void updateImporting(int &status);
@@ -41,7 +43,7 @@ public:
 public:
     void inline setImportProgressBar(QProgressBar *bar){importing=bar;}
     void inline setExportProgressBar(QProgressBar *bar){exporting=bar;}
-
+    void inline cease() {stop=true;}
 protected:
     bool insert(int x,int y,pixel* (GraphImage::*findFunction)(int,int));
     pixel* findCR(int x, int y);

@@ -521,32 +521,34 @@ void MainWindow::on_button_extract_clicked()
 {
     ui->button_extract->setEnabled(false);
     ui->button_toMachine->setEnabled(false);
+    ui->button_extract_stop->setEnabled(true);
     ui->label_extract_extract->setText("Writing a file");
     ui->groupBox_extract_status->setVisible(true);
 
-    GraphImage temp;
-    temp.setImportProgressBar(ui->progressBar_extract_import);
-    temp.setExportProgressBar(ui->progressBar_extrac_extract);
+
+    graph.setImportProgressBar(ui->progressBar_extract_import);
+    graph.setExportProgressBar(ui->progressBar_extrac_extract);
 
     QString filter = "cmc";
     QString extractPath = QFileDialog::getSaveFileName(this,"Save as",QDir::homePath(),"CommandContainer (*.cmc)",&filter);
     switch (ui->comboBox_extractmode->currentIndex()) {
-    case 0:temp.insertColsRowsNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
-    case 1:temp.insertRowsColsNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
-    case 2:temp.insertColsRowsZigZagNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
-    case 3:temp.insertRowsColsZigZagNotConnected(imageMode1); temp.tooFileHeightWidth(extractPath); break;
-    case 4:temp.insertColsRows(imageMode1); temp.tooFileDepth(extractPath); break;
-    case 5:temp.insertRowsCols(imageMode1); temp.tooFileDepth(extractPath); break;
-    case 6:temp.insertColsRowsZigZag(imageMode1); temp.tooFileDepth(extractPath); break;
-    case 7:temp.insertRowsColsZigZag(imageMode1); temp.tooFileDepth(extractPath); break;
-    case 8:temp.insertDiagonal(imageMode1); temp.tooFileHeightWidth(extractPath); break;
-    case 9:temp.insertDiagonalZigZag(imageMode1); temp.tooFileHeightWidth(extractPath); break;
+    case 0:if(graph.insertColsRowsNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
+    case 1:if(graph.insertRowsColsNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
+    case 2:if(graph.insertColsRowsZigZagNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
+    case 3:if(graph.insertRowsColsZigZagNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
+    case 4:if(graph.insertColsRows(imageMode1)) graph.tooFileDepth(extractPath); break;
+    case 5:if(graph.insertRowsCols(imageMode1)) graph.tooFileDepth(extractPath); break;
+    case 6:if(graph.insertColsRowsZigZag(imageMode1)) graph.tooFileDepth(extractPath); break;
+    case 7:if(graph.insertRowsColsZigZag(imageMode1)) graph.tooFileDepth(extractPath); break;
+    case 8:if(graph.insertDiagonal(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
+    case 9:if(graph.insertDiagonalZigZag(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     default:    break;
     }
     ui->groupBox_extract_status->setVisible(false);
     ui->progressBar_extrac_extract->setValue(0);
     ui->progressBar_extract_import->setValue(0);
     ui->button_extract->setEnabled(true);
+    ui->button_extract_stop->setEnabled(false);
     ui->button_toMachine->setEnabled(true);
 
 
@@ -556,24 +558,26 @@ void MainWindow::on_button_toMachine_clicked()
 {
     ui->button_extract->setEnabled(false);
     ui->button_toMachine->setEnabled(false);
+    ui->button_extract_stop->setEnabled(true);
     ui->label_extract_extract->setText("Sending commands");
     ui->groupBox_extract_status->setVisible(true);
 
-    GraphImage temp;
-    temp.setImportProgressBar(ui->progressBar_extract_import);
-    temp.setExportProgressBar(ui->progressBar_extrac_extract);
+
+
+    graph.setImportProgressBar(ui->progressBar_extract_import);
+    graph.setExportProgressBar(ui->progressBar_extrac_extract);
 
     switch (ui->comboBox_extractmode->currentIndex()) {
-    case 0:temp.insertColsRowsNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
-    case 1:temp.insertRowsColsNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
-    case 2:temp.insertColsRowsZigZagNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
-    case 3:temp.insertRowsColsZigZagNotConnected(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
-    case 4:temp.insertColsRows(imageMode1); temp.tooCommandContainerDepth(commands); break;
-    case 5:temp.insertRowsCols(imageMode1); temp.tooCommandContainerDepth(commands); break;
-    case 6:temp.insertColsRowsZigZag(imageMode1); temp.tooCommandContainerDepth(commands); break;
-    case 7:temp.insertRowsColsZigZag(imageMode1); temp.tooCommandContainerDepth(commands); break;
-    case 8:temp.insertDiagonal(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
-    case 9:temp.insertDiagonalZigZag(imageMode1); temp.tooCommandContainerHeightWidth(commands); break;
+    case 0:if(graph.insertColsRowsNotConnected(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
+    case 1:if(graph.insertRowsColsNotConnected(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
+    case 2:if(graph.insertColsRowsZigZagNotConnected(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
+    case 3:if(graph.insertRowsColsZigZagNotConnected(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
+    case 4:if(graph.insertColsRows(imageMode1)) graph.tooCommandContainerDepth(commands); break;
+    case 5:if(graph.insertRowsCols(imageMode1)) graph.tooCommandContainerDepth(commands); break;
+    case 6:if(graph.insertColsRowsZigZag(imageMode1)) graph.tooCommandContainerDepth(commands); break;
+    case 7:if(graph.insertRowsColsZigZag(imageMode1)) graph.tooCommandContainerDepth(commands); break;
+    case 8:if(graph.insertDiagonal(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
+    case 9:if(graph.insertDiagonalZigZag(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
     default:    break;
     }
     ui->label_imagemode2_Name->setText(ui->label_ImageName->text());
@@ -587,10 +591,14 @@ void MainWindow::on_button_toMachine_clicked()
     ui->progressBar_extract_import->setValue(0);
 
     ui->button_extract->setEnabled(true);
+    ui->button_extract_stop->setEnabled(false);
     ui->button_toMachine->setEnabled(true);
 
 }
-
+void MainWindow::on_button_extract_stop_clicked()
+{
+    graph.cease();
+}
 //mode2 auto mode
 void MainWindow::on_button_load_auto_clicked()
 {
@@ -821,6 +829,8 @@ void MainWindow::on_file_open_command_container_triggered()
     ui->modeWidget->setCurrentIndex(2);
     on_button_load_auto_clicked();
 }
+
+
 
 
 
