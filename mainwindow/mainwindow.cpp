@@ -519,6 +519,8 @@ void MainWindow::on_button_extract_test_clicked()
 //mode1 extract
 void MainWindow::on_button_extract_clicked()
 {
+    ui->button_extract->setEnabled(false);
+    ui->button_toMachine->setEnabled(false);
     ui->label_extract_extract->setText("Writing a file");
     ui->groupBox_extract_status->setVisible(true);
 
@@ -544,12 +546,16 @@ void MainWindow::on_button_extract_clicked()
     ui->groupBox_extract_status->setVisible(false);
     ui->progressBar_extrac_extract->setValue(0);
     ui->progressBar_extract_import->setValue(0);
+    ui->button_extract->setEnabled(true);
+    ui->button_toMachine->setEnabled(true);
 
 
 
 }
 void MainWindow::on_button_toMachine_clicked()
 {
+    ui->button_extract->setEnabled(false);
+    ui->button_toMachine->setEnabled(false);
     ui->label_extract_extract->setText("Sending commands");
     ui->groupBox_extract_status->setVisible(true);
 
@@ -580,6 +586,8 @@ void MainWindow::on_button_toMachine_clicked()
     ui->progressBar_extrac_extract->setValue(0);
     ui->progressBar_extract_import->setValue(0);
 
+    ui->button_extract->setEnabled(true);
+    ui->button_toMachine->setEnabled(true);
 
 }
 
