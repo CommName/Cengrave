@@ -152,6 +152,138 @@ bool CommandContainer::loadFile(QString const &path){
     current=root;
     return true;
 }
+bool CommandContainer::loadGCode(QString const &path){
+    std::ifstream f(path.toLocal8Bit().constData(),std::ios::in);
+    if(!f)
+        return false;
+    if(root!=nullptr)
+        deleteAll();
+    //laser 0-off (m5) 1-on (m3,m4)
+    //modes supported G01 and G91
+    int mode=1,s=0,laser=0;
+    float x=0,y=0;
+    float x_next=0,y_next=0;
+
+    while(!f.eof()){
+        char command;
+        command=f.get();
+        switch(command){
+        case 'M':
+        case 'm':
+            int laserMode;
+            f>>laserMode;
+            if(laserMode==5)
+                laser=0;
+            else if(laserMode==3||laserMode==4)
+                laser=1;
+            break;
+
+        case 'G':
+        case 'g':
+            f>>mode;
+            break;
+
+        case 'S':
+        case 's':
+            f>>s;
+            break;
+        case 'X':
+        case 'x':
+            switch(mode){
+            case 1: break;
+            case 91: x_next+=x; break;
+            default: break;
+            }
+            f>>x_next;
+            break;
+        case 'Y':
+        case 'y':
+            switch(mode){
+            case 1: break;
+            case 91: y_next+=y; break;
+            default: break;
+            }
+            f>>y_next;
+            break;
+        case 'f':
+        case 'F':
+            f>>this->speed;
+            break;
+        case '\n':
+            if(laser==0||s==0){
+                if(x!=x_next||y!=y_next){
+                switch(mode){
+                case 1: this->insertSet(x_next*10/step,y_next*10/step); break;
+                case 91: this->insertSet((x_next+x)*10/step,(y_next+y)*10/step); break;
+                default: break;
+                }
+                x=x_next;
+                y=y_next;
+                }
+
+            }
+            else{
+
+                while(x!=x_next || y!=y_next){
+                    if(x<x_next-(float)(step)/10){
+                        if(y<y_next-(float)(step)/10){
+                            this->insert(commands::DOWNRIGHT);
+                            y+=(float)(step)/10;
+                        }
+                        else if(y>y_next+(float)(step)/10){
+                            this->insert(commands::UPRIGHT);
+                            y-=(float)(step)/10;
+                        }
+                        else{
+                            this->insert(commands::RIGHT);
+                            y=y_next;
+                        }
+                        x+=(float)(step)/10;
+
+                    }
+                    else if(x>x_next+(float)(step)/10){
+                        if(y<y_next-(float)(step)/10){
+                            this->insert(commands::DOWNLEFT);
+                            y+=(float)(step)/10;
+                        }
+                        else if(y>y_next+(float)(step)/10){
+                            this->insert(commands::UPLEFT);
+                            y-=(float)(step)/10;
+                        }
+                        else{
+                            this->insert(commands::LEFT);
+                            y=y_next;
+                        }
+                        x-=(float)(step)/10;
+                    }
+                    else{
+                        x=x_next;
+                        if(y<y_next-(float)(step)/10){
+                            this->insert(commands::DOWN);
+                            y+=(float)(step)/10;
+                        }
+                        else if(y>y_next+(float)(step)/10){
+                            this->insert(commands::UP);
+                            y-=(float)(step)/10;
+                        }
+                        else{
+                            y=y_next;
+                        }
+                    }
+
+                }
+
+            }
+
+        break;
+        default:
+            break;
+        }
+
+    }
+
+}
+
 bool CommandContainer::saveFile(QString const &path){
     std::ofstream f(path.toLocal8Bit().constData(),std::ios::out|std::ios::binary);
     if(!f)

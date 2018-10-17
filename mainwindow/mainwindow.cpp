@@ -608,10 +608,15 @@ void MainWindow::on_button_extract_stop_clicked()
 //mode2 auto mode
 void MainWindow::on_button_load_auto_clicked()
 {
-    QString loadPath = QFileDialog::getOpenFileName(this,"Load commands","","CommandContainer (*.cmc)",0);
+    QString loadPath = QFileDialog::getOpenFileName(this,"Load commands","","CommandContainer (*.cmc);; G code (*.gcode *.txt)",0);
     if(loadPath!=""){
     ui->label_imagemode2_Name->setText(loadPath.right(loadPath.size()-1-loadPath.lastIndexOf('/',-1,Qt::CaseSensitive)));
+    if(loadPath.right(3)=="cmc"){
     commands.loadFile(loadPath);
+    }
+    else{
+    commands.loadGCode(loadPath);
+    }
     commands.printToQListView(ui->command_listWidget);
     displayImageMode2Info();
     }
