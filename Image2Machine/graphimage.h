@@ -74,6 +74,10 @@ public:
     bool tooFileDepth(QString const &path);
     bool tooCommandContainerHeightWidth(CommandContainer &con);
     bool tooCommandContainerDepth(CommandContainer &con);
+    bool tooCommandContainerDepth2(CommandContainer &con);
+
+protected:
+    bool pixelDepth(pixel *prev,pixel *next,commands *LastCommand,CommandContainer &con);
 
 public:
     bool test(QString const &filePath);

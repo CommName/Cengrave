@@ -969,6 +969,68 @@ bool GraphImage::tooCommandContainerDepth(CommandContainer &con){
     }
     return true;
 }
+bool GraphImage::tooCommandContainerDepth2(CommandContainer &con){
+    pixel *temp=root;
+    while(temp!=nullptr){
+        temp->status=0;
+        temp=temp->next;
+    }
+    stop=false;
+    temp=root;
+    while(temp!=nullptr){
+        if(temp->status==0){
+            commands com=commands::SET;
+            pixel*prev=nullptr;
+            con.insertSet(temp->x,temp->y);
+            if(!pixelDepth(prev,temp,&com,con)){
+                return false;
+            }
+        }
+        if(stop){
+            return false;
+        }
+        temp=temp->next;
+    }
+    return true;
+}
+bool GraphImage::pixelDepth(pixel *prev,pixel *next,commands *command,CommandContainer &con){
+    if(next!=nullptr&&next->status==0){
+        next->status=1;
+
+        edge* temp=next->link;
+        pixel* n=nullptr;
+        prev=next;
+        QStack<pixel*> stack;
+        while(temp!=nullptr){
+            if(n==nullptr){
+                n=temp->dest;
+            }
+            else
+                stack.push(temp->dest);
+
+            if(stop){
+                return false;
+            }
+            temp=temp->link;
+        }
+
+        if(n!=nullptr){
+        commandContainerInsert(next,n,con,command);
+        if(!pixelDepth(next,n,command,con))
+                return false;
+        }
+
+        while(!stack.empty()){
+            pixel* t = stack.pop();
+            //commandContainerInsert(prev,t,con,command);
+            con.insertSet(t->x,t->y);
+            pixelDepth(nullptr,t,command,con);
+        }
+
+    }
+    return true;
+}
+
 
 void GraphImage::commandContainerInsert(pixel *atm,pixel *next,CommandContainer &com,commands *lastCommand){
     if(atm==nullptr||next==nullptr)
