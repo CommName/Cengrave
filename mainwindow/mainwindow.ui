@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="usesScrollButtons">
        <bool>false</bool>
@@ -85,17 +85,17 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QPushButton" name="button_mode0_zoom_fit">
-                  <property name="text">
-                   <string>Fit in</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="1">
                  <widget class="QPushButton" name="button_mode0_zoom_normal">
                   <property name="text">
                    <string>Normal</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QPushButton" name="button_mode0_zoom_fit">
+                  <property name="text">
+                   <string>Fit in</string>
                   </property>
                  </widget>
                 </item>
@@ -206,7 +206,7 @@
             <property name="title">
              <string>Image transformation</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,1,1,1">
+            <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,1,0,1,1">
              <property name="spacing">
               <number>6</number>
              </property>
@@ -219,7 +219,7 @@
                 </sizepolicy>
                </property>
                <property name="title">
-                <string>Resize</string>
+                <string>Resize (pixel)</string>
                </property>
                <layout class="QFormLayout" name="formLayout_3">
                 <item row="0" column="0">
@@ -317,6 +317,24 @@
               </widget>
              </item>
              <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <item>
+                <widget class="QPushButton" name="button_mode2_rotateL">
+                 <property name="text">
+                  <string>Rotate left</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="button_mode2_rotateR">
+                 <property name="text">
+                  <string>Rotate right</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
               <widget class="QCheckBox" name="checkBox_FlipVertical_mode0">
                <property name="text">
                 <string>Flip Vertical</string>
@@ -334,48 +352,52 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_imageEffects_mode0">
+           <widget class="QGroupBox" name="groupBox_imageBrightness_mode0">
             <property name="title">
-             <string>Image effects</string>
+             <string>Image brigtness</string>
             </property>
             <layout class="QFormLayout" name="formLayout_2">
              <item row="0" column="0">
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="label_mode0_beta">
                <property name="text">
-                <string>Blur</string>
+                <string>Alfa</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QSlider" name="horizontalSlider_7">
+              <widget class="QSlider" name="slider_mode0_alfa">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>5</number>
+               </property>
+               <property name="value">
+                <number>1</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="label_mode0_alfa">
                <property name="text">
-                <string>Shadow:</string>
+                <string>Beta</string>
                </property>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QSlider" name="horizontalSlider_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+              <widget class="QSlider" name="slider_mode0_beta">
+               <property name="minimum">
+                <number>-100</number>
                </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Smooth</string>
+               <property name="maximum">
+                <number>100</number>
                </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QSlider" name="horizontalSlider_6">
+               <property name="singleStep">
+                <number>0</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -1640,7 +1662,7 @@
      </property>
      <addaction name="window_picedditor_image_stats"/>
      <addaction name="window_picedditor_image_transformation"/>
-     <addaction name="window_piceddiotr_image_effects"/>
+     <addaction name="window_piceddiotr_image_brightness"/>
      <addaction name="window_picedditor_zoom"/>
     </widget>
     <widget class="QMenu" name="menuEngrave_mode">
@@ -1764,12 +1786,12 @@
     <string>Image transformation</string>
    </property>
   </action>
-  <action name="window_piceddiotr_image_effects">
+  <action name="window_piceddiotr_image_brightness">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Image effects</string>
+    <string>Image brightness</string>
    </property>
   </action>
   <action name="window_picedditor_zoom">
@@ -1985,9 +2007,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>window_piceddiotr_image_effects</sender>
+   <sender>window_piceddiotr_image_brightness</sender>
    <signal>toggled(bool)</signal>
-   <receiver>groupBox_imageEffects_mode0</receiver>
+   <receiver>groupBox_imageBrightness_mode0</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">

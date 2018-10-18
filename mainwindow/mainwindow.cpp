@@ -31,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     x_current_position=0;
     y_current_position=0;
     laserON=false;
+    alfa=1;
+    beta=0;
 
 
     commands.laser(laserON,ui->check_simulation->isChecked());
@@ -76,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->groupBox_test_insert->setVisible(false);
     ui->groupBox_resize_cm_mode0->setVisible(false);
     ui->groupBox_extract_status->setVisible(false);
-    ui->groupBox_imageEffects_mode0->setVisible(false);
+    ui->groupBox_imageBrightness_mode0->setVisible(false);
     loadSettings();
 }
 
@@ -101,6 +103,10 @@ void MainWindow::loadImage(QString const &path){
    //resets effects
    ui->checkBox_FlipHorizontal_mode0->setCheckState(Qt::Unchecked);
    ui->checkBox_FlipVertical_mode0->setCheckState(Qt::Unchecked);
+   ui->slider_mode0_alfa->setValue(1);
+   ui->slider_mode0_beta->setValue(0);
+   alfa=1;
+   beta=0;
 
    imagePath=path;
    imageMode0= cv::imread(path.toLocal8Bit().constData(),CV_LOAD_IMAGE_COLOR);
@@ -109,6 +115,20 @@ void MainWindow::loadImage(QString const &path){
    displayImageMode0();
 
    return;
+}
+void MainWindow::brightnessMode0(){
+    if(imageMode0.empty())
+        return;
+    for(int r=0;r<imageMode0.rows;r++){
+        for(int c=0;c<imageMode0.cols;c++){
+            for(int ch=0;ch<imageMode0.channels();ch++){
+                imageMode0.at<cv::Vec3b>(r,c)[ch]=cv::saturate_cast<uchar>((((float)imageMode0.at<cv::Vec3b>(r,c)[ch]-beta)/alfa)*ui->slider_mode0_alfa->value()+ui->slider_mode0_beta->value());
+            }
+        }
+    }
+    alfa=(float)(ui->slider_mode0_alfa->value());
+    beta=ui->slider_mode0_beta->value();
+
 }
 void MainWindow::displayImageInfo(){
     ui->label_ImageName->setText(imagePath.right(imagePath.size()-1-imagePath.lastIndexOf("/",-1,Qt::CaseSensitivity::CaseSensitive)));
@@ -360,6 +380,35 @@ void MainWindow::on_checkBox_FlipHorizontal_mode0_clicked()
     cv::flip(imageMode0,imageMode0,1);
     displayImageMode0();
 }
+
+void MainWindow::on_button_mode2_rotateL_clicked()
+{
+    if(imageMode0.empty()){
+        return;
+    }
+    cv::rotate(imageMode0,imageMode0,cv::RotateFlags::ROTATE_90_COUNTERCLOCKWISE);
+    displayImageMode0();
+}
+void MainWindow::on_button_mode2_rotateR_clicked()
+{
+    if(imageMode0.empty()){
+        return;
+    }
+    cv::rotate(imageMode0,imageMode0,cv::RotateFlags::ROTATE_90_CLOCKWISE);
+    displayImageMode0();
+}
+void MainWindow::on_slider_mode0_beta_valueChanged(int value)
+{
+    brightnessMode0();
+    displayImageMode0();
+}
+void MainWindow::on_slider_mode0_alfa_valueChanged(int value)
+{
+    brightnessMode0();
+    displayImageMode0();
+}
+
+
 
 //engraving image
 void MainWindow::on_comboBox_engraveMode_currentIndexChanged(int index)
@@ -834,6 +883,12 @@ void MainWindow::on_file_open_command_container_triggered()
     ui->modeWidget->setCurrentIndex(2);
     on_button_load_auto_clicked();
 }
+
+
+
+
+
+
 
 
 

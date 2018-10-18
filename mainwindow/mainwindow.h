@@ -144,6 +144,14 @@ private slots:
 
     void on_button_extract_stop_clicked();
 
+    void on_button_mode2_rotateL_clicked();
+
+    void on_button_mode2_rotateR_clicked();
+
+    void on_slider_mode0_beta_valueChanged(int value);
+
+    void on_slider_mode0_alfa_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
 
@@ -166,12 +174,17 @@ private:
     int y_current_position;
     bool laserON;
     bool stop;
+
+    float alfa;
+    short beta;
+
     //Settings
 
 
 //funcions
 private:
     void loadImage(QString const &path);
+    void brightnessMode0();
 
     bool engrave();
     void setEngraveModesInvisible();
