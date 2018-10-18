@@ -57,6 +57,8 @@ bool Tmcl::move(float x,float y,int speed){
         x*=-1;
     if(y_dir)
         y*=-1;
+    x*=x_step;
+    y*=y_step;
     SendCmd(QString("G91X"+QString::number(x)+"Y"+QString::number(y)+"F"+QString::number(speed)+"\r\n"));
     return true;
 }
@@ -186,6 +188,10 @@ int Tmcl::read_port_ini(void)
     x_dir =         (bool)          settings.value("x_dir",0).toInt();
     y_dir =         (bool)          settings.value("y_dir",0).toInt();
     timeout=                        settings.value("timeout",10000).toInt();
+    settings.endGroup();
+    settings.beginGroup("Movement");
+    x_step=                         settings.value("step_x",1).toInt();
+    y_step=                         settings.value("step_y",1).toInt();
     settings.endGroup();
 }
 

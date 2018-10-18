@@ -1022,9 +1022,11 @@ bool GraphImage::pixelDepth(pixel *prev,pixel *next,commands *command,CommandCon
 
         while(!stack.empty()){
             pixel* t = stack.pop();
+            if(t->status==0){
             //commandContainerInsert(prev,t,con,command);
             con.insertSet(t->x,t->y);
             pixelDepth(nullptr,t,command,con);
+            }
         }
 
     }
