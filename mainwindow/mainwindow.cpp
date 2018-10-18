@@ -541,7 +541,7 @@ void MainWindow::on_button_extract_clicked()
     case 2:if(graph.insertColsRowsZigZagNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     case 3:if(graph.insertRowsColsZigZagNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     case 4:if(graph.insertColsRows(imageMode1)) graph.tooFileDepth(extractPath); break;
-    case 5:if(graph.insertRowsCols(imageMode1)) graph.tooFileDepth(extractPath); break;
+    case 5:if(graph.insertRowsCols(imageMode1)) graph.tooFileDepth2(extractPath); break;
     case 6:if(graph.insertDiagonal(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     case 7:if(graph.insertDiagonalZigZag(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     default:    break;

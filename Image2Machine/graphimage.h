@@ -51,6 +51,9 @@ protected:
     pixel* findNotConnected(int,int);
 
     void deleteAll();
+protected:
+    bool pixelDepthCommandContainer(pixel *prev,pixel *next,commands *LastCommand,CommandContainer &con);
+    bool pixelDepthFile(pixel *prev,pixel *next,commands *LastCommand,std::ofstream &f);
 
     void printCommand(pixel* atm, pixel*next ,std::ofstream &f,commands *lastCommand=nullptr);
     void commandContainerInsert(pixel *atm, pixel*next, CommandContainer &com,commands *lastCommand=nullptr);
@@ -72,12 +75,11 @@ public:
 public:
     bool tooFileHeightWidth(QString const &path);
     bool tooFileDepth(QString const &path);
+    bool tooFileDepth2(QString const &path);
     bool tooCommandContainerHeightWidth(CommandContainer &con);
     bool tooCommandContainerDepth(CommandContainer &con);
     bool tooCommandContainerDepth2(CommandContainer &con);
 
-protected:
-    bool pixelDepth(pixel *prev,pixel *next,commands *LastCommand,CommandContainer &con);
 
 public:
     bool test(QString const &filePath);
