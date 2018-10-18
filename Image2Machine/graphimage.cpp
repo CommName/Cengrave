@@ -1002,12 +1002,13 @@ bool GraphImage::pixelDepth(pixel *prev,pixel *next,commands *command,CommandCon
         prev=next;
         QStack<pixel*> stack;
         while(temp!=nullptr){
+            if(temp->dest->status==0){
             if(n==nullptr){
                 n=temp->dest;
             }
             else
                 stack.push(temp->dest);
-
+           }
             if(stop){
                 return false;
             }
