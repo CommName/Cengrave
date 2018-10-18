@@ -52,9 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_extractmode->addItem("Horizontal ZZ");
     ui->comboBox_extractmode->addItem("Vertical ZZ");
     ui->comboBox_extractmode->addItem("Depth 1");
-    ui->comboBox_extractmode->addItem("Depth 2");
-    ui->comboBox_extractmode->addItem("Depth 3");
-    ui->comboBox_extractmode->addItem("Depth 4");
+    ui->comboBox_extractmode->addItem("Depth 2 (BETA)");
     ui->comboBox_extractmode->addItem("Diagonal");
     ui->comboBox_extractmode->addItem("Diagonal ZZ");
     ui->comboBox_extractmode->setCurrentIndex(0);
@@ -543,11 +541,9 @@ void MainWindow::on_button_extract_clicked()
     case 2:if(graph.insertColsRowsZigZagNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     case 3:if(graph.insertRowsColsZigZagNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     case 4:if(graph.insertColsRows(imageMode1)) graph.tooFileDepth(extractPath); break;
-    case 5:if(graph.insertRowsCols(imageMode1)) graph.tooFileDepth(extractPath); break;
-    case 6:if(graph.insertColsRowsZigZag(imageMode1)) graph.tooFileDepth(extractPath); break;
-    case 7:if(graph.insertRowsColsZigZag(imageMode1)) graph.tooFileDepth(extractPath); break;
-    case 8:if(graph.insertDiagonal(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
-    case 9:if(graph.insertDiagonalZigZag(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
+    case 5:if(graph.insertRowsCols(imageMode1)) graph.tooFileDepth2(extractPath); break;
+    case 6:if(graph.insertDiagonal(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
+    case 7:if(graph.insertDiagonalZigZag(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     default:    break;
     }
     ui->groupBox_extract_status->setVisible(false);
@@ -579,11 +575,9 @@ void MainWindow::on_button_toMachine_clicked()
     case 2:if(graph.insertColsRowsZigZagNotConnected(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
     case 3:if(graph.insertRowsColsZigZagNotConnected(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
     case 4:if(graph.insertColsRows(imageMode1)) graph.tooCommandContainerDepth(commands); break;
-    case 5:if(graph.insertRowsCols(imageMode1)) graph.tooCommandContainerDepth(commands); break;
-    case 6:if(graph.insertColsRowsZigZag(imageMode1)) graph.tooCommandContainerDepth(commands); break;
-    case 7:if(graph.insertRowsColsZigZag(imageMode1)) graph.tooCommandContainerDepth(commands); break;
-    case 8:if(graph.insertDiagonal(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
-    case 9:if(graph.insertDiagonalZigZag(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
+    case 5:if(graph.insertColsRows(imageMode1)) graph.tooCommandContainerDepth2(commands); break;
+    case 6:if(graph.insertDiagonal(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
+    case 7:if(graph.insertDiagonalZigZag(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;
     default:    break;
     }
     ui->label_imagemode2_Name->setText(ui->label_ImageName->text());

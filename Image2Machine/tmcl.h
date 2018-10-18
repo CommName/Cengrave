@@ -225,6 +225,8 @@ private:
        bool x_dir;
        bool y_dir;
        int timeout;
+       int x_step;
+       int y_step;
 
 public:
     void openSerialPortx();
