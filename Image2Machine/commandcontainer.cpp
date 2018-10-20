@@ -560,3 +560,16 @@ void CommandContainer::displayPreview(cv::Mat *image){
     }
 
 }
+void CommandContainer::displayPreviewBGR(cv::Mat *image, uint8_t blue, uint8_t green,uint8_t red){
+    if(image==nullptr)
+        return;
+    image->create(height+10,width+10,CV_8UC3);
+    *image= cv::Vec3b(255,255,255);
+    container *tmp=root;
+    while(tmp!=nullptr){
+        image->at<cv::Vec3b>(tmp->y,tmp->x)[0]=blue;
+        image->at<cv::Vec3b>(tmp->y,tmp->x)[1]=green;
+        image->at<cv::Vec3b>(tmp->y,tmp->x)[2]=red;
+        tmp=tmp->next;
+    }
+}
