@@ -152,6 +152,7 @@ private slots:
 
     void on_slider_mode0_alfa_valueChanged(int value);
 
+
 private:
     Ui::MainWindow *ui;
 

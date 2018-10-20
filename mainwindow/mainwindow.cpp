@@ -322,9 +322,26 @@ void MainWindow::on_modeWidget_currentChanged(int index)
 //input image
 void MainWindow::on_buttonLoad_mode0_clicked()
 {
-    QString path = QFileDialog::getOpenFileName(this,"Chose image","","*.png *.jpg *.bmp");
-    loadImage(path);
+    QFileDialog openfile(this,"Chose a file",QDir::homePath(),"Image (*.png *.jpg *.bmp);;CommandContainer (*.cmc);;G code (*.gcode *txt)");
+    if(openfile.exec()== QDialog::Accepted){
+    if(openfile.selectedNameFilter()=="Image (*.png *.jpg *.bmp)"){
+        loadImage(openfile.selectedFiles()[0]);
+    }
+    else{
+        CommandContainer temp;
+        temp.setImageOutput(&imageMode0);
+        if (openfile.selectedNameFilter()=="CommandContainer (*.cmc)"){
+        temp.loadFile(openfile.selectedFiles()[0]);
+        }
+        else if (openfile.selectedNameFilter()=="G code (*.gcode *txt)"){
+        temp.loadGCode(openfile.selectedFiles()[0]);
+        }
+        temp.displayPreviewBGR(&imageMode0,0,0,0);
+        displayImageMode0();
+    }
+    }
 }
+
 void MainWindow::on_buttonReload_mode0_clicked()
 {
 
@@ -665,6 +682,8 @@ void MainWindow::on_button_load_auto_clicked()
     }
 
 }
+
+
 void MainWindow::on_button_start_auto_clicked()
 {
     stop=false;
@@ -883,6 +902,7 @@ void MainWindow::on_file_open_command_container_triggered()
     ui->modeWidget->setCurrentIndex(2);
     on_button_load_auto_clicked();
 }
+
 
 
 

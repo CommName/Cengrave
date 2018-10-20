@@ -93,7 +93,10 @@ public:
     bool loadGCode(QString const &path);
     bool saveFile(QString const &path);
     void printToQListView(QListWidget *listView);
+
     void displayPreview(cv::Mat *image);
+    void displayPreviewBGR(cv::Mat *image,uint8_t blue,uint8_t green,uint8_t red);
+
     void loadini();
 
 
