@@ -665,6 +665,22 @@ void MainWindow::on_button_load_auto_clicked()
     }
 
 }
+void MainWindow::on_buttonLoad_commands_mode0_clicked()
+{
+    QString loadPath = QFileDialog::getOpenFileName(this,"Load commands","","CommandContainer (*.cmc);; G code (*.gcode *.txt)",0);
+    CommandContainer temp;
+    temp.setImageOutput(&imageMode0);
+    if(loadPath.right(3)=="cmc"){
+    temp.loadFile(loadPath);
+    }
+    else{
+    temp.loadGCode(loadPath);
+    }
+    temp.displayPreviewBGR(&imageMode0,0,0,0);
+    displayImageMode0();
+}
+
+
 void MainWindow::on_button_start_auto_clicked()
 {
     stop=false;
@@ -883,6 +899,7 @@ void MainWindow::on_file_open_command_container_triggered()
     ui->modeWidget->setCurrentIndex(2);
     on_button_load_auto_clicked();
 }
+
 
 
 

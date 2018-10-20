@@ -83,14 +83,19 @@ bool CommandContainer::insert(commands command){
     numOfElemets++;
     if(last->x>width){
         width=last->x;
+        if(display!=nullptr){
         display->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
         *display = cv::Scalar(255);
+        }
     }
     if(last->y>height){
         height=last->y;
+        if(display!=nullptr){
         display->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
         *display = cv::Scalar(255);
+        }
     }
+    if(progressbar!=nullptr)
     progressbar->setMaximum(numOfElemets);
     return true;
 }
@@ -99,7 +104,6 @@ bool CommandContainer::insertSet(int x,int y){
         root=last=current=new container;
         root->index=0;
         last->previous=nullptr;
-
     }
     else{
         last->next=new container;
@@ -114,14 +118,19 @@ bool CommandContainer::insertSet(int x,int y){
     numOfElemets++;
     if(last->x>width){
         width=x;
+        if(display!=nullptr){
         display->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
         *display = cv::Scalar(255);
+        }
     }
     if(last->y>height){
         height=last->y;
+        if(display!=nullptr){
         display->create(height+10>100?height+10:100,width+10>100?width+10:100,CV_8U);
         *display = cv::Scalar(255);
+        }
     }
+    if(progressbar!=nullptr)
     progressbar->setMaximum(numOfElemets);
     return true;
 }
@@ -564,12 +573,14 @@ void CommandContainer::displayPreviewBGR(cv::Mat *image, uint8_t blue, uint8_t g
     if(image==nullptr)
         return;
     image->create(height+10,width+10,CV_8UC3);
-    *image= cv::Vec3b(255,255,255);
+    *image= cv::Scalar(255,255,255);
     container *tmp=root;
     while(tmp!=nullptr){
+        qDebug()<<tmp->x<<' '<<tmp->y;
         image->at<cv::Vec3b>(tmp->y,tmp->x)[0]=blue;
         image->at<cv::Vec3b>(tmp->y,tmp->x)[1]=green;
         image->at<cv::Vec3b>(tmp->y,tmp->x)[2]=red;
+
         tmp=tmp->next;
     }
 }
