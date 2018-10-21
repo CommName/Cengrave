@@ -41,6 +41,9 @@ MainWindow::MainWindow(QWidget *parent) :
     commands.setLogOutput(ui->consoleOutput_mode2);
     commands.setProgressBar(ui->progressBar_automode_mode2);
 
+    graph.setImportProgressBar(ui->progressBar_extract_import);
+    graph.setExportProgressBar(ui->progressBar_extrac_extract);
+
 
 
     //mode2 image transformation combobox
@@ -591,18 +594,18 @@ void MainWindow::on_button_extract_test_clicked()
 //mode1 extract
 void MainWindow::on_button_extract_clicked()
 {
+    QString filter = "cmc";
+    QString extractPath = QFileDialog::getSaveFileName(this,"Save as",QDir::homePath(),"CommandContainer (*.cmc)",&filter);
+
+    if(extractPath=="")
+        return;
+
     ui->button_extract->setEnabled(false);
     ui->button_toMachine->setEnabled(false);
     ui->button_extract_stop->setEnabled(true);
     ui->label_extract_extract->setText("Writing a file");
     ui->groupBox_extract_status->setVisible(true);
 
-
-    graph.setImportProgressBar(ui->progressBar_extract_import);
-    graph.setExportProgressBar(ui->progressBar_extrac_extract);
-
-    QString filter = "cmc";
-    QString extractPath = QFileDialog::getSaveFileName(this,"Save as",QDir::homePath(),"CommandContainer (*.cmc)",&filter);
     switch (ui->comboBox_extractmode->currentIndex()) {
     case 0:if(graph.insertColsRowsNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
     case 1:if(graph.insertRowsColsNotConnected(imageMode1)) graph.tooFileHeightWidth(extractPath); break;
@@ -631,11 +634,6 @@ void MainWindow::on_button_toMachine_clicked()
     ui->button_extract_stop->setEnabled(true);
     ui->label_extract_extract->setText("Sending commands");
     ui->groupBox_extract_status->setVisible(true);
-
-
-
-    graph.setImportProgressBar(ui->progressBar_extract_import);
-    graph.setExportProgressBar(ui->progressBar_extrac_extract);
 
     switch (ui->comboBox_extractmode->currentIndex()) {
     case 0:if(graph.insertColsRowsNotConnected(imageMode1)) graph.tooCommandContainerHeightWidth(commands); break;

@@ -35,8 +35,8 @@ protected:
 protected:
     void setUpImporting(int maxNumber);
     void setUpExporting();
-    void updateImporting(int &status);
-    void updateExporting(int &status);
+    void updateImporting();
+    void updateExporting();
 public:
     GraphImage();
     ~GraphImage();

@@ -28,6 +28,7 @@ void GraphImage::deleteAll(){
         root=root->next;
         delete tmp;
     }
+    numOfElements=0;
     root=nullptr;
     end=nullptr;
 }
@@ -107,14 +108,13 @@ bool GraphImage::insertColsRows(cv::Mat const &image){
         deleteAll();
     stop=false;
     setUpImporting(image.cols*image.rows);
-    int status=0;
     for(int c=0;c<image.cols;c++){
         for(int r=0;r<image.rows;r++){
             if (image.at<uint8_t>(r,c)==0){
                if(!insert(c,r,&GraphImage::findCR))
                    return false;
             }
-            updateImporting(status);
+            updateImporting();
             if(stop){
                 return false;
             }
@@ -129,7 +129,6 @@ bool GraphImage::insertColsRowsNotConnected(cv::Mat const &image){
         deleteAll();
     setUpImporting(image.cols*image.rows);
     stop=false;
-    int status=0;
     for(int c=0;c<image.cols;c++){
         for(int r=0;r<image.rows;r++){
             if(image.at<uint8_t>(r,c)==0){
@@ -137,7 +136,7 @@ bool GraphImage::insertColsRowsNotConnected(cv::Mat const &image){
                     return false;
                 }
             }
-            updateImporting(status);
+            updateImporting();
             if(stop){
                 return false;
             }
@@ -152,14 +151,13 @@ bool GraphImage::insertRowsCols(cv::Mat const &image){
         deleteAll();
     setUpImporting(image.cols*image.rows);
     stop=false;
-    int status=0;
     for(int r=0;r<image.rows;r++){
         for(int c=0;c<image.cols;c++){
             if(image.at<uint8_t>(r,c)==0){
                 if(!insert(c,r,&GraphImage::findRC))
                     return false;
             }
-            updateImporting(status);
+            updateImporting();
             if(stop){
                 return false;
             }
@@ -174,7 +172,6 @@ bool GraphImage::insertRowsColsNotConnected(cv::Mat const &image){
 
     if(root!=nullptr)
         deleteAll();
-    int status=0;
     setUpImporting(image.cols*image.rows);
     stop=false;
     for(int r=0;r<image.rows;r++){
@@ -183,12 +180,13 @@ bool GraphImage::insertRowsColsNotConnected(cv::Mat const &image){
                 if(!insert(c,r,&GraphImage::findNotConnected))
                     return false;
             }
-            updateImporting(status);
+            updateImporting();
             if(stop){
                 return false;
             }
         }
     }
+    return true;
 }
 bool GraphImage::insertColsRowsZigZag(cv::Mat const &image){
     if(image.empty())
@@ -198,13 +196,12 @@ bool GraphImage::insertColsRowsZigZag(cv::Mat const &image){
     setUpImporting(image.cols*image.rows);
     stop=false;
     int c=0,r=0,step=1;
-    int status=0;
     while (c<image.cols) {
         //insert pixel
         if(image.at<uint8_t>(r,c)==0)
             if(!insert(c,r,&GraphImage::findCR))
                 return false;
-        updateImporting(status);
+        updateImporting();
         //moving to next pixel
         r+=step;
         if(r<0||r==image.rows){
@@ -222,7 +219,6 @@ bool GraphImage::insertColsRowsZigZagNotConnected(cv::Mat const &image){
 if(image.empty())
     return false;
 setUpImporting(image.cols*image.rows);
-int status=0;
 if(root!=nullptr)
     deleteAll();
 int c=0,r=0,step=1;
@@ -232,7 +228,7 @@ while(c<image.cols){
     if(image.at<uint8_t>(r,c)==0)
         if(!insert(c,r,&GraphImage::findNotConnected))
             return false;
-    updateImporting(status);
+    updateImporting();
     //moving to next pixel
     r+=step;
     if(r<0||r==image.rows){
@@ -250,7 +246,6 @@ bool GraphImage::insertRowsColsZigZag(cv::Mat const &image){
     if(image.empty())
         return false;
     setUpImporting(image.cols*image.rows);
-    int status=0;
     if(root!=nullptr)
         deleteAll();
     stop=false;
@@ -260,7 +255,7 @@ bool GraphImage::insertRowsColsZigZag(cv::Mat const &image){
         if(image.at<uint8_t>(r,c)==0)
             if(!insert(c,r,&GraphImage::findRC))
                 return false;
-        updateImporting(status);
+        updateImporting();
         c+=step;
         if(c<0||c==image.cols){
             step*=-1;
@@ -281,13 +276,12 @@ bool GraphImage::insertRowsColsZigZagNotConnected(cv::Mat const &image){
         deleteAll();
     }
     stop=false;
-    int status=0;
     int c=0,r=0,step=-1;
     while(r<image.rows){
         if(image.at<uint8_t>(r,c)==0)
             if(!insert(c,r,&GraphImage::findNotConnected))
                 return false;
-        updateImporting(status);
+        updateImporting();
         c+=step;
         if(c<0||c==image.cols){
             step*=-1;
@@ -307,7 +301,6 @@ bool GraphImage::insertDiagonal(cv::Mat const &image){
     if(root!=nullptr)
         deleteAll();
     int c=0,r=image.rows;
-    int status=0;
     stop=false;
     //bottom half
     for(int i=0;i<image.cols;i++){
@@ -317,7 +310,7 @@ bool GraphImage::insertDiagonal(cv::Mat const &image){
         if(image.at<uint8_t>(r,c)==0)
                if(!insert(c,r,&GraphImage::findNotConnected))
                    return false;
-        updateImporting(status);
+        updateImporting();
         c--;
         r--;
         if(stop){
@@ -333,7 +326,7 @@ bool GraphImage::insertDiagonal(cv::Mat const &image){
         if(image.at<uint8_t>(r,c)==0)
                if(!insert(c,r,&GraphImage::findNotConnected))
                    return false;
-        updateImporting(status);
+        updateImporting();
         c--;
         r--;
         if(stop){
@@ -352,7 +345,6 @@ bool GraphImage::insertDiagonalZigZag(cv::Mat const &image){
     if(root!=nullptr)
         deleteAll();
     int c=0,r=image.rows;
-    int status=0;
     stop=false;
     //bottom half
     for(int i=0;i<image.cols;i++){
@@ -363,7 +355,7 @@ bool GraphImage::insertDiagonalZigZag(cv::Mat const &image){
                 if(image.at<uint8_t>(r,c)==0)
                        if(!insert(c,r,&GraphImage::findNotConnected))
                            return false;
-                updateImporting(status);
+                updateImporting();
                 c--;
                 r--;
             }
@@ -375,7 +367,7 @@ bool GraphImage::insertDiagonalZigZag(cv::Mat const &image){
                 if(image.at<uint8_t>(r,c)==0)
                        if(!insert(c,r,&GraphImage::findNotConnected))
                            return false;
-                updateImporting(status);
+                updateImporting();
                 c++;
                 r++;
             }
@@ -394,7 +386,7 @@ bool GraphImage::insertDiagonalZigZag(cv::Mat const &image){
             if(image.at<uint8_t>(r,c)==0)
                    if(!insert(c,r,&GraphImage::findNotConnected))
                        return false;
-            updateImporting(status);
+            updateImporting();
             c--;
             r--;
         }
@@ -406,7 +398,7 @@ bool GraphImage::insertDiagonalZigZag(cv::Mat const &image){
             if(image.at<uint8_t>(r,c)==0)
                    if(!insert(c,r,&GraphImage::findNotConnected))
                        return false;
-            updateImporting(status);
+            updateImporting();
             c++;
             r++;
         }
@@ -533,7 +525,6 @@ bool GraphImage::tooFileHeightWidth(QString const &path){
     std::ofstream f(path.toLocal8Bit().constData(),std::ios::out|std::ios::binary);
     if(!f)
         return false;
-    int status=0;
     setUpExporting();
     stop=false;
     pixel *tmp=root;
@@ -541,7 +532,7 @@ bool GraphImage::tooFileHeightWidth(QString const &path){
     while(tmp!=nullptr){
         printCommand(tmp,tmp->next,f);
         tmp=tmp->next;
-        updateExporting(status);
+        updateExporting();
         if(stop){
             return false;
         }
@@ -561,11 +552,13 @@ bool GraphImage::tooFileDepth2(QString const &path){
     }
     stop=false;
     temp=root;
+    setUpExporting();
     while(temp!=nullptr){
         if(temp->status==0){
             commands com=commands::SET;
             pixel*prev=nullptr;
             f<<(uint8_t)(commands::SET)<<temp->x<<'y'<<temp->y;
+            updateExporting();
             if(!pixelDepthFile(prev,temp,&com,f)){
                 return false;
             }
@@ -588,7 +581,6 @@ bool GraphImage::tooFileDepth(QString const &path){
         tmp->status=0;
         tmp=tmp->next;
     }
-    int status=0;
     stop=false;
     commands lastCommand=commands::SET;
     setUpExporting();
@@ -600,7 +592,7 @@ bool GraphImage::tooFileDepth(QString const &path){
             if(stop){
                 return false;
             }
-            updateExporting(status);
+            updateExporting();
             pixel* branch=tmp;
             QStack<pixel*> stack;
             stack.push(nullptr);
@@ -681,7 +673,7 @@ bool GraphImage::tooFileDepth(QString const &path){
                     next=stack.pop();
                 }
                 printCommand(branch,next,f,&lastCommand);
-                updateExporting(status);
+                updateExporting();
                 branch=next;
                 if(stop){
                     return false;
@@ -698,12 +690,11 @@ bool GraphImage::tooCommandContainerHeightWidth(CommandContainer &con){
     con.deleteAll();
     pixel *tmp=root;
     con.insertSet(root->x,root->y);
-    int status=0;
     stop=false;
     setUpExporting();
     while(tmp!=nullptr){
         commandContainerInsert(tmp,tmp->next,con);
-        updateExporting(status);
+        updateExporting();
         if(stop){
             return false;
         }
@@ -720,7 +711,6 @@ bool GraphImage::tooCommandContainerDepth(CommandContainer &con){
         tmp=tmp->next;
     }
     tmp=root;
-    int status=0;
     stop=false;
     setUpExporting();
     commands lastCommand=commands::SET;
@@ -731,7 +721,7 @@ bool GraphImage::tooCommandContainerDepth(CommandContainer &con){
             if(stop){
                 return false;
             }
-            updateExporting(status);
+            updateExporting();
             pixel* branch=tmp;
             QStack<pixel*> stack;
             stack.push(nullptr);
@@ -985,7 +975,7 @@ bool GraphImage::tooCommandContainerDepth(CommandContainer &con){
                 if(next==nullptr){
                     next=stack.pop();
                 }
-                updateExporting(status);
+                updateExporting();
                 commandContainerInsert(branch,next,con,&lastCommand);
                 branch=next;
                 if(stop){
@@ -1005,11 +995,13 @@ bool GraphImage::tooCommandContainerDepth2(CommandContainer &con){
     }
     stop=false;
     temp=root;
+    setUpExporting();
     while(temp!=nullptr){
         if(temp->status==0){
             commands com=commands::SET;
             pixel*prev=nullptr;
             con.insertSet(temp->x,temp->y);
+            updateExporting();
             if(!pixelDepthCommandContainer(prev,temp,&com,con)){
                 return false;
             }
@@ -1045,6 +1037,7 @@ bool GraphImage::pixelDepthCommandContainer(pixel *prev,pixel *next,commands *co
 
         if(n!=nullptr){
         commandContainerInsert(next,n,con,command);
+        updateExporting();
         if(!pixelDepthCommandContainer(next,n,command,con))
                 return false;
         }
@@ -1054,6 +1047,7 @@ bool GraphImage::pixelDepthCommandContainer(pixel *prev,pixel *next,commands *co
             if(t->status==0){
             //commandContainerInsert(prev,t,con,command);
             con.insertSet(t->x,t->y);
+            updateExporting();
             if(pixelDepthCommandContainer(nullptr,t,command,con))
                 return false;
             }
@@ -1089,6 +1083,7 @@ bool GraphImage::pixelDepthFile(pixel *prev,pixel *next,commands *LastCommand,st
 
         if(n!=nullptr){
         printCommand(next,n,f,LastCommand);
+        updateExporting();
         if(!pixelDepthFile(nullptr,n,LastCommand,f))
                 return false;
         }
@@ -1096,8 +1091,8 @@ bool GraphImage::pixelDepthFile(pixel *prev,pixel *next,commands *LastCommand,st
         while(!stack.empty()){
             pixel* t = stack.pop();
             if(t->status==0){
-            //commandContainerInsert(prev,t,con,command);
             f<<(uint8_t)(commands::SET)<<t->x<<'y'<<t->y;
+            updateExporting();
             if(!pixelDepthFile(nullptr,t,LastCommand,f))
                 return false;
             }
@@ -1199,24 +1194,24 @@ void GraphImage::commandContainerInsert(pixel *atm,pixel *next,CommandContainer 
 void GraphImage::setUpImporting(int maxNumber){
     if(importing!=nullptr){
        importing->setMaximum(maxNumber);
+       importing->setValue(0);
     }
 }
 void GraphImage::setUpExporting(){
     if(exporting!=nullptr){
         exporting->setMaximum(numOfElements);
+        exporting->setValue(0);
     }
 }
-void GraphImage::updateImporting(int &status){
-    status++;
+void GraphImage::updateImporting(){
     if(importing!=nullptr){
-        importing->setValue(status);
+        importing->setValue(importing->value()+1);
         QApplication::processEvents();
     }
 }
-void GraphImage::updateExporting(int &status){
-    status++;
+void GraphImage::updateExporting(){
     if(exporting!=nullptr){
-        exporting->setValue(status);
+        exporting->setValue(exporting->value()+1);
         QApplication::processEvents();
     }
 }
