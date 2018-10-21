@@ -570,7 +570,8 @@ void MainWindow::on_button_clear_image_clicked()
 void MainWindow::on_button_extract_test_clicked()
 {
     GraphImage temp;
-    QString testPath = QFileDialog::getSaveFileName(this,"Save as",QDir::homePath());
+    QFileDialog testPath(this,"Chose a file",QDir::homePath(),"Text file (*txt);;All files (*)");
+    if(testPath.exec()==QDialog::Accepted){
     switch(ui->comboBox_testmode->currentIndex()){
     case 0: temp.insertColsRowsNotConnected(imageMode1); break;
     case 1: temp.insertRowsColsNotConnected(imageMode1); break;
@@ -584,7 +585,8 @@ void MainWindow::on_button_extract_test_clicked()
     case 9: temp.insertDiagonalZigZag(imageMode1); break;
     default: break;
     }
-    temp.test(testPath);
+    temp.test(testPath.selectedFiles()[0]);
+    }
 }
 //mode1 extract
 void MainWindow::on_button_extract_clicked()
@@ -668,20 +670,21 @@ void MainWindow::on_button_extract_stop_clicked()
 //mode2 auto mode
 void MainWindow::on_button_load_auto_clicked()
 {
-    QString loadPath = QFileDialog::getOpenFileName(this,"Load commands","","CommandContainer (*.cmc);; G code (*.gcode *.txt)",0);
-    if(loadPath!=""){
-    ui->label_imagemode2_Name->setText(loadPath.right(loadPath.size()-1-loadPath.lastIndexOf('/',-1,Qt::CaseSensitive)));
-    if(loadPath.right(3)=="cmc"){
-    commands.loadFile(loadPath);
+    QFileDialog loadPath(this,"Load commands","Chose a file","CommandContainer (*.cmc);;G code(*.gcode *.txt");
+    if(loadPath.exec()==QDialog::Accepted){
+    ui->label_imagemode2_Name->setText(loadPath.selectedFiles()[0].right(loadPath.selectedFiles()[0].size()-1-loadPath.selectedFiles()[0].lastIndexOf('/',-1,Qt::CaseSensitive)));
+    if(loadPath.selectedNameFilter()=="CommandContainer (*.cmc)"){
+    commands.loadFile(loadPath.selectedFiles()[0]);
     }
-    else{
-    commands.loadGCode(loadPath);
+    else if(loadPath.selectedNameFilter()=="G code(*.gcode *.txt"){
+    commands.loadGCode(loadPath.selectedFiles()[0]);
     }
     commands.printToQListView(ui->command_listWidget);
     displayImageMode2Info();
     }
-
 }
+
+
 
 
 void MainWindow::on_button_start_auto_clicked()
