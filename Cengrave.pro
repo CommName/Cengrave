@@ -31,7 +31,8 @@ SOURCES += \
     Image2Machine/commandcontainer.cpp \
     mainwindow/settings.cpp \
     Image2Machine/hwf.cpp \
-    Image2Machine/tmcl.cpp
+    Image2Machine/tmcl.cpp \
+    Image2Machine/commandpreview.cpp
 
 
 HEADERS += \
@@ -40,12 +41,14 @@ HEADERS += \
     Image2Machine/commandcontainer.h \
     mainwindow/settings.h \
     Image2Machine/hwf.h \
-    Image2Machine/tmcl.h
+    Image2Machine/tmcl.h \
+    Image2Machine/commandpreview.h
 
 
 FORMS += \
         mainwindow/mainwindow.ui \
-    mainwindow/settings.ui
+    mainwindow/settings.ui \
+    Image2Machine/commandpreview.ui
 
 INCLUDEPATH += $(OPENCV3_DIR)\install\include
 

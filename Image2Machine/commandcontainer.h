@@ -1,4 +1,3 @@
-
 #ifndef COMMANDCONTAINER_H
 #define COMMANDCONTAINER_H
 #include <QString>
@@ -8,7 +7,9 @@
 #include "Image2Machine/hwf.h"
 #include <QProgressBar>
 #include "tmcl.h"
+
 class mainwindow;
+class commandpreview;
 
 enum commands{
     UP=0,
@@ -35,6 +36,7 @@ struct container{
 class CommandContainer
 {
 private:
+    friend class commandpreview;
     container* root;
     container* last;
     container* current;
@@ -124,6 +126,10 @@ public:
     void executeDOWNRIGHT(int x_previous,int y_previous,bool simulation);
     void laser(bool on,bool simulation);
     void connect(bool on);
+
+    static QString commandToString(commands com);
+
+
 };
 
 #endif // COMMANDCONTAINER_H
