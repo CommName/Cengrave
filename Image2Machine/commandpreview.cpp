@@ -7,17 +7,16 @@ commandpreview::commandpreview(QWidget *parent,CommandContainer *com,int index):
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
+    ui->image->setScene(scene);
 
     if (com==nullptr)
         reject();
 
     commands=com;
-    pixel = find(index);
-
     commands->printToQListView(ui->commandList);
-    displayInfo();
-    displayImage();
+
     ui->commandList->setCurrentRow(index);
+    on_button_zoom_fit_clicked();
 }
 commandpreview::~commandpreview(){
     delete scene;
@@ -46,19 +45,17 @@ void commandpreview::displayImage(){
     commands->displayPreview(&image);
     image.at<uint8_t>(pixel->y,pixel->x)=0;
 
-    cv::Mat temp;
-    cv::cvtColor(image,temp,CV_BGR2RGB);
-    QImage output((const uchar *)temp.data,temp.cols,temp.rows,temp.step,QImage::Format_RGB888);
+    QImage output((const uchar *)image.data,image.cols,image.rows,image.step,QImage::Format_Grayscale8);
     output.bits();
     scene->clear();
     scene->addPixmap(QPixmap::fromImage(output));
     ui->image->fitInView(scene->itemsBoundingRect(),Qt::KeepAspectRatio);
-
+    QApplication::processEvents();
     return;
 }
 
 void commandpreview::setCurrent(){
-    commands->root=pixel;
+    commands->current=pixel;
     ui->button_set_current->setEnabled(false);
     return;
 }
