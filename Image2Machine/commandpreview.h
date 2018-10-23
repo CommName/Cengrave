@@ -5,6 +5,7 @@
 #include <QDialog>
 #include "Image2Machine/commandcontainer.h"
 #include <opencv2/opencv.hpp>
+#include <QGraphicsItem>
 
 namespace Ui{
 class commandpreview;
@@ -20,6 +21,22 @@ public:
 
 private slots:
 
+    void on_button_next_clicked();
+
+    void on_button_previous_clicked();
+
+    void on_button_set_current_clicked();
+
+    void on_commandList_currentRowChanged(int currentRow);
+
+    void on_button_zoom_in_clicked();
+
+    void on_button_zoom_out_clicked();
+
+    void on_button_zoom_fit_clicked();
+
+    void on_button_zoom_norma_clicked();
+
 private:
     Ui::commandpreview *ui;
     container *pixel;
@@ -27,6 +44,7 @@ private:
 protected:
     CommandContainer *commands;
     cv::Mat image;
+    QGraphicsScene *scene;
 
 private:
     container* find(int index);
