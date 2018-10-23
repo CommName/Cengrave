@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Image2Machine/graphimage.h"
+#include "Image2Machine/commandpreview.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSettings>
@@ -725,6 +726,12 @@ void MainWindow::on_settings_about_triggered()
 {
     openSettings(4);
 }
+void MainWindow::on_command_listWidget_itemDoubleClicked(QListWidgetItem *item)
+{
+    commandpreview preview(this,&commands,ui->command_listWidget->SelectRows);
+    preview.setModal(true);
+    preview.exec();
+}
 
 
 
@@ -903,6 +910,9 @@ void MainWindow::on_file_open_command_container_triggered()
     ui->modeWidget->setCurrentIndex(2);
     on_button_load_auto_clicked();
 }
+
+
+
 
 
 

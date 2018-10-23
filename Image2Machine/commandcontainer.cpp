@@ -584,3 +584,18 @@ void CommandContainer::displayPreviewBGR(cv::Mat *image, uint8_t blue, uint8_t g
         tmp=tmp->next;
     }
 }
+
+QString CommandContainer::commandToString(commands com){
+
+    switch (com){
+    case commands::UP: return QString("UP");
+    case commands::DOWN: return QString("DOWN");
+    case commands::LEFT: return QString("LEFT");
+    case commands::RIGHT: return QString("RIGHT");
+    case commands::UPLEFT: return QString("UPLEFT");
+    case commands::UPRIGHT: return QString("UPRIGHT");
+    case commands::DOWNLEFT:return QString("DOWNLEFT");
+    case commands::DOWNRIGHT: return QString("DOWNRIGHT");
+    case commands::SET: return QString("SET ");
+    }
+}

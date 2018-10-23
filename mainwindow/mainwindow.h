@@ -153,6 +153,8 @@ private slots:
     void on_slider_mode0_alfa_valueChanged(int value);
 
 
+    void on_command_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
 
