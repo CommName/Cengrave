@@ -42,6 +42,7 @@ void commandpreview::displayInfo(){
 }
 
 void commandpreview::displayImage(){
+    image.release();
     commands->displayPreview(&image);
     image.at<uint8_t>(pixel->y,pixel->x)=0;
 
@@ -49,7 +50,6 @@ void commandpreview::displayImage(){
     output.bits();
     scene->clear();
     scene->addPixmap(QPixmap::fromImage(output));
-    ui->image->fitInView(scene->itemsBoundingRect(),Qt::KeepAspectRatio);
     QApplication::processEvents();
     return;
 }
